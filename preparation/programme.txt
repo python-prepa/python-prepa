@@ -1,23 +1,25 @@
-Les départements de physique et d'informatique de l'ENS Paris organisent
+Les départements de physique et d'informatique de l'Ecole normale supérieure organisent
 un stage de présentation et de formation à Python à destination des
-professeurs de classes préparatoires, dans le but de les aider dans la
-mise en place des nouveaux programmes qui utiliseront Python comme
-langage de programmation.
+professeurs de classes préparatoires, dans le but de faciliter la
+mise en place des nouveaux programmes des CPGE utilisant ce langage de programmation.
+Le stage illustrera également l'utilisation de Python pour la recherche scientifique.
  
-Le but de ce stage est de présenter Python, son installation sur des
-machines, de donner des éléments de programmation et calcul scientifique
-avec Python, et des illustrations de son utilisation dans différents
-domaines scientifiques. Le stage se déroulera sur deux jours les 15 et
-16 avril 2013 à l'ENS Paris.
+Ce stage se déroulera sur deux jours les 15 et 16 avril 2013 à l'ENS Paris.
+
+Il présentera le langage Python, et son installation sur des
+ordinateurs personnels. Il introduira ensuite à la programmation et au calcul scientifique
+avec Python, et illustrera son utilisation dans différents domaines scientifiques.
+Tous les sujets seront abordés à l'aide d'exemples. Les participants apporteront un
+ordinateur portable (Windows/Mac/Linux), sur lequel le programme sera installé en début du stage.
+Ils seront amenés à programmer des exemples en vue de leur propre travail pédagogique.
  
-Il prévoit 4 demi journées : 1 de présentation générale, 2
+
+Le stage est organisé en 4 demi journées : 1 de présentation générale, 2
 d'illustrations et d'exemples du calcul scientifique, 1 d'ateliers
 pratiques. Chaque session s'appuiera sur un domaine particulier
-d'application, qui permettra d'introduire et d'utiliser différentes
-facettes de Python et de ses modules scientifiques. Il s'agira donc d'une
-présentation par l'exemple, plutôt qu'une description successive des
-différents modules de Python. Les participants devront venir avec un
-ordinateur portable et seront amenés à programmer des exemples courts.
+d'applications, qui permettra d'introduire et d'utiliser différentes
+facettes de Python et de ses modules scientifiques. 
+
  
 Le programme du stage est le suivant :                                          
 
@@ -26,21 +28,21 @@ Le programme du stage est le suivant :
 a) Présentation de Python. Avantages/inconvénients, contexte
 d'utilisation de ce langage. Installation sur les machines des
 participants. Gaël Varoquaux (INRIA Saclay) /Damien Vergnaud (ENS
-informatique)
+Informatique)
 
 b) Quelques éléments du langage Python. Damien Vergnaud (ENS
-informatique) /Gaël Varoquaux (INRIA Saclay)
+Informatique) /Gaël Varoquaux (INRIA Saclay)
 
                                                                                 
 2ème 1/2 journée :                                                              
 
 a) Python en théorie de l'information (Shannon) Damien Vergnaud (ENS
-informatique) / Gaël Varoquaux (INRIA Saclay) : mise en application du
+informatique) / Gaël Varoquaux (INRIA Saclay) : Mise en application du
 langage Python
 
-b) Python et phénomènes stochastiques (Mouvement Brownien) Werner
-Krauth (ENS Physique) / Emmanuelle Gouillart (Saint-Gobain Recherche) :
-utilisation du module NumPy (manipulation de tableaux numériques) et
+b) Python et phénomènes stochastiques (Mouvement Brownien - Monte Carlo) 
+Werner Krauth (ENS Physique) / Emmanuelle Gouillart (Saint-Gobain Recherche) :
+Utilisation du module NumPy (manipulation de tableaux numériques) et
 matplotlib (représentation graphique)
 
                                                                                 
@@ -48,7 +50,7 @@ matplotlib (représentation graphique)
 
 a) Python pour la résolution d'équations aux dérivés partielles (loi de
 Fourier) Emmanuel Dormy (ENS Physique)/ Emmanuelle Gouillart
-(Saint-Gobain Recherche): utilisation des modules NumPy et matplotlib
+(Saint-Gobain Recherche) : utilisation des modules NumPy et matplotlib
 
 b) Python pour l'intégration de systèmes dynamiques (Attracteur de
 Lorenz)  Emmanuelle Gouillart (Saint-Gobain Recherche)/ Emmanuel Dormy
@@ -57,15 +59,15 @@ Lorenz)  Emmanuelle Gouillart (Saint-Gobain Recherche)/ Emmanuel Dormy
                                                                                 
 4ème 1/2 journée : Ateliers                                                     
                                 
-a) Cryptographie : Damien Vergnaud (ENS informatique)                           
-b) Mécanique quantique : Werner Krauth(ENS Physique)                            
+a) Cryptographie : Damien Vergnaud (ENS Informatique)                           
+b) Mécanique quantique : Werner Krauth (ENS Physique)                            
 c) Hydrodynamique 2D : Emmanuel Dormy (ENS Physique)                            
 d) Traitement d'images : Emmanuelle Gouillart (Saint-Gobain Recherche)     
-e) Data mining: Gaël Varoquaux (INRIA Saclay)                                
+e) Data mining : Gaël Varoquaux (INRIA Saclay)                                
 
   
 Pour les ateliers, les participants devront indiquer lors de
-l'inscription 2 ateliers souhaités parmi la liste d'ateliers proposés,
+l'inscription 3 ateliers souhaités parmi la liste d'ateliers proposés,
 afin de pouvoir répartir les participants de manière équilibrée dans les
 ateliers. 
 
@@ -73,5 +75,3 @@ Le nombre de participant(e)s est limité à 70.
 
 NB: Une deuxième session est envisagée durant les vacances de la
 Toussaint 2013.
-
-                                   
