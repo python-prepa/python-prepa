@@ -46,6 +46,9 @@ git push origin master
 Compilation du document avec sphinx
 ====================================
 
+Il faut avoir installé le logiciel sphinx (http://sphinx-doc.org/,
+package python-sphinx sous ubuntu).
+
 Aller dans le répertoire ens-python-prepa, puis taper dans un terminal
 
 <pre>
