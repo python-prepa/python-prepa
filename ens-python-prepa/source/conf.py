@@ -16,7 +16,14 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.append(os.path.abspath('sphinxext'))
+
+# Try to override the matplotlib configuration as early as possible
+try:
+    import gen_rst
+except:
+    pass
+
 
 # -- General configuration -----------------------------------------------------
 
@@ -25,7 +32,21 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.doctest']
+extensions = [
+        'gen_rst',
+        'sphinx.ext.autodoc',
+        'sphinx.ext.doctest',
+        #'matplotlib.sphinxext.plot_directive',
+        'plot_directive',
+        'only_directives',
+        'ipython_console_highlighting',
+        #'matplotlib.sphinxext.only_directives',
+        'sphinx.ext.pngmath',
+        'sphinx.ext.intersphinx',
+        'sphinx.ext.extlinks',
+]
+
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

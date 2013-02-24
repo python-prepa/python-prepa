@@ -16,6 +16,7 @@ Contents:
    information_theory.rst
    stochastique.rst
    systemes_dynamiques.rst 
+   exemples.rst
 
 * :ref:`search`
 
