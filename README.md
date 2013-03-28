@@ -71,6 +71,7 @@ ReST (reStructuredText), avec le logiciel sphinx qui le compile
 intelligemment pour un rendu dans différents format. 
 
 Pour trouver de la doc
+----------------------
 
  * sur ReST et sa syntaxe :
    http://docutils.sourceforge.net/docs/user/rst/quickref.html et 
@@ -78,3 +79,22 @@ Pour trouver de la doc
 
 Sinon le plus simple est  d'apprendre par l'exemple en regardant le
 contenu du fichier ens-python-prepa/exemples.rst
+
+Pour générer automatiquement des figures dans le document à partir de
+scripts python (permet d'être sûr que la figure correspond au script !) : 
+
+placer dans le répertoire ens-python-prepa/source/examples un fichier
+python commençant par "plot_" (par exemple plot_simple_pendulum.py)
+générant une figure matplotlib (ne pas oublier la commande show pour que
+la figure s'affiche bien). A la compilation du html par sphinx, une figure png
+sera automatiquement générée et placée dans le répertoire
+ens-python-prepa/source/auto_examples/images avec un nom basé sur le nom du
+script, par exemple plot_simple_pendulum_1.png pour le script
+plot_simple_pendulum.py. On peut ensuite appeler cette figure dans les
+fichier rst, par exemple 
+
+<pre>
+.. figure:: auto_examples/images/plot_simple_pendulum_1.png
+    :scale: 80
+ 
+</pre>
