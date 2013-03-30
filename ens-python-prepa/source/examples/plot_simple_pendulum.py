@@ -24,8 +24,8 @@ plt.figure()
 
 ax = plt.gca()
 
-plt.plot(t, E_kin, lw=2, label=u'$E_\mathrm{kin}$')
-plt.plot(t, E_pot, lw=2, label=u'$E_\mathrm{pot}$')
+plt.plot(t, E_kin, 'o-', lw=2, label=u'$E_\mathrm{kin}$')
+plt.plot(t, E_pot, 'o-', lw=2, label=u'$E_\mathrm{pot}$')
 plt.plot(t, E_mech, lw=2, label=u'$E_\mathrm{mech}$')
 
 plt.xticks(np.pi * np.arange(5), [0, u'$\pi$', u'$2\pi$', u'$3\pi$', u'$4\pi$'])

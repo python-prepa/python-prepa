@@ -10,8 +10,6 @@ Formation à Python scientifique - ENS Paris
 
 .. include:: tune_toc.rst    
 
-Contents:
-
 .. toctree::
    :numbered:
 
