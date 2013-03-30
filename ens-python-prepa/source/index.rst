@@ -6,17 +6,18 @@
 Formation à Python scientifique - ENS Paris
 ============================================
 
+.. only:: html
+
+.. include:: tune_toc.rst    
+
 Contents:
 
 .. toctree::
-   :maxdepth: 2
    :numbered:
 
    intro.rst
    information_theory.rst
    stochastique.rst
    systemes_dynamiques.rst 
-   exemples.rst
 
-* :ref:`search`
 

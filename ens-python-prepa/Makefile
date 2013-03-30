@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-PAPER         =
+PAPER         = a4
 BUILDDIR      = build
 
 # Internal variables.
@@ -101,6 +101,31 @@ latex:
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
 	@echo "Run \`make' in that directory to run these through (pdf)latex" \
 	      "(use \`make latexpdf' here to do that automatically)."
+
+
+pdf: latex
+	cd build/latex ; make all-pdf ; pdfnup ens-python-prepa.pdf
+	cp build/latex/ens-python-prepa.pdf ens-python-prepa-simple.pdf
+	cp build/latex/ens-python-prepa-nup.pdf ens-python-prepa.pdf
+
+
+zip: html pdf
+	mkdir -p build/ens_python_prepa ;
+	cp -r build/html build/ens_python_prepa ;
+	cp -r data build/ens_python_prepa ;
+	cp ens-python-prepa.pdf build/ens_python_prepa;
+	zip -r build/ens_python_prepa.zip build/ens_python_prepa  
+
+install: pdf html
+	rm -rf build/python-prepa.github.com
+	cd build/ && \
+	git clone git@github.com:python-prepa/python-prepa.github.com.git && \
+	cp -r html/* python-prepa.github.com && \
+	cd python-prepa.github.com && \
+	git add * && \
+	git commit -a -m 'Make install' && \
+	git push
+
 
 latexpdf:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
