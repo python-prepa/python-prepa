@@ -70,6 +70,24 @@ Le langage utilisé pour les fichiers sources est le langage de markup
 ReST (reStructuredText), avec le logiciel sphinx qui le compile
 intelligemment pour un rendu dans différents format. 
 
+Pour mettre à jour la page web http://python-prepa.github.com/
+--------------------------------------------------------------
+
+Taper dans un terminal
+
+<pre>
+make install
+</pre>
+
+(à ne faire que quand on a une version statisfaisante du document, bien
+sûr)
+
+La page web est générée à partir d'un repository github où se trouvent
+toutes les pages html et les fichiers associés (images, etc.). La
+commande make install refait un commit avec les fichiers html et autres
+générés à la dernière compilation, et fait un push de ce commit sur
+github. Github se débrouille ensuite pour générer la page web.
+
 Pour trouver de la doc
 ----------------------
 
