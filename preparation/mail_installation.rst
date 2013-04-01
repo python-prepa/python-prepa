@@ -148,7 +148,7 @@ Encore plus loin: lancer spyder
 Si vous voulez commencer à vous familiariser avec Python ou Spyder, pour
 lancer spyder, il faut:
 
-* **Sous windows** exécuter `Anaconda\Scripts\spyder.bat`
+* **Sous windows** exécuter `Anaconda\\Scripts\\spyder.bat`
 
 * **Sous Mac et Linux** exécuter `Anaconda/bin/spyder`
 
