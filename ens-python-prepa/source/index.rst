@@ -17,5 +17,5 @@ Formation à Python scientifique - ENS Paris
    information_theory.rst
    stochastique.rst
    systemes_dynamiques.rst 
-
+   ateliers/index.rst
 
