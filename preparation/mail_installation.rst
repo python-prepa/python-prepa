@@ -1,6 +1,8 @@
-Installation de Python scientifique                                             
-===================================                                             
-                                                                                
+
+====================================
+Installation de Python scientifique
+==================================== 
+
 Python est un langage de programmation très polyvalent et modulaire, qui
 est utilisé aussi bien pour écrire des applications comme YouTube, que
 pour traiter des données scientifiques. Par conséquent, il existe de
@@ -11,9 +13,9 @@ formation, la suite scientifique Anaconda développée par l'entreprise
 Continuum. Anaconda rassemble le langage Python et ses modules
 scientifiques, il n'y a rien à installer en plus pour la formation
  
-Téléchargement d'Anaconda                                                       
-~~~~~~~~~~~~~~~~~~~~~~~~~                                                       
-                                                                                
+Téléchargement d'Anaconda
+==========================
+
 Nous demandons à tous les participants de télécharger la distribution
 Anaconda avant d'assister à la formation. Pour cela, il faut télécharger
 un installeur à partir de http://continuum.io/downloads.html,
@@ -33,44 +35,51 @@ Python dans le répertoire anaconda/bin, sans toujours créér des
 raccourcis sur le bureau ou dans un menu. Nous nous occuperons au tout
 début de la formation de créér des raccourcis pour pouvoir lancer
 l'interface de développement appelée spyder.
-                
-Instructions pour les différents systèmes d'exploitation         
---------------------------------------------------------                        
+
+Instructions d'installation pour les différents systèmes d'exploitation
+========================================================================
+
+Sous Windows
+-------------
+
+Lancer l'installeur et suivre les étapes                       
                                                                                 
-* sous Windows : lancer l'installeur et suivre les étapes                       
-                                                                                
-* sous Mac : il faut tout d'abord lancer un terminal. Pour cela, cliquer
-sur Launchpad -> Utilitaires -> Terminal. Il faut ensuite aller dans le
-répertoire où le fichier téléchargé a été installé (le terminal ne se
-lance pas forcément dans ce répertoire). Pour cela, taper
+Sous Mac
+---------
+
+Il faut tout d'abord lancer un terminal. Pour cela, cliquer sur Launchpad
+-> Utilitaires -> Terminal. Il faut ensuite aller dans le répertoire où
+le fichier téléchargé a été installé (le terminal ne se lance pas
+forcément dans ce répertoire). Pour cela, taper
  
->>> cd ~                                                                        
-                                                                                
-Vous êtes alors dans votre répertoire principal d'utilisateur.                  
-                                                                                
-Taper                                                                           
-                                                                                
->>> ls                                                                          
-                                                                                
+    >>> cd ~
+
+Vous êtes alors dans votre répertoire principal d'utilisateur.                                                                              
+Taper
+
+    >>> ls 
+ 
 pour voir les répertoires présents. Si le fichier téléchargé
 AnacondaXXX.sh (XXX correspondant à une version, 32 bits ou 64 bits) a
 été téléchargé dans Downloads, aller dans le répertoire correspondant en
 tapant
  
->>> cd Downloads                                                                
-                                                                                
+    >>> cd Downloads
+
 Vous pouvez maintenant exécuter le scipt d'installation d'Anaconda en
 tapant
-                                                         
->>> bash AnacondaXXX.sh 
-                                                                                
+
+    >>> bash AnacondaXXX.sh
+
 (remplacer AnacondaXXX.sh par le nom du fichier téléchargé) 
                                                                                 
 Il faut accepter l'accord de licence en tapant "yes" si vous êtes
-d'accord, et le répertoire d'installation par défaut en tapant
-"Entrée".
+d'accord, et le répertoire d'installation par défaut en tapant "Entrée".
 
-* sous Linux : il faut tout d'abord lancer un terminal. Par exemple sous
+Sous Linux
+-----------
+
+il faut tout d'abord lancer un terminal. Par exemple sous
 Ubuntu, dans le tableau de bord utiliser la barre de recherche pour
 "terminal" et cliquer sur l'icône.
  
@@ -110,6 +119,7 @@ Anacanda et votre installation précédente. Vous pouvez alors plutôt
 installer les packages suivants avec votre gestionnaire de packages (ce
 cas ne devrait concerner que peu de personnes. Dans le doute, télécharger
 l'installeur d'Anaconda sans réaliser l'installation.) :
+
 - spyder                                                                        
 - ipython                                                                       
 - python-numpy                                                                  
