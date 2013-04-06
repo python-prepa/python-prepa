@@ -298,7 +298,22 @@ Logique du programme: opérations conditionnelles et boucles
 
   Autres conditions: ``a != 1``, ``a < 1``, ``a > 1``
 
-* **Boucles**
+* **Boucles** ::
+
+    >>> for i in range(3):
+    ...    print(i)
+    0
+    1
+    2
+
+  On peut itérer sur les éléments d'une liste::
+
+    >>> l = [0, 1, 2]
+    >>> for i in l:
+    ...    print i
+    0
+    1
+    2
 
 Définir des fonctions
 ......................
