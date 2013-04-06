@@ -283,7 +283,9 @@ Logique du programme: opérations conditionnelles et boucles
   .. note:: ``==`` est différent de ``=``. Le premier est un "test" et le
      deuxième une "affectation de variable".
 
-  .. note:: L'indentation délite les blocs logiques::
+  .. note:: L'indentation délimite les blocs logiques
+     
+    ::
 
      >>> if a == 1:
      ...     print('a vaut bien 1')
@@ -295,3 +297,8 @@ Logique du programme: opérations conditionnelles et boucles
   Conditions multiples: ``a == 1 and b == 1``, ``a == 1 or b == 1``
 
   Autres conditions: ``a != 1``, ``a < 1``, ``a > 1``
+
+* **Boucles**
+
+Définir des fonctions
+......................
