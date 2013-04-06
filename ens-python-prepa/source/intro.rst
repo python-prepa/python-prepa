@@ -92,6 +92,65 @@ Pour lancer spyder:
 
 |spyder_win| |spyder_mac|
 
+Spyder présente 2 panneaux que nous allons beaucoup utiliser: **en bas à
+droite**, un interpréteur interactif Python, **à gauche** un éditeur pour
+écrire ses scripts Python.
+
+.. image:: spyder_small.png
+   :scale: 70
+   :align: center
+
+Configurer l'environnement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: configure_spyder.png
+   :scale: 50
+   :align: right
+
+Nous voulons configurer le panneau de droite pour utiliser l'outil
+"IPython", qui permettra la visualisation interactive de données: 
+
+Aller dans les menus `Outils -> Préférences` et dans la boite de dialogue
+correspondante, dans la section `Console -> Options avancées`, décocher
+"Ouvrir un interpréteur Python au démarrage", et cocher "Démarrer un
+noyau IPython au démarrage".
+
+____
+
+.. image:: configure_spyder2.png
+   :scale: 50
+   :align: right
+
+Dans l'onglet 'Modules externes', remplacer les options de la ligne de
+commande par '--pylab'.
+
+Premiers pas
+~~~~~~~~~~~~~
+
+Dans l'interpréteur (panneau de droite), taper '1 + 1'::
+
+    >>> 1 + 1
+    2
+
+Dans l'éditeur (panneau de gauche), ajouter la ligne::
+
+    print(1 + 1)
+
+.. image:: configure_execution.png
+   :scale: 60
+   :align: right
+
+Puis, dans le menu 'Exécution', sélectionner 'Exécution', ou appuyer sur
+la touche 'F5'. Dans le dialogue qui s'affiche 'Configurations
+d'exécution', sélectionner 'Exécuter dans l'interpréteur Python ou
+IPython actif'.
+
+.. sidebar:: Félicitations
+
+    Vous avez un environnement prêt pour le travail
+    scientifique avec Python.
+
+
 Le langage Python
 ------------------
 
