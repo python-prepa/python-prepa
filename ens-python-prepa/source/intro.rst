@@ -36,10 +36,48 @@ Installation de l'environnement Python scientifique
 L'écosystème Python scientifique
 .................................
 
+Pour le calcul scientifique il faut utiliser Python 2.
+
+:Python:
+
+    `Langage <http://docs.python.org/2.7/tutorial/index.html>`_ +
+    `librairie standard très riche <http://docs.python.org/2.7/library/index.html>`_
+
+    * **Enseignement algorithmique** (`hash cryptographiques
+      <http://docs.python.org/2.7/library/crypto.html>`_, 
+      `piles partiellement ordonnées
+      <http://docs.python.org/2.7/library/heapq.html>`_, `décimaux de taille
+      arbitraire <http://docs.python.org/2.7/library/decimal.html>`_)
+
+    * **TIPE** (`manipulation de fichiers <http://docs.python.org/2.7/library/os.html>`_, 
+      `calcul parallèle
+      <http://docs.python.org/2.7/library/multiprocessing.html>`_,
+      `téléchargement de données
+      <http://docs.python.org/2.7/library/internet.html>`_).
+
+:numpy:
+
+    `Calcul de tableau et calcul matriciel
+    <http://docs.scipy.org/doc/numpy/reference/>`_
+
+:scipy:
+
+    Outils numériques standards: `FFT <http://scipy-lectures.github.com/intro/scipy.html#fast-fourier-transforms-scipy-fftpack>`_,
+    `intégration
+    <http://docs.scipy.org/doc/scipy/reference/tutorial/integrate.html>`_,
+    `résolution de système non-linéaires
+    <http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html>`_
+
+:matplotlib:
+
+    `Tracé de courbes et affichage scientifique <http://matplotlib.org/>`_
+
+Tout est libre, développé par des individus sur leur temps libre.
+
 Un environnement de travail: Spyder
 ....................................
 
-Pour lancer spyder, il faut:
+Pour lancer spyder:
 
 * **Sous windows** exécuter `Anaconda\\Scripts\\spyder.bat`
 
