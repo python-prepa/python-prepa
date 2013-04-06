@@ -183,6 +183,11 @@ A différents types d'objets, correspond différentes opérations possibles:
     >>> 2 * a
     2
 
+.. note:: Puissance::
+
+   >>> 2 ** 3
+   8
+
 .. warning:: **Division entière**
   
     ::
@@ -310,6 +315,43 @@ Logique du programme: opérations conditionnelles et boucles
 Définir des fonctions
 ......................
 
+::
+
+    def f(x, y):
+        print x
+        return x + y
+
+Arguments optionnels::
+
+    def f(x, y=1):
+        return x + y
+
+    z = f(x, y=2)
+
+
+Importer des fonctionnalités additionnelles
+............................................
+
+Les "modules" permettent d'importer de nombreuses fonctionnalités
+additionnelles, allant de modules d'interface graphique au calcul
+scientifique.
+
+Voici un exemple qui importe un nouveau type de nombre, les fractions::
+
+    >>> import fractions
+    >>> a = fractions.Fraction(2, 3)
+    >>> print a
+    2/3
+    >>> b = fractions.Fraction(1, 2)
+    >>> print b
+    1/2
+    >>> a + b
+    Fraction(7, 6)
+    >>> print a + b
+    7/6
+
+____
+
 .. seealso::
    
     * `Scipy Lecture Notes <http://scipy-lectures.github.com>`_, `chapitre sur le langage Python <http://scipy-lectures.github.com/intro/language/python_language.html>`_
@@ -317,5 +359,45 @@ Définir des fonctions
     * Ouvrage de Gérard Swinnen: `Apprendre à programmer avec Python <http://inforef.be/swi/python.htm>`_
 
     * `Documentation officielle du langage Python <http://docs.python.org/2.7/>`_
+
+____
+
+.. topic:: **Exercice**: Implémenter `quicksort`
+    :class: green
+
+    La `page wikipedia <http://en.wikipedia.org/wiki/Quicksort>`_
+    décrivant l'algorithme de tri `quicksort` donne le pseudo-code
+    suivant::
+
+     function quicksort('array')
+        if length('array') ≤ 1
+            return 'array'
+        select and remove a pivot value 'pivot' from 'array'
+        create empty lists 'less' and 'greater'
+        for each 'x' in 'array'
+            if 'x' ≤ 'pivot' then append 'x' to 'less'
+            else append 'x' to 'greater'
+        return concatenate(quicksort('less'), 'pivot', quicksort('greater')) 
+
+    Saurez vous transformer ce pseudo-code en code valide Python.
+
+    Des indices:
+
+     * La longueur d'une liste est donnée par ``len(l)``
+
+     * Deux listes peuvent être concaténées avec ``l1 + l2``
+
+     * ``l.pop()`` retire le dernier élément d'une liste
+
+     * Attention: une liste est mutable
+
+    Il vous suffit de compléter cette ébauche::
+
+        def quicksort(l):
+            # ...
+            return l
+
+        l = [3, 4, 1, 2, 5, 6]
+        print quicksort(l)
 
 
