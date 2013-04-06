@@ -277,7 +277,7 @@ msgstr "Important"
 
 #: sphinx/locale/__init__.py:21
 msgid "Note"
-msgstr "Note"
+msgstr "Remarque"
 
 #: sphinx/locale/__init__.py:22
 msgid "See Also"
