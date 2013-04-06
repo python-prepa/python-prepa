@@ -268,3 +268,30 @@ Collections d'objets
     * Ouvrage de Gérard Swinnen: `Apprendre à programmer avec Python <http://inforef.be/swi/python.htm>`_
 
     * `Documentation officielle du langage Python <http://docs.python.org/2.7/>`_
+
+Logique du programme: opérations conditionnelles et boucles
+...........................................................
+
+* **Opérations conditionnelles** ::
+
+    >>> a = 1
+    >>> if a == 1:
+    ...     print('a vaut bien 1')
+    ... else:
+    ...     print('a ne vaut pas 1')
+
+  .. note:: ``==`` est différent de ``=``. Le premier est un "test" et le
+     deuxième une "affectation de variable".
+
+  .. note:: L'indentation délite les blocs logiques::
+
+     >>> if a == 1:
+     ...     print('a vaut bien 1')
+     ...     print("c'est certain")
+
+  .. note:: Pour taper des instructions sur plusieurs lignes, l'éditeur
+     de texte (panneau gauche de spyder) est plus pratique.
+
+  Conditions multiples: ``a == 1 and b == 1``, ``a == 1 or b == 1``
+
+  Autres conditions: ``a != 1``, ``a < 1``, ``a > 1``
