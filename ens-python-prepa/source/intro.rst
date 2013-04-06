@@ -261,14 +261,6 @@ Collections d'objets
     Ensemble d'éléments uniques muni d'opérations comme l'intersection ou
     l'union.
 
-.. seealso::
-   
-    * `Scipy Lecture Notes <http://scipy-lectures.github.com>`_, `chapitre sur le langage Python <http://scipy-lectures.github.com/intro/language/python_language.html>`_
-
-    * Ouvrage de Gérard Swinnen: `Apprendre à programmer avec Python <http://inforef.be/swi/python.htm>`_
-
-    * `Documentation officielle du langage Python <http://docs.python.org/2.7/>`_
-
 Logique du programme: opérations conditionnelles et boucles
 ...........................................................
 
@@ -317,3 +309,13 @@ Logique du programme: opérations conditionnelles et boucles
 
 Définir des fonctions
 ......................
+
+.. seealso::
+   
+    * `Scipy Lecture Notes <http://scipy-lectures.github.com>`_, `chapitre sur le langage Python <http://scipy-lectures.github.com/intro/language/python_language.html>`_
+
+    * Ouvrage de Gérard Swinnen: `Apprendre à programmer avec Python <http://inforef.be/swi/python.htm>`_
+
+    * `Documentation officielle du langage Python <http://docs.python.org/2.7/>`_
+
+
