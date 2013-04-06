@@ -154,3 +154,117 @@ IPython actif'.
 Le langage Python
 ------------------
 
+Différents type d'objets
+.............................
+
+Objets simples
+~~~~~~~~~~~~~~~
+
+::
+
+   >>> a = 1
+   >>> b = 'Bonjour'
+
+`a` et `b` sont des objets de différent type : `a` est un entier (`int`), et `b`
+est une chaîne de caractères (`string`).
+
+En Python, les types ne sont pas déclarés explicitement.
+
+========================== =================================================================================
+**Nombres**                **Entier** `1` — **Flottant** `1.` — **Complexe** `1 + 1j` — **Booléen** `False`
+
+**Chaînes de caractère**   **Chaînes** `'Bonjour'` — **Chaînes avec accents** `u'Gaël'`
+========================== =================================================================================
+
+A différents types d'objets, correspond différentes opérations possibles:
+
+::
+
+    >>> 2 * a
+    2
+
+.. warning:: **Division entière**
+  
+    ::
+
+        >>> 1/2
+        0
+        >>> 1./2
+        0.5
+        >>> float(1)/2
+        0.5
+
+Collections d'objets
+~~~~~~~~~~~~~~~~~~~~~~
+
+* **Listes** ::
+
+    >>> l = [0, 1, 2, 3]
+    >>> l[0]
+    0
+
+  .. warning:: Les indices commencent à 0, et non à 1
+
+  Modifications d'une liste::
+
+    >>> l[0] = -1
+    >>> l
+    [-1, 1, 2, 3]
+    >>> l.append(4)
+    >>> l
+    [-1, 1, 2, 3, 4]
+
+  .. note:: Les listes sont des objets "mutables".
+
+  .. note:: `l.append` est une "méthode" de `l`.
+
+     Les méthodes de `l` peuvent être découverte en appuyant sur `Tab`
+     dans IPython::
+
+        In [2]: l.
+        append  count  extend  index  insert  pop  remove  reverse  sort
+
+     Pour savoir ce qu'une méthode fait::
+
+        In [2]: l.append?
+        Type:       builtin_function_or_method
+        String Form:<built-in method append of list object at 0x34fa128>
+        Docstring:  L.append(object) -- append object to end
+
+* **Et plus encore**
+
+  :dictionnaires:
+
+    ::
+
+       >>> d = {"Gael": "Informatique", "Werner": "Physique", "Emmanuelle": "Physique"}
+       >>> d["Damien"] = "Informatique"
+       >>> d["Gael"]
+       "Informatique
+
+  :tuple:
+
+    Comme une liste, mais non mutable::
+
+        >>> l = (0, 1, 2, 3)
+        >>> l[0] = -1
+        ---------------------------------------------------------------------------
+        TypeError                                 Traceback (most recent call last)
+        <ipython-input-4-2c4c55c1f409> in <module>()
+        ----> 1 l[0] = -1
+
+        TypeError: 'tuple' object does not support item assignment
+
+
+  :set:
+
+    Ensemble d'éléments uniques muni d'opérations comme l'intersection ou
+    l'union.
+
+.. seealso::
+   
+    * `Scipy Lecture Notes <http://scipy-lectures.github.com>`_, `chapitre sur le langage Python <http://scipy-lectures.github.com/intro/language/python_language.html>`_
+
+    * Ouvrage de Gérard Swinnen: `Apprendre à programmer avec Python <http://inforef.be/swi/python.htm>`_
+
+    * `Documentation officielle du langage Python <http://docs.python.org/2.7/>`_
