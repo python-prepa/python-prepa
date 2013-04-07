@@ -210,7 +210,19 @@ Collections d'objets
 
   .. warning:: Les indices commencent à 0, et non à 1
 
-  Modifications d'une liste::
+  On peut compter à partir de la fin en indexant une liste::
+
+    >>> l[-1]
+    3
+
+  Et on peut avoir des "tranches" d'une liste ("slice" en anglais)::
+
+    >>> l[1:3]
+    [1, 2, 3]
+
+  La syntaxe du "slicing" est ``start:stop:step``.
+
+  Une liste peut être modifiée::
 
     >>> l[0] = -1
     >>> l
