@@ -154,3 +154,250 @@ IPython actif'.
 Le langage Python
 ------------------
 
+Différents type d'objets
+.............................
+
+Objets simples
+~~~~~~~~~~~~~~~
+
+::
+
+   >>> a = 1
+   >>> b = 'Bonjour'
+
+`a` et `b` sont des objets de différent type : `a` est un entier (`int`), et `b`
+est une chaîne de caractères (`string`).
+
+En Python, les types ne sont pas déclarés explicitement.
+
+========================== =================================================================================
+**Nombres**                **Entier** `1` — **Flottant** `1.` — **Complexe** `1 + 1j` — **Booléen** `False`
+
+**Chaînes de caractère**   **Chaînes** `'Bonjour'` — **Chaînes avec accents** `u'Gaël'`
+========================== =================================================================================
+
+A différents types d'objets, correspond différentes opérations possibles:
+
+::
+
+    >>> 2 * a
+    2
+
+.. note:: Puissance::
+
+   >>> 2 ** 3
+   8
+
+.. warning:: **Division entière**
+  
+    ::
+
+        >>> 1/2
+        0
+        >>> 1./2
+        0.5
+        >>> float(1)/2
+        0.5
+
+Collections d'objets
+~~~~~~~~~~~~~~~~~~~~~~
+
+* **Listes** ::
+
+    >>> l = [0, 1, 2, 3]
+    >>> l[0]
+    0
+
+  .. warning:: Les indices commencent à 0, et non à 1
+
+  Modifications d'une liste::
+
+    >>> l[0] = -1
+    >>> l
+    [-1, 1, 2, 3]
+    >>> l.append(4)
+    >>> l
+    [-1, 1, 2, 3, 4]
+
+  .. note:: Les listes sont des objets "mutables".
+
+  .. note:: `l.append` est une "méthode" de `l`.
+
+     Les méthodes de `l` peuvent être découverte en appuyant sur `Tab`
+     dans IPython::
+
+        In [2]: l.
+        append  count  extend  index  insert  pop  remove  reverse  sort
+
+     Pour savoir ce qu'une méthode fait::
+
+        In [2]: l.append?
+        Type:       builtin_function_or_method
+        String Form:<built-in method append of list object at 0x34fa128>
+        Docstring:  L.append(object) -- append object to end
+
+* **Et plus encore**
+
+  :dictionnaires:
+
+    ::
+
+       >>> d = {"Gael": "Informatique", "Werner": "Physique", "Emmanuelle": "Physique"}
+       >>> d["Damien"] = "Informatique"
+       >>> d["Gael"]
+       "Informatique
+
+  :tuple:
+
+    Comme une liste, mais non mutable::
+
+        >>> l = (0, 1, 2, 3)
+        >>> l[0] = -1
+        ---------------------------------------------------------------------------
+        TypeError                                 Traceback (most recent call last)
+        <ipython-input-4-2c4c55c1f409> in <module>()
+        ----> 1 l[0] = -1
+
+        TypeError: 'tuple' object does not support item assignment
+
+
+  :set:
+
+    Ensemble d'éléments uniques muni d'opérations comme l'intersection ou
+    l'union.
+
+Logique du programme: opérations conditionnelles et boucles
+...........................................................
+
+* **Opérations conditionnelles** ::
+
+    >>> a = 1
+    >>> if a == 1:
+    ...     print('a vaut bien 1')
+    ... else:
+    ...     print('a ne vaut pas 1')
+
+  .. note:: ``==`` est différent de ``=``. Le premier est un "test" et le
+     deuxième une "affectation de variable".
+
+  .. note:: L'indentation délimite les blocs logiques
+     
+    ::
+
+     >>> if a == 1:
+     ...     print('a vaut bien 1')
+     ...     print("c'est certain")
+
+  .. note:: Pour taper des instructions sur plusieurs lignes, l'éditeur
+     de texte (panneau gauche de spyder) est plus pratique.
+
+  Conditions multiples: ``a == 1 and b == 1``, ``a == 1 or b == 1``
+
+  Autres conditions: ``a != 1``, ``a < 1``, ``a > 1``
+
+* **Boucles** ::
+
+    >>> for i in range(3):
+    ...    print(i)
+    0
+    1
+    2
+
+  On peut itérer sur les éléments d'une liste::
+
+    >>> l = [0, 1, 2]
+    >>> for i in l:
+    ...    print i
+    0
+    1
+    2
+
+Définir des fonctions
+......................
+
+::
+
+    def f(x, y):
+        print x
+        return x + y
+
+Arguments optionnels::
+
+    def f(x, y=1):
+        return x + y
+
+    z = f(x, y=2)
+
+
+Importer des fonctionnalités additionnelles
+............................................
+
+Les "modules" permettent d'importer de nombreuses fonctionnalités
+additionnelles, allant de modules d'interface graphique au calcul
+scientifique.
+
+Voici un exemple qui importe un nouveau type de nombre, les fractions::
+
+    >>> import fractions
+    >>> a = fractions.Fraction(2, 3)
+    >>> print a
+    2/3
+    >>> b = fractions.Fraction(1, 2)
+    >>> print b
+    1/2
+    >>> a + b
+    Fraction(7, 6)
+    >>> print a + b
+    7/6
+
+____
+
+.. seealso::
+   
+    * `Scipy Lecture Notes <http://scipy-lectures.github.com>`_, `chapitre sur le langage Python <http://scipy-lectures.github.com/intro/language/python_language.html>`_
+
+    * Ouvrage de Gérard Swinnen: `Apprendre à programmer avec Python <http://inforef.be/swi/python.htm>`_
+
+    * `Documentation officielle du langage Python <http://docs.python.org/2.7/>`_
+
+____
+
+.. topic:: **Exercice**: Implémenter `quicksort`
+    :class: green
+
+    La `page wikipedia <http://en.wikipedia.org/wiki/Quicksort>`_
+    décrivant l'algorithme de tri `quicksort` donne le pseudo-code
+    suivant::
+
+     function quicksort('array')
+        if length('array') ≤ 1
+            return 'array'
+        select and remove a pivot value 'pivot' from 'array'
+        create empty lists 'less' and 'greater'
+        for each 'x' in 'array'
+            if 'x' ≤ 'pivot' then append 'x' to 'less'
+            else append 'x' to 'greater'
+        return concatenate(quicksort('less'), 'pivot', quicksort('greater')) 
+
+    Saurez vous transformer ce pseudo-code en code valide Python.
+
+    Des indices:
+
+     * La longueur d'une liste est donnée par ``len(l)``
+
+     * Deux listes peuvent être concaténées avec ``l1 + l2``
+
+     * ``l.pop()`` retire le dernier élément d'une liste
+
+     * Attention: une liste est mutable
+
+    Il vous suffit de compléter cette ébauche::
+
+        def quicksort(l):
+            # ...
+            return l
+
+        l = [3, 4, 1, 2, 5, 6]
+        print quicksort(l)
+
+
