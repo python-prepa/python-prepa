@@ -370,12 +370,12 @@ ____
     suivant::
 
      function quicksort('array')
-        if length('array') ≤ 1
+        if length('array') <= 1
             return 'array'
         select and remove a pivot value 'pivot' from 'array'
         create empty lists 'less' and 'greater'
         for each 'x' in 'array'
-            if 'x' ≤ 'pivot' then append 'x' to 'less'
+            if 'x' <= 'pivot' then append 'x' to 'less'
             else append 'x' to 'greater'
         return concatenate(quicksort('less'), 'pivot', quicksort('greater')) 
 
