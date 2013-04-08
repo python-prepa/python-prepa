@@ -108,7 +108,7 @@ Les compréhensions de liste
 
 Les compréhensions de liste sont des outils très puissants permettant d'utiliser map et filter (vues au dessus) avec une syntaxe plus proche de celle habituelle en Python. De plus, elles permettent de combiner un map et un filter en même temps Smiley .
 
-Je vais vous montrer la syntaxe avec les exemples vus précédemment ::
+Voici la syntaxe avec les exemples vus précédemment ::
 	
   # Affiche les carrés des éléments
   liste = [1, 2, 3, 4, 5, 6, 7]
