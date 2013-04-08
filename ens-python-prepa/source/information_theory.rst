@@ -128,6 +128,140 @@ Arbres de Huffman
 
 .. figure:: HuffmanTree.png
 
+Dictionnaires
+.............
+
+::
+
+  def table_frequences (texte):
+    table = {}
+    for caractere in texte:
+      if caractere in table:
+        table[caractere] = table[caractere] + 1
+      else:
+        table[caractere] = 1
+    return table
+
+
+Arbres binaires
+...............
+
+::
+
+  def huffman_arbre (frequences):
+    tas = []
+
+    # Construction d'un tas avec les lettres sous forme de feuilles
+
+    tas = [(freq, {'val': lettre}) for (lettre, freq) in frequences.items()]
+    heapify(tas)
+
+    # Aggrégation des arbres
+
+    while len(tas) >= 2:
+        freq1, gauche = heappop(tas)
+        freq2, droite = heappop(tas)
+        heappush(tas, (freq1 + freq2, {'gauche': gauche, 'droite': droite}))
+
+    # Renvoi de l'arbre
+
+    _, arbre = heappop(tas)
+    return arbre
+
+
+Arbre -> Code
+.............
+
+:: 
+
+  def ecrire_arbre (etat, arbre):
+    if 'gauche' in arbre:
+        ecrire_bit(etat, 1)
+        ecrire_arbre(etat, arbre['gauche'])
+        ecrire_arbre(etat, arbre['droite'])
+    else:
+        ecrire_bit(etat, 0)
+        ecrire_bits(etat, code_base2(ord(arbre['val']), 8))
+
+  def lire_arbre (etat):
+    bit = lire_bit(etat)
+    if bit == 1:
+        gauche = lire_arbre(etat)
+        droite = lire_arbre(etat)
+        return {'gauche': gauche, 'droite': droite}
+    else:
+        code = decode_base2(lire_bits(etat, 8))
+        return {'val': chr(code)}
+
+
+
+
+::
+
+  def table_codage (arbre):
+    code = {}
+
+    def code_sous_arbre (prefixe, noeud):
+        if 'gauche' in noeud:
+            # cas d'un nœud interne
+            code_sous_arbre(prefixe + [0], noeud['gauche'])
+            code_sous_arbre(prefixe + [1], noeud['droite'])
+        else:
+            # cas d'une feuille
+            code[noeud['val']] = prefixe
+
+    code_sous_arbre([], arbre)
+    return code
+
+Codage et décodage par des suites de bits
+.........................................
+
+
+::
+
+  def code_huffman (texte):
+    etat = init_sortie()
+    ecrire_bits(etat, code_base2(len(texte), 32))
+
+    if len(texte) != 0:
+        table = table_frequences(texte)
+        arbre = huffman_arbre(table)
+        ecrire_arbre(etat, arbre)
+
+        if 'val' not in arbre:
+            code = table_codage(arbre)
+            for caractere in texte:
+                ecrire_bits(etat, code[caractere])
+
+    return sortie_finale(etat)
+
+  def decode_huffman (chaine):
+    entree = init_entree(chaine)
+    taille = decode_base2(lire_bits(entree, 32))
+
+    if taille == 0:
+        return ''
+
+    arbre = lire_arbre(entree)
+    if 'val' in arbre:
+        return arbre['val'] * taille
+
+    texte = ''
+    etat = arbre
+    while taille > 0:
+        if lire_bit(entree) == 0:
+            etat = etat['gauche']
+        else:
+            etat = etat['droite']
+        if 'val' in etat:
+            texte = texte + etat['val']
+            taille = taille - 1
+            etat = arbre
+
+    return texte
+
+
+
 
 Codes de Hamming
 ----------------
