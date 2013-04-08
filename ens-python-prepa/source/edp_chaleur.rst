@@ -7,19 +7,23 @@ Equations aux dérivées partielles : utilisation de NumPy
 
     * Equation de la chaleur en 1D
 
-TEXTE EN COURS...
+**TEXTE EN COURS...**
 
-On trouve dans le module **SciPy** les opérations de manipulation /
-traitement de données numériques classiques, mais spécifiques à un type
-d'application (algébre linéaire, statistiques, etc.). Il s'agit d'un
+On trouve dans le module **NumPy** les outils de manipulation des tableaux
+pour le calcul numérique 
+
+   * Nombreuses fonctions de manipulation
+
+   * Bibliothèque mathématique importante
+
+Il s'agit d'un 
 module stable, bien testé et relativement bien documenté. 
 
 http://docs.scipy.org/doc/
-http://docs.scipy.org/doc/scipy/reference/
+http://docs.scipy.org/doc/numpy/reference/
 
- ::
 
-    >>> import scipy
+    >>> import numpy
 
 Le module SciPy réalise les différentes opérations sur des tableaux
 numériques (``ndarray``) de ``numpy``. On peut donc directement utiliser
