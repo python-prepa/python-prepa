@@ -7,7 +7,7 @@ Entrées et Sorties
 
 Interaction avec l'utilisateur
 ..............................
-La méthode la plus simple consiste à employer la fonction raw_input() :
+La méthode la plus simple consiste à employer la fonction ``raw_input()`` :
 
 ::
 
@@ -21,9 +21,9 @@ La méthode la plus simple consiste à employer la fonction raw_input() :
   print 'Bonjour,', prenom
 
 .. note::
-La fonction raw_input() renvoie toujours une chaîne de caractères alors que la fonction input() 
-renvoie une valeur dont le type correspond à ce que l'utilisateur a entré.
-
+La fonction ``raw_input()`` renvoie toujours une chaîne de caractères alors que la fonction ``input()`` 
+renvoie une valeur dont le type correspond à ce que l'utilisateur a entré`(i.e. une chaîne de caractères 
+doit être entrée avec des guillemets).
 
 
 Formattage de sortie
@@ -36,12 +36,12 @@ Fichiers
 Il est important de dissocier les données des programmes qui les utilisent en rangeant ces données 
 dans des fichiers séparés.
 
-Le module os contient des fonctions qui permettent de localiser les fichiers :
+Le module ``os`` contient des fonctions qui permettent de localiser les fichiers :
 
-* getcwd() : Retourne le chemin du répertoire courant
-* chdir(<ch>) : Change le répertoire courant qui prend la valeur donnée par la chaîne <ch>
-* path.isfile(<ch>) : Retourne un booléen qui indique s'il existe un fichier de chemin <ch>
-* path.isdir(<ch>) : Retourne un booléen qui indique s'il existe un répertoire de chemin <ch>
+* ``getcwd()`` : Retourne le chemin du répertoire courant
+* ``chdir(<ch>)`` : Change le répertoire courant qui prend la valeur donnée par la chaîne <ch>
+* ``path.isfile(<ch>)`` : Retourne un booléen qui indique s'il existe un fichier de chemin <ch>
+* ``path.isdir(<ch>)`` : Retourne un booléen qui indique s'il existe un répertoire de chemin <ch>
 
 ::
 
@@ -58,23 +58,23 @@ il faut commencer par l'ouvrir par l'appel de fonction
 
 qui retourne un objet de type file.
 
-Le paramètre facultatif <mode> indique le mode d'ouverture du chier :
+Le paramètre facultatif ``<mode>`` indique le mode d'ouverture du fichier :
 
-- r : mode lecture (le fichier doit exister préalablement)
-- w : mode écriture (si le fichier existe, les données sont écrasées, sinon le fichier est créé)
-- a : mode ajout (si le fichier existe, les données écrites vont l'être après celles existantes, sinon le fichier est créé)
+- ``r`` : mode lecture (le fichier doit exister préalablement)
+- ``w`` : mode écriture (si le fichier existe, les données sont écrasées, sinon le fichier est créé)
+- ``a`` : mode ajout (si le fichier existe, les données écrites vont l'être après celles existantes, sinon le fichier est créé)
 
-Si le mode est omis, le mode par défaut est r.
+Si le mode est omis, le mode par défaut est ``r``.
 
-Un objet de type file est associé à des attributs et des méthodes. En voici quelques-unes :
+Un objet de type ``file`` est associé à des attributs et des méthodes. En voici quelques-unes :
 
-- read([<n>]) : retourne la chaîne des <n> caractères restants
-- readline() : lit une seule ligne à partir du fichier
-- readlines() : utilise f.readline() de façon répétitive, et retourne une liste contenant toutes les lignes du fichier. 
-- write(<ch>) : écrit la chaîne de caractères <ch>
-- close() : ferme le fichier 
-- seek(<n>) : choisit le caractère <n> comme position courante du fichier
-- tell() : retourne le caractère en position courante
+- ``read([<n>])`` : retourne la chaîne des <n> caractères restants
+- ``readline()`` : lit une seule ligne à partir du fichier
+- ``readlines()`` : utilise f.readline() de façon répétitive, et retourne une liste contenant toutes les lignes du fichier. 
+- ``write(<ch>)`` : écrit la chaîne de caractères <ch>
+- ``close()`` : ferme le fichier 
+- ``seek(<n>)`` : choisit le caractère <n> comme position courante du fichier
+- ``tell()`` : retourne le caractère en position courante
 
 .. note:: 
 Python fournit le module standard *pickle* qui peut prendre (presque) n'importe quel objet Python
@@ -88,7 +88,7 @@ On peut ranger les définitions de fonctions se rapportant à une même
 application au sein d'un script commun baptisé **module**
 
 Un module est sauvegardé sous forme d'un fichier dont le nom a la forme
-<nom du module>.py
+``<nom du module>.py``
 
 Pour utiliser un module, il faut se servir de l'instruction ::
 
@@ -100,7 +100,7 @@ fonctions).
 
 Pour importer un module, Python a besoin de connaître le chemin qui permet
 d'accéder au chier correspondant. Ce chemin doit apparaître dans la liste
-des chemins possibles stockés dans la variable path du module sys    
+des chemins possibles stockés dans la variable path du module ``sys``    
 
 Première méthode d'importation 
 ..............................
@@ -168,7 +168,14 @@ La fonction **map** permet de transformer une liste via l'utilisation d'une fonc
   
   print map(pair, [1, 2, 3, 4, 5]) 
   # Affiche [False, True, False, True, False] 
-    
+
+Comme dans les langages fonctionnels, avec le mot-clé lambda, il est possible de créer des 
+fonctions anonymes. Le premier exemple est équivalent à ::
+
+  print map(lambda x: x**2, [1, 2, 3, 4, 5]) 
+  # Affiche [1, 4, 9, 16, 25]
+
+
 La fonction **filter** ne permet pas réellement de « transformer » une liste, mais plutôt d'en retirer les valeurs que l'on ne veut pas. Encore une fois, des exemples pourraient être utiles ::
 	
   def petit_carre(x): 
@@ -202,6 +209,9 @@ Voici la syntaxe avec les exemples vus précédemment ::
   # Affiche les carrés pairs (combinaison des deux)
   print [x ** 2 for x in liste if x ** 2 % 2 == 0] # ou
   print [x for x in [a ** 2 for a in liste] if x % 2 == 0]
+
+
+
 
 Arbres de Huffman
 -----------------
