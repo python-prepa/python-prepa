@@ -25,7 +25,9 @@ http://docs.scipy.org/doc/numpy/reference/
 
     >>> import numpy
 
-Le module SciPy réalise les différentes opérations sur des tableaux
+Le module NumPy permet la manipulation
+
+réalise les différentes opérations sur des tableaux
 numériques (``ndarray``) de ``numpy``. On peut donc directement utiliser
 ces tableaux comme arguments pour les différentes fonctions ::
 
