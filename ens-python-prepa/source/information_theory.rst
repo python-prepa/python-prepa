@@ -5,8 +5,30 @@ Théorie de l'information : utilisation du langage Python
 Entrées et Sorties 
 ------------------
 
+Interaction avec l'utilisateur
+..............................
+La méthode la plus simple consiste à employer la fonction raw_input() :
+
+::
+
+  print('Entrez votre prénom : ')
+  prenom = raw_input()
+  print 'Bonjour,', prenom
+
+::
+
+  prenom = raw_input('Entrez votre prénom : ')
+  print 'Bonjour,', prenom
+
+.. note::
+La fonction raw_input() renvoie toujours une chaîne de caractères alors que la fonction input() 
+renvoie une valeur dont le type correspond à ce que l'utilisateur a entré.
+
+
+
 Formattage de sortie
 ....................
+
 
 Fichiers
 ........
