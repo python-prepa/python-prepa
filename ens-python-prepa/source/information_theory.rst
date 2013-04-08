@@ -1,10 +1,66 @@
 Théorie de l'information : utilisation du langage Python
 ========================================================
 
-Modules et fichiers
--------------------
+
+Entrées et Sorties 
+------------------
+
+Formattage de sortie
+....................
+
+Fichiers
+........
+
+Il est important de dissocier les données des programmes qui les utilisent en rangeant ces données 
+dans des fichiers séparés.
+
+Le module os contient des fonctions qui permettent de localiser les fichiers :
+
+* getcwd() : Retourne le chemin du répertoire courant
+* chdir(<ch>) : Change le répertoire courant qui prend la valeur donnée par la chaîne <ch>
+* path.isfile(<ch>) : Retourne un booléen qui indique s'il existe un fichier de chemin <ch>
+* path.isdir(<ch>) : Retourne un booléen qui indique s'il existe un répertoire de chemin <ch>
+
+::
+
+  >>> from os import chdir
+  >>> chdir("/home/exercices")
+
+
+Pour utiliser un fichier identifié par le chemin <ch> dans un programme Python, 
+il faut commencer par l'ouvrir par l'appel de fonction
+
+::
+  
+  open(<ch>, [<mode>])
+
+qui retourne un objet de type file.
+
+Le paramètre facultatif <mode> indique le mode d'ouverture du chier :
+
+- r : mode lecture (le fichier doit exister préalablement)
+- w : mode écriture (si le fichier existe, les données sont écrasées, sinon le fichier est créé)
+- a : mode ajout (si le fichier existe, les données écrites vont l'être après celles existantes, sinon le fichier est créé)
+
+Si le mode est omis, le mode par défaut est r.
+
+Un objet de type file est associé à des attributs et des méthodes. En voici quelques-unes :
+
+- read([<n>]) : retourne la chaîne des <n> caractères restants
+- readline() : lit une seule ligne à partir du fichier
+- readlines() : utilise f.readline() de façon répétitive, et retourne une liste contenant toutes les lignes du fichier. 
+- write(<ch>) : écrit la chaîne de caractères <ch>
+- close() : ferme le fichier 
+- seek(<n>) : choisit le caractère <n> comme position courante du fichier
+- tell() : retourne le caractère en position courante
+
+.. note:: 
+Python fournit le module standard *pickle* qui peut prendre (presque) n'importe quel objet Python
+et le convertir en une représentation sous forme de chaîne de caractères (et le reconstruire). Il s'agit du 
+moyen standard pour enregistrer des objets Python et les réutiliser dans d'autres programmes.
+
 Modules
-.......
+-------
 
 On peut ranger les définitions de fonctions se rapportant à une même
 application au sein d'un script commun baptisé **module**
@@ -24,17 +80,20 @@ Pour importer un module, Python a besoin de connaître le chemin qui permet
 d'accéder au chier correspondant. Ce chemin doit apparaître dans la liste
 des chemins possibles stockés dans la variable path du module sys    
 
-.. topic:: Première méthode d'importation ::
+Première méthode d'importation 
+..............................
+
+::
 
   >>> import random
   >>> random.randint(0,10)
   9
 
-Regardons de plus pres cet exemple :
- * L'instruction import permet d'importer toutes les fonctions du module random
- * Ensuite, nous utilisons la fonction (ou methode) randint(a,b) du module random; attention cette fonction renvoie un nombre entier aleatoirement entre a inclus et b inclus
+* L'instruction import permet d'importer toutes les fonctions du module random
+* Ensuite, nous utilisons la fonction (ou methode) randint(a,b) du module random; attention cette fonction renvoie un nombre entier aleatoirement entre a inclus et b inclus
 
 Deuxième méthode d'importation
+..............................
 
 Pour disposer d'une fonction du module ::
 
@@ -54,6 +113,7 @@ Pour disposer de toutes les fonctions d'un module ::
 ____
 
 Modules courants
+................
 
 * sys : passage d'arguments, gestion de l'entrée/sortie standard etc...
 * os : dialogue avec le système d'exploitation.
@@ -66,8 +126,6 @@ Modules courants
 * Tkinter : interface graphique
 * ...
  
-Fichiers
-........
 
 
 Utilisation avancée des listes et chaînes de caractères
