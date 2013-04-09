@@ -25,25 +25,106 @@ http://docs.scipy.org/doc/numpy/reference/
 
     >>> import numpy
 
-Le module NumPy permet la manipulation
 
-réalise les différentes opérations sur des tableaux
-numériques (``ndarray``) de ``numpy``. On peut donc directement utiliser
-ces tableaux comme arguments pour les différentes fonctions ::
+Introduction rapide à NumPy
+--------------
 
-    >>> from scipy import linalg
-    >>> mat = np.array([[1, 2], [2, 4]])
-    >>> mat
-    array([[1, 2],
-        [2, 4]])
-    >>> linalg.det(mat)
+Le module NumPy permet la manipulation simple et efficace des tableaux ::
+
+    >>> x=arange(0,2.0,0.1)   # De 0 a 2 par pas de 0.1
+    >>> x
+    array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
+            1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9])
+    >>> size(x) # Sa taille
+    20
+    >>> x[0] # Le premier element
     0.0
+    >>> x[1] # Le deuxieme element
+    0.10000000000000001
+    >>> x[19] # Le dernier element
+    1.9000000000000001
+    >>> x[20] # Pas un element !
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    IndexError: index 20 is out of bounds for axis 0 with size 20
+    >>> a = array ([[1,2,3], [4,5,6], [7,8,9]])
+    >>> a
+    array([[1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9]])
+    >>> b = 2*a  # Multiplication de chaque terme
+    >>> c = a+b  # Sommation terme a terme
+    >>> dot(a,b) # Produit de matrice
+    array([[ 60,  72,  84],
+           [132, 162, 192],
+           [204, 252, 300]])
+    >>> a*b      # Produit terme a terme
+    array([[  2,   8,  18],
+           [ 32,  50,  72],
+           [ 98, 128, 162]])
 
-Pour montrer l'utilisation de SciPy, nous allons nous intéresser à
-l'intégration d'équations différentielles, en considérant de systèmes
-dynamiques à base de pendules mécaniques. 
 
-Pendule simple
+On peut facilement effectuer des coupes dans un tableau numpy. Cette
+fonctionnalité est particulièrement importante en calcul scientifique 
+(comme nous allons le voir) pour éviter l'utilisation de boucles. ::
+
+    >>> t=array([1,2,3,4,5,6])
+    >>> t[1:4]   # de l'indice 1 au 4e element... !!!ATTENTION!!!
+    array([2, 3, 4])
+    >>> t[:4]    # du debut au 4e element
+    array([1, 2, 3, 4])
+    >>> t[4:]    # de l'indice 4 a la fin
+    array([5, 6])
+    >>> t[:-1]   # excluant le dernier element
+    array([1, 2, 3, 4, 5])
+    >>> t[1:-1]  # excluant le premier et le dernier
+    array([2, 3, 4, 5])
+
+
+Attention a la copie de tableau !
+Pour un scalaire on a le comportement "intuitif" : ::
+
+    >>> a=1.0
+    >>> b=a
+    >>> b
+    1.0
+    >>> a=0.0
+    >>> b
+    1.0
+
+
+Pour un tableau NumPy, par defaut on ne copie que l'adresse du
+tableau (pointeur) pas son contenu (les deux noms correspondent alors aux
+mêmes adresses en mémoire). ::
+
+    >>> a=zeros((2,2))
+    >>> b=a
+    >>> b
+    array([[ 0.,  0.],
+           [ 0.,  0.]])
+    >>> a[1,1]=10
+    >>> b
+    array([[  0.,   0.],
+           [  0.,  10.]])
+
+Pour effectuer une copie des valeurs, il faut
+utiliser **.copy()** ::
+
+    >>> c=b.copy()
+    >>> c
+    array([[  0.,   0.],
+           [  0.,  10.]])
+    >>> b[1,1]=0  
+    >>> b
+    array([[ 0.,  0.],
+           [ 0.,  0.]])
+    >>> c
+    array([[  0.,   0.],
+           [  0.,  10.]])
+
+
+
+Equation de la chaleur 1D
 --------------
 
 .. image:: pendulum.png
