@@ -23,7 +23,7 @@ http://docs.scipy.org/doc/
 http://docs.scipy.org/doc/numpy/reference/
 
 
-    >>> import numpy
+    >>> import numpy as np
 
 
 Introduction rapide à NumPy
@@ -31,11 +31,11 @@ Introduction rapide à NumPy
 
 Le module NumPy permet la manipulation simple et efficace des tableaux ::
 
-    >>> x=arange(0,2.0,0.1)   # De 0 a 2 par pas de 0.1
+    >>> x=np.arange(0,2.0,0.1)   # De 0 a 2 par pas de 0.1
     >>> x
     array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
             1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9])
-    >>> size(x) # Sa taille
+    >>> np.size(x) # Sa taille
     20
     >>> x[0] # Le premier element
     0.0
@@ -47,14 +47,14 @@ Le module NumPy permet la manipulation simple et efficace des tableaux ::
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     IndexError: index 20 is out of bounds for axis 0 with size 20
-    >>> a = array ([[1,2,3], [4,5,6], [7,8,9]])
+    >>> a = np.array ([[1,2,3], [4,5,6], [7,8,9]])
     >>> a
     array([[1, 2, 3],
            [4, 5, 6],
            [7, 8, 9]])
     >>> b = 2*a  # Multiplication de chaque terme
     >>> c = a+b  # Sommation terme a terme
-    >>> dot(a,b) # Produit de matrices
+    >>> np.dot(a,b) # Produit de matrices
     array([[ 60,  72,  84],
            [132, 162, 192],
            [204, 252, 300]])
@@ -68,7 +68,7 @@ On peut facilement effectuer des coupes dans un tableau numpy. Cette
 fonctionnalité est particulièrement importante en calcul scientifique 
 (comme nous allons le voir) pour éviter l'utilisation de boucles. ::
 
-    >>> t=array([1,2,3,4,5,6])
+    >>> t=np.array([1,2,3,4,5,6])
     >>> t[1:4]   # de l'indice 1 au 4e element... !!!ATTENTION!!!
     array([2, 3, 4])
     >>> t[:4]    # du debut au 4e element
@@ -81,7 +81,7 @@ fonctionnalité est particulièrement importante en calcul scientifique
     array([2, 3, 4, 5])
 
 
-Attention a la copie de tableau !
+Attention à la copie de tableau !
 Pour un scalaire on a le comportement "intuitif" : ::
 
     >>> a=1.0
@@ -163,6 +163,51 @@ Que l'on peut re-écrire
    (T_{j-1}^n-2\, T_{j}^{n}+T_{j+1}^{n}) \, , 
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
+
+En introduisant un développement de Taylor, on peut estimer la qualité de
+l'approximation numérique (évolution de lérreur en fonction de
+:math:`\Delta x` et :math:`\Delta t`.
+
+En écrivant
+
+.. math::
+   T_{j+\alpha}^n = T_{j}^n 
+   + \alpha \, \Delta x \left(\frac{\partial T}{\partial x}\right)_{j}^n 
+   + \alpha^2 \, \frac{\Delta x^2}{2} \left(\frac{\partial^2 T}{\partial x^2}\right)_{j}^n
+   + \alpha^3 \, \frac{\Delta x^3}{3!} \left(\frac{\partial^3 T}{\partial
+   x^3}\right)_{j}^n
+
+.. math::
+   + \alpha^4 \, \frac{\Delta x^4}{4!} \left(\frac{\partial^4 T}{\partial x^4}\right)_{j}^n 
+   + \alpha^5 \, \frac{\Delta x^5}{5!} \left(\frac{\partial^5 T}{\partial x^5}\right)_{j}^n 
+   + {\cal O}(\Delta x^6) \, ,
+
+on a 
+
+.. math::
+   T_{j-1} + T_{j+1} = 2 T_{j} + \Delta x^2 \left.\frac{\partial^2 
+   T}{\partial x^2}\right|_{j}^n + \frac{\Delta 
+   x^4}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_{j}^n + \mathcal{O}(\Delta 
+   x^6) \, ,
+
+donc
+
+.. math::
+   \left.\frac{\partial ^2 T}{\partial x ^2} \right|_j^n =
+   \frac{T_{j-1}^n-2T_j^n+T_{j+1^n}}{\Delta x ^2} - \frac{\Delta 
+   x^2}{12}\left.\frac{\partial^4T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta x^4)
+   \, .
+
+Un calcul similaire en temps permet déstimer l'erreur "de troncature"
+
+.. math::
+   R_h(T)=
+   \frac{\Delta t}{2}\left.\frac{\partial^2 T}{\partial t^2}\right|_j^n
+   - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta 
+   t^2)+\mathcal{O}(\Delta x^4) \, .
+
+
+IGNORE AFTER THIS...
 
 
 Pour les petites oscillations on peut faire l'approximation
