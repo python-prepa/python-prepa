@@ -1,6 +1,73 @@
 Théorie de l'information : utilisation du langage Python
 ========================================================
 
+Modules
+-------
+
+On peut ranger les définitions de fonctions se rapportant à une même
+application au sein d'un script commun baptisé **module**
+
+Un module est sauvegardé sous forme d'un fichier dont le nom a la forme
+``<nom du module>.py``
+
+Pour utiliser un module, il faut se servir de l'instruction ::
+
+  import <nom du module>
+
+L'exécution de cette instruction consiste à exécuter le script définissant le
+module (ce script peut contenir des instructions autres que des définitions de
+fonctions).
+
+Pour importer un module, Python a besoin de connaître le chemin qui permet
+d'accéder au chier correspondant. Ce chemin doit apparaître dans la liste
+des chemins possibles stockés dans la variable path du module ``sys``    
+
+Première méthode d'importation 
+..............................
+
+::
+
+  >>> import random
+  >>> random.randint(0,10)
+  9
+
+* L'instruction import permet d'importer toutes les fonctions du module random
+* Ensuite, nous utilisons la fonction (ou methode) randint(a,b) du module random; attention cette fonction renvoie un nombre entier aleatoirement entre a inclus et b inclus
+
+Deuxième méthode d'importation
+..............................
+
+Pour disposer d'une fonction du module ::
+
+  from [module] import [fonction]
+
+Pour disposer de toutes les fonctions d'un module ::
+
+  from [module] import *
+
+::
+
+  from math import *
+  racine = sqrt(49)
+  angle = pi/6
+  print sin(angle)
+
+____
+
+Modules courants
+................
+
+* sys : passage d'arguments, gestion de l'entrée/sortie standard etc...
+* os : dialogue avec le système d'exploitation.
+* math : fonctions et constantes mathématiques de base (sin, cos, exp, pi...).
+* random : génération de nombres aléatoires.
+* time : permet d'accéder aux fonctions gérant le temps.
+* urllib : permet de récupérer des données sur internet depuis python.
+* re : gestion des expressions régulières.
+* numpy, scipy: modules incontournables du calcul scientifique
+* Tkinter : interface graphique
+* ...
+
 
 Entrées et Sorties 
 ------------------
@@ -81,83 +148,19 @@ Python fournit le module standard *pickle* qui peut prendre (presque) n'importe 
 et le convertir en une représentation sous forme de chaîne de caractères (et le reconstruire). Il s'agit du 
 moyen standard pour enregistrer des objets Python et les réutiliser dans d'autres programmes.
 
-Modules
--------
-
-On peut ranger les définitions de fonctions se rapportant à une même
-application au sein d'un script commun baptisé **module**
-
-Un module est sauvegardé sous forme d'un fichier dont le nom a la forme
-``<nom du module>.py``
-
-Pour utiliser un module, il faut se servir de l'instruction ::
-
-  import <nom du module>
-
-L'exécution de cette instruction consiste à exécuter le script définissant le
-module (ce script peut contenir des instructions autres que des définitions de
-fonctions).
-
-Pour importer un module, Python a besoin de connaître le chemin qui permet
-d'accéder au chier correspondant. Ce chemin doit apparaître dans la liste
-des chemins possibles stockés dans la variable path du module ``sys``    
-
-Première méthode d'importation 
-..............................
-
-::
-
-  >>> import random
-  >>> random.randint(0,10)
-  9
-
-* L'instruction import permet d'importer toutes les fonctions du module random
-* Ensuite, nous utilisons la fonction (ou methode) randint(a,b) du module random; attention cette fonction renvoie un nombre entier aleatoirement entre a inclus et b inclus
-
-Deuxième méthode d'importation
-..............................
-
-Pour disposer d'une fonction du module ::
-
-  from [module] import [fonction]
-
-Pour disposer de toutes les fonctions d'un module ::
-
-  from [module] import *
-
-::
-
-  from math import *
-  racine = sqrt(49)
-  angle = pi/6
-  print sin(angle)
-
-____
-
-Modules courants
-................
-
-* sys : passage d'arguments, gestion de l'entrée/sortie standard etc...
-* os : dialogue avec le système d'exploitation.
-* math : fonctions et constantes mathématiques de base (sin, cos, exp, pi...).
-* random : génération de nombres aléatoires.
-* time : permet d'accéder aux fonctions gérant le temps.
-* urllib : permet de récupérer des données sur internet depuis python.
-* re : gestion des expressions régulières.
-* numpy, scipy: modules incontournables du calcul scientifique
-* Tkinter : interface graphique
-* ...
  
 
 
-Utilisation avancée des listes et chaînes de caractères
--------------------------------------------------------
+Utilisation avancée des listes
+------------------------------
 
 Les fonctions héritées du fonctionnel 
 .....................................
 
-La fonction **map** permet de transformer une liste via l'utilisation d'une fonction callback. Quelques exemples parleront sûrement plus qu'une longue explication : ::
-  
+La fonction ``map`` permet de transformer une liste via l'utilisation d'une fonction.
+Elle prend en entrée une fonction et une liste et retourne une nouvelle liste en appelant la fonction 
+sur chaque élément de la liste dans l'ordre. Voici quelques exempls d'utilisation : ::
+
   def carre(x): 
     return x ** 2
   def pair(x): 
@@ -169,14 +172,16 @@ La fonction **map** permet de transformer une liste via l'utilisation d'une fonc
   print map(pair, [1, 2, 3, 4, 5]) 
   # Affiche [False, True, False, True, False] 
 
-Comme dans les langages fonctionnels, avec le mot-clé lambda, il est possible de créer des 
+Comme dans les langages fonctionnels, avec le mot-clé ``lambda``, il est possible de créer des 
 fonctions anonymes. Le premier exemple est équivalent à ::
 
   print map(lambda x: x**2, [1, 2, 3, 4, 5]) 
   # Affiche [1, 4, 9, 16, 25]
 
 
-La fonction **filter** ne permet pas réellement de « transformer » une liste, mais plutôt d'en retirer les valeurs que l'on ne veut pas. Encore une fois, des exemples pourraient être utiles ::
+La fonction **filter** permet de retirer les valeurs d'une liste que l'on ne veut pas. 
+Elle prend en entrée une fonction et une liste et retourne la liste des éléments (dans l'ordre) 
+sur lesquels la fonction retourne le booléen ``True``. ::
 	
   def petit_carre(x): 
     return x ** 2 < 16
@@ -193,7 +198,9 @@ La fonction **filter** ne permet pas réellement de « transformer » une liste,
 Les compréhensions de liste
 ...........................
 
-Les compréhensions de liste sont des outils très puissants permettant d'utiliser map et filter (vues au dessus) avec une syntaxe plus proche de celle habituelle en Python. De plus, elles permettent de combiner un map et un filter en même temps Smiley .
+Les compréhensions de liste sont des outils puissants permettant d'utiliser map et filter 
+avec une syntaxe plus proche de celle habituelle en Python. De plus, elles permettent de combiner 
+un map et un filter en même temps.
 
 Voici la syntaxe avec les exemples vus précédemment ::
 	
@@ -211,6 +218,13 @@ Voici la syntaxe avec les exemples vus précédemment ::
   print [x for x in [a ** 2 for a in liste] if x % 2 == 0]
 
 
+Conversion dictionnaires - listes
+---------------------------------
+
+- La méthode ``keys`` d'un dictionnaire retourne la liste de toutes les clés. Notons que cette liste ne suit pas nécessairement l'ordre dans lequel le dictionnaire a été défini.
+- La méthode ``values`` retourne la liste de toutes les valeurs d'un dictionnaire. Là encore, la liste ne suit pas nécessairement l'ordre dans lequel le dictionnaire a été défini mais elle est dans le même ordre que celle retournée par ``keys``. 
+- La méthode ``items`` retourne une liste de tous les couples de la forme (clé, valeur) 
+stockés dans le dictionnaire. 
 
 
 Arbres de Huffman
