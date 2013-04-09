@@ -54,7 +54,7 @@ Le module NumPy permet la manipulation simple et efficace des tableaux ::
            [7, 8, 9]])
     >>> b = 2*a  # Multiplication de chaque terme
     >>> c = a+b  # Sommation terme a terme
-    >>> dot(a,b) # Produit de matrice
+    >>> dot(a,b) # Produit de matrices
     array([[ 60,  72,  84],
            [132, 162, 192],
            [204, 252, 300]])
@@ -127,17 +127,43 @@ utiliser **.copy()** ::
 Equation de la chaleur 1D
 --------------
 
-.. image:: pendulum.png
-      :scale: 50
-      :align: center     
-
-L'équation du pendule simple est donnée par
+On va s'intéresser dans un premier temps à l'équation de la chaleur
+(diffusion thermique) en une dimension d'espace
 
 .. math::
 
-    \ddot{\theta} + \omega^2 \sin\theta = 0
+    \frac{\partial T}{\partial t} = \kappa \, \frac{\partial^2 T}{\partial
+    x^2} \, ,
 
-(expliquer)
+on considèrera les conditions aux limites suivantes
+
+.. math::
+
+   T=0 \, ,\qquad \text{en $x=0$ et $x=1$, $\forall t$}\, ,\\[3mm]
+   T=\sin(2\pi\,x)\, ,  \qquad \text{en $t=0$}\, .
+
+
+On va chercher à discrétiser ce problème pour en chercher une solution
+approchée. 
+
+La discrétisation la plus simple que l'on puisse envisager (aux différences
+finies s'écrit)
+
+.. math::
+
+   \frac{T_{j}^{n+1}-T_{j}^{n}}{\Delta t} =
+   \kappa \, 
+   \frac{\frac{T_{j+1}^n-T_{j}^{n}}{\Delta
+   x}-\frac{T_{j}^n-T_{j-1}^{n}}{\Delta x}}{\Delta x} \, ,
+
+Que l'on peut re-écrire
+
+.. math::
+   T_{j}^{n+1}=T_{j}^{n}+ c \,
+   (T_{j-1}^n-2\, T_{j}^{n}+T_{j+1}^{n}) \, , 
+   \qquad \text{avec}\quad 
+   c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
+
 
 Pour les petites oscillations on peut faire l'approximation
 :math:`\sin\theta\simeq\theta`. Quand l'approximation n'est pas valide il
