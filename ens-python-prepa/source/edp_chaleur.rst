@@ -1,11 +1,11 @@
-Equations aux dérivées partielles : utilisation de NumPy
+Équations aux dérivées partielles : utilisation de NumPy
 ==========================================
 
 .. topic:: Contenu du chapitre
 
     * Présentation du module NumPy
 
-    * Equation de la chaleur en 1D
+    * Équation de la chaleur en 1D
 
 **TEXTE EN COURS...**
 
@@ -31,19 +31,19 @@ Introduction rapide à NumPy
 
 Le module NumPy permet la manipulation simple et efficace des tableaux ::
 
-    >>> x=np.arange(0,2.0,0.1)   # De 0 a 2 par pas de 0.1
+    >>> x=np.arange(0,2.0,0.1)   # De 0 (inclus) à 2 (exclus) par pas de 0.1
     >>> x
     array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
             1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9])
     >>> np.size(x) # Sa taille
     20
-    >>> x[0] # Le premier element
+    >>> x[0] # Le premier élément
     0.0
-    >>> x[1] # Le deuxieme element
+    >>> x[1] # Le deuxième élément
     0.10000000000000001
-    >>> x[19] # Le dernier element
+    >>> x[19] # Le dernier élément
     1.9000000000000001
-    >>> x[20] # Pas un element !
+    >>> x[20] # Pas un élément !
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     IndexError: index 20 is out of bounds for axis 0 with size 20
@@ -53,12 +53,12 @@ Le module NumPy permet la manipulation simple et efficace des tableaux ::
            [4, 5, 6],
            [7, 8, 9]])
     >>> b = 2*a  # Multiplication de chaque terme
-    >>> c = a+b  # Sommation terme a terme
+    >>> c = a+b  # Sommation terme à terme
     >>> np.dot(a,b) # Produit de matrices
     array([[ 60,  72,  84],
            [132, 162, 192],
            [204, 252, 300]])
-    >>> a*b      # Produit terme a terme
+    >>> a*b      # Produit terme à terme
     array([[  2,   8,  18],
            [ 32,  50,  72],
            [ 98, 128, 162]])
@@ -69,11 +69,11 @@ fonctionnalité est particulièrement importante en calcul scientifique
 (comme nous allons le voir) pour éviter l'utilisation de boucles. ::
 
     >>> t=np.array([1,2,3,4,5,6])
-    >>> t[1:4]   # de l'indice 1 au 4e element... !!!ATTENTION!!!
+    >>> t[1:4]   # de l'indice 1 à l'indice 4 exclu !!!ATTENTION!!!
     array([2, 3, 4])
-    >>> t[:4]    # du debut au 4e element
+    >>> t[:4]    # du debut à l'indice 4 exclu
     array([1, 2, 3, 4])
-    >>> t[4:]    # de l'indice 4 a la fin
+    >>> t[4:]    # de l'indice 4 inclus à la fin
     array([5, 6])
     >>> t[:-1]   # excluant le dernier element
     array([1, 2, 3, 4, 5])
@@ -81,7 +81,8 @@ fonctionnalité est particulièrement importante en calcul scientifique
     array([2, 3, 4, 5])
 
 
-Attention à la copie de tableau !
+**Attention** à la copie de tableau !
+
 Pour un scalaire on a le comportement "intuitif" : ::
 
     >>> a=1.0
@@ -139,7 +140,7 @@ on considèrera les conditions aux limites suivantes
 
 .. math::
 
-   T=0 \, ,\qquad \text{en $x=0$ et $x=1$, $\forall t$}\, ,\\[3mm]
+   \forall t \qquad  T=0 \, ,\qquad \text{en} \,\, x=0 \,\,  \text{et} \,\,  x=1 \, ,\\[3mm]
    T=\sin(2\pi\,x)\, ,  \qquad \text{en $t=0$}\, .
 
 
@@ -156,7 +157,7 @@ finies s'écrit)
    \frac{\frac{T_{j+1}^n-T_{j}^{n}}{\Delta
    x}-\frac{T_{j}^n-T_{j-1}^{n}}{\Delta x}}{\Delta x} \, ,
 
-Que l'on peut re-écrire
+que l'on peut re-écrire
 
 .. math::
    T_{j}^{n+1}=T_{j}^{n}+ c \,
@@ -165,8 +166,8 @@ Que l'on peut re-écrire
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
 En introduisant un développement de Taylor, on peut estimer la qualité de
-l'approximation numérique (évolution de lérreur en fonction de
-:math:`\Delta x` et :math:`\Delta t`.
+l'approximation numérique (évolution de l'erreur en fonction de
+:math:`\Delta x` et :math:`\Delta t`).
 
 En écrivant
 
@@ -182,6 +183,7 @@ En écrivant
    + \alpha^5 \, \frac{\Delta x^5}{5!} \left(\frac{\partial^5 T}{\partial x^5}\right)_{j}^n 
    + {\cal O}(\Delta x^6) \, ,
 
+et en sommant les expressions pour :math:`\alpha=-1` et :math:`\alpha=1`, 
 on a 
 
 .. math::
@@ -198,7 +200,8 @@ donc
    x^2}{12}\left.\frac{\partial^4T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta x^4)
    \, .
 
-Un calcul similaire en temps permet déstimer l'erreur "de troncature"
+Un calcul similaire en temps permet d'estimer l'erreur "de troncature"
+associée à notre schéma discret
 
 .. math::
    R_h(T)=
