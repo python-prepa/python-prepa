@@ -230,7 +230,31 @@ stockés dans le dictionnaire.
 Arbres de Huffman
 -----------------
 
+Le **codage de Huffman** est une méthode de compression de données sans perte proposé par
+David Huffman en 1952. Elle consiste à attribuer un mot binaire de longueur variable aux 
+différents symboles du document à compresser (pixels ou caractères par exemple). 
+Les symboles les plus fréquents sont codés avec des mots courts, tandis que les symboles 
+les plus rares sont encodés avec des mots plus longs (rappelant ainsi le principe de l'alphabet 
+Morse). Le code construit a la particularité de ne posséder aucun mot ayant pour préfixe un autre mot (i.e. 
+il s'agit d'un code préfixe).
+
+Le codage de Huffman crée un arbre binaire à partir de tous les symboles et de leur nombre d'occurrences 
+dans le document :
+
+- chaque caractère constitue une des feuilles de l'arbre à laquelle on associe un poids valant son nombre d'occurrences
+- l'arbre est créé récursivement en associant à chaque étape les deux nœuds de plus faibles poids 
+pour donner un nœud dont le poids est égal à la somme des poids de ses fils jusqu'à n'en avoir plus qu'un, la racine. 
+
+On associe ensuite le code 0 à la branche de gauche et le code 1 à la branche de droite et 
+le code binaire de chaque symbole est alors obtenu en parcourant la racine jusqu'à la feuille et 
+en notant le parcours (0 ou 1) à chaque noeud.
+
+Un arbre d'Huffman associé au texte "PROGRAMMATION EN LANGAGE PYTHON" est donné sur la figure suivante :
+
 .. figure:: HuffmanTree.png
+
+La lettre "A" avec 4 occurrences est codée par le triplet 011 alors que la lettre Y plus rare 
+est codée par le mot de 5 bits 01001.
 
 Dictionnaires
 .............
