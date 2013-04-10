@@ -166,7 +166,8 @@ que l'on peut re-écrire
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
 
-.. figure:: auto_examples/images/edp1_1D_heat_loops_1.png :scale: 80
+.. figure:: auto_examples/images/edp1_1D_heat_loops_1.png 
+    :scale: 80
     :target: auto_examples/edp1_1D_heat_loops.html
 
 Pour générer la figure ci-dessous, on a utilisé un certain nombre de
@@ -225,7 +226,8 @@ associée à notre schéma discret
 On peut essayer de vérifier numériquement que le schéma utilisé est bien
 d'ordre deux en espace
 
-.. figure:: auto_examples/images/edp2_1D_heat_loops_conv_1.png :scale: 80
+.. figure:: auto_examples/images/edp2_1D_heat_loops_conv_1.png 
+    :scale: 80
     :target: auto_examples/edp2_1D_heat_loops_conv.html
 
 Pour générer la figure ci-dessous, on a utilisé un certain nombre de
