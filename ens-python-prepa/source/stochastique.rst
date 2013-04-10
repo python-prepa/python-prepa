@@ -3,114 +3,67 @@ Systèmes statistiques : Nombres aléatoires - Monte Carlo
 
 .. topic:: Contenu du chapitre
 
-    * Calcul stochastique, simulation Monte Carlo
+    * Nombres aléatoires
+
+    * Gaussiennes : du théorème central limite à la distribution de Maxwell
 
     * Chaînes de Markov
 
-    * Programmation en Python simple vs Utilisation de numpy
+    * Transition de phases liquide - gaz (disques durs)
 
-Nombres aléatoires
-------------------
+Le module ``random`` de Python
+------------------------------
 
-Le module **random** de Python permet des applications simples du 
+Le module ``random`` de Python permet des applications simples du 
 calcul stochastique, et une introduction **sans peine** aux calculs de Monte Carlo.
+Il donne accès aux nombres aléatoires réels et entiers, distribués selon des lois 
+différents (uniforme, gauss, etc). 
 
 .. image:: W_random_hist.png
       :scale: 50
       :align: center     
 
-::
-
-    import matplotlib.pyplot as plt
-    import random
-    L = []
-    random.seed('noyau')
-    for i in range(1000):
-        a = random.random()
-        L.append(a)
-    plt.hist(L,10,normed='True')
-    plt.show()
-
-.. only:: html
-
-    [:ref:`Python source code <W_random_hist.py>`]
-
 Ici, la fonction random du module random génère des nombres aléatoires uniformement 
 distribués dans l'intervalle [0,1], comme le montre l'histogramme.
 
-    [:ref:`Python source code <example_plot_simple_pendulum.py>`]
+NB: le module ``random`` permet aussi d'échantilonner des 
 
-Comme première application, nous allons vérifier le théorème central limite.  ::
 
-    import matplotlib.pyplot as plt
-    import random
-    for k in range(1,52,10): 
-        L = []
-        for i in range(10000):
-            a = sum(random.random() for l in range(k))
-            L.append(a)
-        plt.hist(L,25,normed='True')
-    plt.savefig('W_sum_of_random.png')
-    plt.show()
+
+.. literalinclude:: W_random_hist.py
+
+
+.. figure:: auto_examples/images/plot_random_hist.py
+    :scale: 80
+    :target: auto_examples/plot_random_hist.html
+
+Comme première application, nous allons vérifier le théorème central limite.
+
+.. literalinclude:: W_sum_of_random.py
+
+NB: voir ici pour une version ultra-compacte du programme calculant et traçant
+la somme des random:
+
+.. literalinclude:: W_sum_of_random_short.py
 
 Dans des applications, on remplacera naturellement la somme des nombres aléatoires 
-par la fonction 'gauss'::
+par la fonction ``gauss``
 
-    import matplotlib.pyplot as plt
-    import random
-    import math
-    L = []
-    random.seed('werner')
-    for i in range(10000):
-    a = random.gauss(0.,1.)
-    L.append(a)
-    plt.hist(L,100,normed='True')
-    x = [i/100. for i in range(-200,200)]
-    y = [math.exp(-s**2/2)/(math.sqrt(2*math.pi)) for s in x]
-    plt.plot(x,y)
-    plt.show()
+.. literalinclude:: W_gauss_hist.py
 
 Distribution de Maxwell
 -----------------------
 
 Ici, une petite application qui est la base de la distribution de Maxwell (exemple 
-en deux dimensions)::
+en deux dimensions)
 
-    import matplotlib.pyplot as plt
-    import random
-    import math
-    x = []
-    y = []
-    for i in range(100):
-        a = random.gauss(0.,1.)
-        b = random.gauss(0.,1.)
-        length = math.sqrt(a**2 + b**2)
-        x.append(a/length)
-        y.append(b/length)
-    plt.plot(x,y,'.')
-    plt.show()
+.. literalinclude:: W_two_gaussians_rescaled.py
 
 Le point est qu'un vecteur de gaussiennes, de longueur $N$,  
 est uniformément distribué, en angle, sur la sphere de $N$ dimensions. 
-Regardons ceci dans un espace à trois dimensions, avec une illustration adaptée::
+Regardons ceci dans un espace à trois dimensions, avec une illustration adaptée.
 
-   from mpl_toolkits.mplot3d import Axes3D
-   import matplotlib.pyplot as plt
-   import random
-   import math
-   fig = plt.figure()
-   ax = fig.gca(projection='3d')
-   ax.set_aspect('equal')
-
-   x,y,z = [],[],[]
-   for i in range(1000):
-       a,b,c = random.gauss(0.0, 1.0), random.gauss(0.0, 1.0), random.gauss(0.0, 1.0)
-       length = math.sqrt(a ** 2 + b ** 2 + c ** 2)
-       x.append(a / length)
-       y.append(b / length)
-       z.append(c / length)
-   plt.plot(x, y, z, '.')
-   plt.show()
+.. literalinclude:: W_three_gaussians_projected.py
 
 On voit que les vecteurs gaussiens rescalés sont uniformément distribués sur 
 l'hypersphère. Pour déduire la distribution de Maxwell, il faut inverser cet 
@@ -120,64 +73,38 @@ d'éléments gaussiens.
 Monte Carlo - échantillonnage direct
 ------------------------------------
 
+.. literalinclude:: W_direct_pi_color.py
 
-
-
-
-Calcul de volumes
------------------
-
-Voici l'application historique de l'échantillonnage direct:: 
-
-    import matplotlib.pyplot as plt
-    import random
-    import math
-    x_inner = []
-    y_inner = []
-    x_outer = []
-    y_outer = []
-    L = []
-    for i in range(10):
-    a = random.uniform(-1.,1.)
-    b = random.uniform(-1.,1.)
-    L.append([a,b])
-    if (a)**2 + (b)**2 < 1:
-    x_inner.append(a)
-    y_inner.append(b)
-    else:
-    x_outer.append(a)
-    y_outer.append(b)
-    plt.plot(x_inner,y_inner,'rs')
-    plt.plot(x_outer,y_outer,'bs')
-    print len(x_inner)/float(len(x_inner) + len(x_outer)), math.pi/4
-    plt.show()
-    print L
-    print max(L)
+Il est évident que le rapport de l'aire bleue par rapport à l'aire rouge est pi/4,
+mais modifions le programme un tout petit peu... 
 
 Nous pouvons programmer la même chose, à quelques détails près, en NumPy::
 
     import matplotlib.pyplot as plt
-    from numpy import *
+    import numpy as np
     from random import uniform
     import math
-    X = array(uniform(-1.,1.),uniform(-1.,1.)] for k in range(10000)])
+    X = np.array(uniform(-1.,1.),uniform(-1.,1.)] for k in range(10000)])
     plt.plot(X[:,0],X[:,1],'rs')
     plt.show()
 
-Chaînes de Markov
------------------
+... et essayons un calcul un peu plus intéressant: 
 
-Algorithme de Metropolis
-------------------------
+.. literalinclude:: W_direct_volume_color.py
 
+Chaînes de Markov, Algorithme de Metropolis
+-------------------------------------------
 
-.. image:: pendulum.png
-      :scale: 50
-      :align: center     
+Programmons une version incrémentale du programme de calcul, en ajoutant
+quelques modifications, comme l'utilisation d'une fonction markov_pi.
+
+.. literalinclude:: W_markov_pi.py
 
 
 Algorithme de Metropolis pour sphères dures
 -------------------------------------------
+
+.. literalinclude:: W_markov_disks_box.py
 
 
 Transition de phases liquide - solide
@@ -186,3 +113,4 @@ Transition de phases liquide - solide
 
 Conclusion
 ----------
+
