@@ -170,9 +170,6 @@ que l'on peut re-écrire
     :scale: 80
     :target: auto_examples/edp1_1D_heat_loops.html
 
-Pour générer la figure ci-dessous, on a utilisé un certain nombre de
-commandes du module ``matplotlib``.
-
 .. only:: html
 
     [:ref:`Python source code <example_edp1_1D_heat_loops.py>`]
@@ -230,9 +227,32 @@ d'ordre deux en espace
     :scale: 80
     :target: auto_examples/edp2_1D_heat_loops_conv.html
 
-Pour générer la figure ci-dessous, on a utilisé un certain nombre de
-commandes du module ``matplotlib``.
+.. only:: html
+
+    [:ref:`Python source code <example_edp2_1D_heat_loops_conv.py>`]
+
+On constate que le schéma semble bien être d'ordre 2 en espace, mais que le
+calcul devient insupportablement long.
+
+C'est qu'en fait ce code est mal écrit car il ne tire pas profit des
+possibilités de calcul vectoriel offertes par NumPy.
+
+Pour cela il faut remplacer les lignes ::
+
+       for j in range (1, NX-1):
+          RHS[j]=dt*K*(T[j-1]-2*T[j]+T[j+1])/(dx**2)
+ 
+       for j in range (1, NX-1):
+          T[j]+=RHS[j]
+
+par des instructions vectorielles (les boucles sont alors gérées par du
+code compilé et pas du code interpreté) ::
+
+       RHS[1:-1]=dt*K*(T[:-2]-2*T[1:-1]+T[2:])/(dx**2)
+       T+=RHS
+
+On constate que l'execution est alors quasi-instantanée.
 
 .. only:: html
 
-    [:ref:`Python source code <edp2_1D_heat_loops_conv.py>`]
+    [:ref:`Python source code <example_edp3_1D_heat_vect_conv.py>`]
