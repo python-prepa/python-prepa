@@ -165,6 +165,18 @@ que l'on peut re-écrire
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
+
+.. figure:: auto_examples/images/edp1_1D_heat_loops_1.png :scale: 80
+    :target: auto_examples/edp1_1D_heat_loops.html
+
+Pour générer la figure ci-dessous, on a utilisé un certain nombre de
+commandes du module ``matplotlib``.
+
+.. only:: html
+
+    [:ref:`Python source code <example_edp1_1D_heat_loops.py>`]
+
+
 En introduisant un développement de Taylor, on peut estimer la qualité de
 l'approximation numérique (évolution de l'erreur en fonction de
 :math:`\Delta x` et :math:`\Delta t`).
@@ -204,9 +216,21 @@ Un calcul similaire en temps permet d'estimer l'erreur "de troncature"
 associée à notre schéma discret
 
 .. math::
-   R_h(T)=
+   R(T)=
    \frac{\Delta t}{2}\left.\frac{\partial^2 T}{\partial t^2}\right|_j^n
    - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta 
    t^2)+\mathcal{O}(\Delta x^4) \, .
 
 
+On peut essayer de vérifier numériquement que le schéma utilisé est bien
+d'ordre deux en espace
+
+.. figure:: auto_examples/images/edp2_1D_heat_loops_conv_1.png :scale: 80
+    :target: auto_examples/edp2_1D_heat_loops_conv.html
+
+Pour générer la figure ci-dessous, on a utilisé un certain nombre de
+commandes du module ``matplotlib``.
+
+.. only:: html
+
+    [:ref:`Python source code <edp2_1D_heat_loops_conv.py>`]
