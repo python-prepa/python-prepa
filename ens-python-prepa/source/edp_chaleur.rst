@@ -123,6 +123,13 @@ utiliser **.copy()** ::
     array([[  0.,   0.],
            [  0.,  10.]])
 
+*Remarque :* la même chose s'applique aux coupes : ::
+
+    >>> a = np.arange(10)
+    >>> b = a[:5]        
+    >>> a[0] = 10
+    >>> b
+    array([10,  1,  2,  3,  4])
 
 
 Equation de la chaleur 1D
@@ -165,6 +172,16 @@ que l'on peut re-écrire
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
+
+.. figure:: auto_examples/images/plot_edp1_1D_heat_loops_1.png 
+    :scale: 80
+    :target: auto_examples/edp1_1D_heat_loops.html
+
+.. only:: html
+
+    [:ref:`Python source code <example_edp1_1D_heat_loops.py>`]
+
+
 En introduisant un développement de Taylor, on peut estimer la qualité de
 l'approximation numérique (évolution de l'erreur en fonction de
 :math:`\Delta x` et :math:`\Delta t`).
@@ -204,9 +221,47 @@ Un calcul similaire en temps permet d'estimer l'erreur "de troncature"
 associée à notre schéma discret
 
 .. math::
-   R_h(T)=
+   R(T)=
    \frac{\Delta t}{2}\left.\frac{\partial^2 T}{\partial t^2}\right|_j^n
    - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta 
    t^2)+\mathcal{O}(\Delta x^4) \, .
 
 
+On peut essayer de vérifier numériquement que le schéma utilisé est bien
+d'ordre deux en espace
+
+.. figure:: auto_examples/images/plot_edp2_1D_heat_loops_conv_1.png 
+    :scale: 80
+    :target: auto_examples/edp2_1D_heat_loops_conv.html
+
+.. only:: html
+
+    [:ref:`Python source code <example_edp2_1D_heat_loops_conv.py>`]
+
+On constate que le schéma semble bien être d'ordre 2 en espace, mais que le
+calcul devient insupportablement long.
+
+C'est qu'en fait ce code est mal écrit car il ne tire pas profit des
+possibilités de calcul vectoriel offertes par NumPy.
+
+Pour cela il faut remplacer les lignes ::
+
+       for j in range (1, NX-1):
+          RHS[j]=dt*K*(T[j-1]-2*T[j]+T[j+1])/(dx**2)
+ 
+       for j in range (1, NX-1):
+          T[j]+=RHS[j]
+
+par des instructions vectorielles (les "boucles" sont alors gérées par du
+code compilé et non par du code interpreté) ::
+
+       RHS[1:-1]=dt*K*(T[:-2]-2*T[1:-1]+T[2:])/(dx**2)
+       T+=RHS
+
+On constate que l'execution est alors quasi-instantanée.
+
+.. only:: html
+
+    [:ref:`Python source code <example_edp3_1D_heat_vect_conv.py>`]
+
+Que se passe t'il si on pousse l'analyse vers de plus petits pas d'espace ?
