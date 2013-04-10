@@ -245,8 +245,8 @@ Pour cela il faut remplacer les lignes ::
        for j in range (1, NX-1):
           T[j]+=RHS[j]
 
-par des instructions vectorielles (les boucles sont alors gérées par du
-code compilé et pas du code interpreté) ::
+par des instructions vectorielles (les "boucles" sont alors gérées par du
+code compilé et non par du code interpreté) ::
 
        RHS[1:-1]=dt*K*(T[:-2]-2*T[1:-1]+T[2:])/(dx**2)
        T+=RHS
@@ -256,3 +256,5 @@ On constate que l'execution est alors quasi-instantanée.
 .. only:: html
 
     [:ref:`Python source code <example_edp3_1D_heat_vect_conv.py>`]
+
+Que se passe t'il si on pousse l'analyse vers de plus petits pas d'espace ?
