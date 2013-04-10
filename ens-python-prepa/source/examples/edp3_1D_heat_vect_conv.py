@@ -1,3 +1,4 @@
+"""1D Heat Vectorized Convergence study"""
 import numpy as np
 import matplotlib.pyplot as plt
 

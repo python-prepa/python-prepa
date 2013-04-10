@@ -1,4 +1,4 @@
-# EXAMPLE OF MATRIX FORMULATION OF FINITE DIFFERENCE SCHEMES
+"""Example of matrix formulation of 2D finite difference schemes"""
 
 # Import Pylab
 import numpy as np

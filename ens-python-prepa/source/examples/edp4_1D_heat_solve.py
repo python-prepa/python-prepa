@@ -1,4 +1,4 @@
-# EXAMPLE OF MATRIX FORMULATION OF FINITE DIFFERENCE SCHEMES
+"""Example of matrix formulation of 1D finite difference schemes"""
 
 # Import Pylab
 import numpy as np
@@ -26,8 +26,6 @@ LAP=sp.dia_matrix( (data,offsets), shape=(N,N))
 #print LAP.todense()
 
 
-#######################
-#  1D Problem
 
 # Number of non-null elements in the 1D Laplace operator
 #   print 'Number of non-null elements',LAP.nnz
