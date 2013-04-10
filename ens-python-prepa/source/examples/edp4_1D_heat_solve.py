@@ -12,15 +12,14 @@ from scipy.sparse.linalg.dsolve import spsolve
 from time import time
 
 
-
-N=100               # Number of points in the domain (in each direction)
-dx = 1./(N-1);  # Space spacing
+N=100              # Number of points in the domain (in each direction)
+dx = 1./(N-1);     # Space spacing
 x = np.linspace(0.0,1.0,N)
 
 # Definition of the 1D Lalace operator
-data=[np.ones(N),-2*np.ones(N),np.ones(N)]     # Diagonal terms
-offsets = np.array([-1,0,1])                   # Their positions
-LAP=sp.dia_matrix( (data,offsets), shape=(N,N))
+data = [np.ones(N),-2*np.ones(N),np.ones(N)]     # Diagonal terms
+offsets = np.array([-1,0,1])                     # Their positions
+LAP = sp.dia_matrix( (data,offsets), shape=(N,N))
 
 # To plot the matrix
 #print LAP.todense()
@@ -35,14 +34,14 @@ LAP=sp.dia_matrix( (data,offsets), shape=(N,N))
 #plt.spy(LAP)
 #plt.draw()
 
-f=-np.ones(N)*dx**2  # Right hand side
+f = -np.ones(N)*dx**2  # Right hand side
 
 # Solving the linear system
-t=time(); T=spsolve(LAP,f); print 'temps sparse=',time()-t
+t = time(); T = spsolve(LAP,f); print 'temps sparse=',time()-t
 
 # In order to compare with the full resolution
-#LAPfull=LAP.todense()
-#t=time(); T2=np.linalg.solve(LAPfull,f); print 'temps full=',time()-t
+#LAPfull = LAP.todense()
+#t = time(); T2 = np.linalg.solve(LAPfull,f); print 'temps full = ',time()-t
 
 
 # Plotting
