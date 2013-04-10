@@ -26,8 +26,8 @@ NX = 10   # Initial number of grid points
 # Main loop
 for k in range(0,NK):
 
-   NX = np.int(1.5*NX)     #number of grid points
-   dx = L/(NX-1)           #grid step (space)
+   NX = np.int(1.5*NX)     #Number of grid points
+   dx = L/(NX-1)           #Grid step (space)
    x = np.linspace(0.0,1.0,NX)
    T = np.sin(2*np.pi*x)
    RHS = np.zeros((NX))
@@ -48,6 +48,6 @@ plt.ylabel(u'$Erreur$', fontsize=26)
 plt.title(u'Equation de la chaleur 1D')
 plt.loglog(DDX**-1,ERR,'o--')
 plt.loglog(DDX**-1,0.1*DDX**2,'--k',hold=True)
-plt.legend()
+plt.tight_layout()
 plt.show()
 

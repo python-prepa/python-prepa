@@ -123,6 +123,13 @@ utiliser **.copy()** ::
     array([[  0.,   0.],
            [  0.,  10.]])
 
+*Remarque :* la même chose s'applique aux coupes : ::
+
+    >>> a = np.arange(10)
+    >>> b = a[:5]        
+    >>> a[0] = 10
+    >>> b
+    array([10,  1,  2,  3,  4])
 
 
 Equation de la chaleur 1D
