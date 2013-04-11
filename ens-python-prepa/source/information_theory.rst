@@ -23,15 +23,16 @@ que des définitions de fonctions).
 
 Pour importer un module, Python a besoin de connaître le chemin qui
 permet d'accéder au fichier correspondant. Ce chemin doit apparaître
-dans la liste des chemins possibles stockés dans la variable path du
+dans la liste des chemins possibles stockés dans la variable ``path`` du
 module ``sys``
 
 **Première méthode d'importation** 
 
 ::
 
-  import random 
-  random.randint(0,10) 9
+  >>> import random 
+  >>> random.randint(0,10) 
+  9
 
 * L'instruction import permet d'importer toutes les fonctions du
   module random
@@ -261,7 +262,7 @@ Voici une liste des méthodes des objets de type liste les plus utiles :
     Inverse l’ordre des éléments de la liste, en place.
 
 
-.. note:: Ces méthodes permettent d'utiliser les listes comme des piles (i.e. une structure de donnée “dernier entré, premier sorti” ou LIFO) L'ajoût d'un élément sur la pile se fait avec la méthode ``append()`` et la méthode ``pop()`` permet de récupérer l’objet au sommet de la pile. Cependant, les listes ne sont pas adaptées pour implanter des files (i.e. une structure de donnée "dernier entré, dernier sorti" ou FIFO) pour lesquelles il vaut mieux utiliser la classe ``collections.deque``.
+.. note:: Ces méthodes permettent d'utiliser les listes comme des piles (i.e. une structure de donnée “dernier entré, premier sorti” ou LIFO) L'ajout d'un élément sur la pile se fait avec la méthode ``append()`` et la méthode ``pop()`` permet de récupérer l’objet au sommet de la pile. Cependant, les listes ne sont pas adaptées pour implanter des files (i.e. une structure de donnée "dernier entré, dernier sorti" ou FIFO) pour lesquelles il vaut mieux utiliser la classe ``collections.deque``.
 
 
 
@@ -375,13 +376,13 @@ Implantation du codage de Huffman en Python
     ::
 
 
-        def table_frequences (texte):
+        def table_frequences(texte):
     	    table = {}
 	    for caractere in texte:
-	            if caractere in table:
-	                table[caractere] = table[caractere] + 1
-	            else:
-	                table[caractere] = 1
+	        if caractere in table:
+	            table[caractere] = table[caractere] + 1
+	        else:
+	            table[caractere] = 1
 	    return table
 
 
@@ -418,21 +419,21 @@ Une représentation possible pour le noeud ainsi construit est d'utiliser un dic
 
 .. topic:: **Solution**: 
 
-    ::
+::
 
-     def arbre_huffman (occurrences): 
-      # Construction d'un tas avec les lettres sous forme de feuilles
-      tas = [(occ, lettre) for (lettre, occ) in occurrences.items()] 
-      heapify(tas)
+    def arbre_huffman(occurrences): 
+        # Construction d'un tas avec les lettres sous forme de feuilles
+        tas = [(occ, lettre) for (lettre, occ) in occurrences.items()] 
+        heapify(tas)
 
-      # Création de l'arbre
-      while len(tas) >= 2: 
-      	  occ1, noeud1 = heappop(tas) # noeud de plus petit poids occ1
- 	  occ2, noeud2 = heappop(tas) # noeud de deuxième plus petit poids occ2
- 	  heappush(tas, (occ1 + occ2, {0: noeud1, 1: noeud2}))
-	  # ajoute au tas le noeud de poids occ1+occ2 et avec les fils noeud1 et noeud2
+        # Création de l'arbre
+        while len(tas) >= 2: 
+      	    occ1, noeud1 = heappop(tas) # noeud de plus petit poids occ1
+ 	    occ2, noeud2 = heappop(tas) # noeud de deuxième plus petit poids occ2
+ 	    heappush(tas, (occ1 + occ2, {0: noeud1, 1: noeud2}))
+	    # ajoute au tas le noeud de poids occ1+occ2 et avec les fils noeud1 et noeud2
 
-      return heappop(tas)[1]
+        return heappop(tas)[1]
 
 **Code de Huffman**
 
@@ -458,20 +459,20 @@ Une représentation possible pour le noeud ainsi construit est d'utiliser un dic
 
 .. topic:: **Solution**: 
 
-    ::
+::
 
 
-     def code_huffman_parcours(arbre,prefixe,code):
-      for noeud in arbre:
-         if len(arbre[noeud]) == 1:
-             code[prefixe+noeud] = arbre[noeud]
-         else:
-             code_huffman_parcours(arbre[noeud],prefixe+noeud,code)
+    def code_huffman_parcours(arbre,prefixe,code):
+        for noeud in arbre:
+            if len(arbre[noeud]) == 1:
+                code[prefixe+noeud] = arbre[noeud]
+            else:
+                code_huffman_parcours(arbre[noeud],prefixe+noeud,code)
 
-     def code_huffman(arbre):
-      code = {}
-      code_huffman_parcours(arbre,'',code)
-      return code
+    def code_huffman(arbre):
+        code = {}
+        code_huffman_parcours(arbre,'',code)
+        return code
 
 
 
@@ -501,11 +502,11 @@ Une représentation possible pour le noeud ainsi construit est d'utiliser un dic
     ::
 
 	def encodage(texte,code):
-	    code_inv = dict((code[bits],bits) for bits in code)
+	    code_inv = dict((code[bits], bits) for bits in code)
 	    # construit le dictionnaire inverse
     	    texte_binaire = ''
     	    for c in texte:
-               texte_binaire = texte_binaire+code_inv[c]
+                texte_binaire = texte_binaire + code_inv[c]
     	    return texte_binaire
 
 
@@ -535,8 +536,8 @@ Une représentation possible pour le noeud ainsi construit est d'utiliser un dic
 	    texte = ''
 	    tampon = ''
 	    for b in texte_binaire:
-	       tampon = tampon+b
-               if tampon in code:
-	         texte = texte+code[tampon]
-                 tampon = ''
+	        tampon = tampon+b
+                if tampon in code:
+	            texte = texte+code[tampon]
+                    tampon = ''
     	    return texte
