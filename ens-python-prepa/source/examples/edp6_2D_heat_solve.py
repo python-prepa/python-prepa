@@ -35,7 +35,7 @@ NN = N*N
 I1D = sp.eye(N,N)  
 
 # 2D Laplace operator
-LAP2 = sp.kron(LAP,I1D)+sp.kron(I1D,LAP);
+LAP2 = sp.kron(LAP,I1D)+sp.kron(I1D,LAP)
 
 #plt.figure()
 #spy(LAP2)
