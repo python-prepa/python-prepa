@@ -26,7 +26,7 @@ différents (uniforme, gauss, etc).
 Ici, la fonction random du module random génère des nombres aléatoires uniformement 
 distribués dans l'intervalle [0,1], comme le montre l'histogramme.
 
-NB: le module ``random`` permet aussi d'échantilonner des 
+NB: le module ``random`` http://docs.python.org/2/library/random.html
 
 
 
