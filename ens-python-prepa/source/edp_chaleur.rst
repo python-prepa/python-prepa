@@ -130,7 +130,7 @@ utiliser **.copy()** ::
     array([10,  1,  2,  3,  4])
 
 
-Equation de la chaleur 1D
+Équation de la chaleur 1D
 --------------
 
 On va s'intéresser dans un premier temps à l'équation de la chaleur
@@ -293,7 +293,9 @@ Pour cela il faut donc résoudre un système linéaire
 
    \kappa (T_{j-1}^{n}-2\, T_{j}^{n}+T_{j+1}^{n}) = -S \, \Delta x^2 \, .
 
-qui peut s'écrire (avec nos C.L.) sous forme matricielle
+qui peut s'écrire, avec nos conditions aux limites (:math:`T=0` en
+:math:`x=0` et :math:`x=1`) sous forme matricielle (avec la convention de
+Python pour les indices, i.e. de 0 à N-1) :
 
 .. math::
 
@@ -308,11 +310,11 @@ qui peut s'écrire (avec nos C.L.) sous forme matricielle
     \right)
     \left(
     \begin{array}{c}
+    T_1\\
     T_2\\
-    T_3\\
     \vdots\\
-    T_{N-2}\\
-    T_{N-1}
+    T_{N-3}\\
+    T_{N-2}
     \end{array}
     \right)
     =
@@ -352,7 +354,7 @@ d'évolution en temps en utilisant le schéma implicite
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
 
-Equation de la chaleur 2D
+Équation de la chaleur 2D
 --------------
 
 On peut traiter le problème à deux dimensions
