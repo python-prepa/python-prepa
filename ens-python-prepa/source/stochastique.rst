@@ -33,7 +33,7 @@ NB: le module ``random`` http://docs.python.org/2/library/random.html
 .. literalinclude:: W_random_hist.py
 
 
-.. figure:: auto_examples/images/plot_random_hist.py
+.. figure:: auto_examples/images/plot_random_hist_1.png
     :scale: 80
     :target: auto_examples/plot_random_hist.html
 
@@ -78,14 +78,14 @@ Monte Carlo - échantillonnage direct
 Il est évident que le rapport de l'aire bleue par rapport à l'aire rouge est pi/4,
 mais modifions le programme un tout petit peu... 
 
-Nous pouvons programmer la même chose, à quelques détails près, en NumPy::
+Nous pouvons programmer la même chose, à quelques détails près, en NumPy ::
 
     import matplotlib.pyplot as plt
     import numpy as np
     from random import uniform
     import math
-    X = np.array(uniform(-1.,1.),uniform(-1.,1.)] for k in range(10000)])
-    plt.plot(X[:,0],X[:,1],'rs')
+    X = np.array([[uniform(-1.,1.),uniform(-1.,1.)] for k in range(10000)])
+    plt.plot(X[:,0], X[:,1], 'rs')
     plt.show()
 
 ... et essayons un calcul un peu plus intéressant: 

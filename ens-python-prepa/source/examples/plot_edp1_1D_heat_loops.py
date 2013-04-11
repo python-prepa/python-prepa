@@ -37,7 +37,7 @@ for n in range(0,NT):
 #Plot every 100 time steps
    if (n%100 == 0):
       plotlabel = "t = %1.2f" %(n * dt)
-      plt.plot(x,T, label=plotlabel)
+      plt.plot(x,T, label=plotlabel,color = plt.get_cmap('copper')(float(n)/NT))
       
 
 plt.xlabel(u'$x$', fontsize=26)

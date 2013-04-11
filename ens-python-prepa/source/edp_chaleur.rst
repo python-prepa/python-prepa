@@ -7,8 +7,6 @@
 
     * Équation de la chaleur en 1D
 
-**TEXTE EN COURS...**
-
 On trouve dans le module **NumPy** les outils de manipulation des tableaux
 pour le calcul numérique 
 
@@ -132,7 +130,7 @@ utiliser **.copy()** ::
     array([10,  1,  2,  3,  4])
 
 
-Equation de la chaleur 1D
+Équation de la chaleur 1D
 --------------
 
 On va s'intéresser dans un premier temps à l'équation de la chaleur
@@ -167,13 +165,13 @@ finies s'écrit)
 que l'on peut re-écrire
 
 .. math::
-   T_{j}^{n+1}=T_{j}^{n}+ c \,
-   (T_{j-1}^n-2\, T_{j}^{n}+T_{j+1}^{n}) \, , 
+   T_{j}^{n+1} = T_{j}^{n} + c \, (T_{j-1}^{n}-2\, T_{j}^{n}+T_{j+1}^{n}) \, , 
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
 
 .. figure:: auto_examples/images/plot_edp1_1D_heat_loops_1.png 
+    :align: center
     :scale: 80
     :target: auto_examples/edp1_1D_heat_loops.html
 
@@ -231,6 +229,7 @@ On peut essayer de vérifier numériquement que le schéma utilisé est bien
 d'ordre deux en espace
 
 .. figure:: auto_examples/images/plot_edp2_1D_heat_loops_conv_1.png 
+    :align: center
     :scale: 80
     :target: auto_examples/edp2_1D_heat_loops_conv.html
 
@@ -264,4 +263,164 @@ On constate que l'execution est alors quasi-instantanée.
 
     [:ref:`Python source code <example_edp3_1D_heat_vect_conv.py>`]
 
-Que se passe t'il si on pousse l'analyse vers de plus petits pas d'espace ?
+Que se passe t'il si on pousse l'analyse vers de plus petits pas d'espace ???
+
+On est de fait limité par un critère de stabilité.
+
+Pour une résolution spatiale fixée, celui-ci nous impose donc un nombre
+minimum d'iterations pour atteindre un temps donné.
+
+On peut cependant chercher à obtenir directement la solution du problème
+stationnaire
+
+Considérons le système modifié avec terme source (pour éviter une solution 
+stationnaire triviale)
+
+.. math::
+
+    \frac{\partial T}{\partial t} = \kappa \, \frac{\partial^2 T}{\partial x^2} + S \, ,
+
+On a alors la solution stationnaire en résolvant
+
+.. math::
+
+     \kappa \, \frac{\partial^2 T}{\partial x^2} = - S \, ,
+
+
+Pour cela il faut donc résoudre un système linéaire
+
+.. math::
+
+   \kappa (T_{j-1}^{n}-2\, T_{j}^{n}+T_{j+1}^{n}) = -S \, \Delta x^2 \, .
+
+qui peut s'écrire, avec nos conditions aux limites (:math:`T=0` en
+:math:`x=0` et :math:`x=1`) sous forme matricielle (avec la convention de
+Python pour les indices, i.e. de 0 à N-1) :
+
+.. math::
+
+   \left(
+   \begin{array}{ccccc}
+   -2 &  1 & 0 & \cdots & 0 \\
+    1 & -2 & 1 &        &\vdots\\
+    0 &\ddots&\ddots&\ddots& 0\\
+    \vdots & & 1 & -2 & 1\\
+    0 & \cdots & 0 & 1 & -2
+    \end{array}
+    \right)
+    \left(
+    \begin{array}{c}
+    T_1\\
+    T_2\\
+    \vdots\\
+    T_{N-3}\\
+    T_{N-2}
+    \end{array}
+    \right)
+    =
+    -S \, \Delta x^2 \, 
+    \left(
+    \begin{array}{c}
+    1\\
+    1\\
+    \vdots\\
+    1\\
+    1
+    \end{array}
+    \right)
+    
+Pour résoudre ce problème en Python, on peut définir une matrice creuse (tridiagonale) ::
+
+     data = [np.ones(N),-2*np.ones(N),np.ones(N)]     # Diagonal terms
+     offsets = np.array([-1,0,1])                     # Their positions
+     LAP = sp.dia_matrix( (data,offsets), shape=(N,N))
+
+et utiliser le
+solver inclus dans SciPy :  ::
+     f = -np.ones(N)*dx**2
+     T = spsolve(LAP,f)
+
+
+.. only:: html
+
+    [:ref:`Python source code <example_edp4_1D_heat_solve.py>`]
+
+*Remarque :* la même approche pourrait être utilisée pour l'équation
+d'évolution en temps en utilisant le schéma implicite
+
+.. math::
+   T_{j}^{n+1} = T_{j}^{n} + c \, (T_{j-1}^{n+1}-2\, T_{j}^{n+1}+T_{j+1}^{n+1}) \, , 
+   \qquad \text{avec}\quad 
+   c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
+
+
+Équation de la chaleur 2D
+--------------
+
+On peut traiter le problème à deux dimensions
+
+.. math::
+
+    \frac{\partial T}{\partial t} = \kappa \, \Delta T + S\, ,
+
+de la même manière, avec un schéma explicite en temps
+
+.. math::
+   T_{i,j}^{n+1} = T_{i,j}^{n} + {\Delta t}\,  \kappa \, \left[
+   (T_{i-1,j}^{n} - 2\, T_{i,j}^{n} + T_{i+1,j}^{n})/{\Delta x^2}
+   +
+   (T_{i,j-1}^{n} - 2\, T_{i,j}^{n} + T_{i,j+1}^{n})/{\Delta y^2}
+   \right] \, .
+
+Ce qui devient en Python::
+
+   for n in range(0,NT):
+      RHS[1:-1,1:-1] = dt*K*( (T[:-2,1:-1]-2*T[1:-1,1:-1]+T[2:,1:-1])/(dx**2)  \
+                            + (T[1:-1,:-2]-2*T[1:-1,1:-1]+T[1:-1,2:])/(dy**2) )
+      T[1:-1,1:-1] += (RHS[1:-1,1:-1]+dt*S)
+
+
+
+.. figure:: auto_examples/images/plot_edp5_2D_heat_vect_1.png 
+    :align: center
+    :scale: 80
+    :target: auto_examples/edp5_2D_heat_vect.html
+
+.. only:: html
+
+    [:ref:`Python source code <example_edp5_2D_heat_vect.py>`]
+
+Pour résoudre directement la solution stationnaire en 2D, en revanche le
+système linéaire est plus difficile à formuler.
+
+
+
+La température dépend à présent de deux indices :math:`i` et :math:`j`.
+
+Pour formuler le problème sous la forme
+
+.. math::
+
+   \left[ A\right]
+    \left(T\right)
+    =
+    -\left(S\right)
+    
+il faut numéroter les :math:`T_{i,j}` sous la forme d'une grand vecteur et
+utiliser le produit de Kronecker ::
+
+   LAP2 = sp.kron(LAP,I1D)+sp.kron(I1D,LAP)
+
+il ne reste alors qu'à résoudre le système linéaire ::
+
+   T = spsolve(LAP2,f2)
+
+et à transformer le résultat (qui est un vecteur de taille NxN) sous la forme d'une
+matrice de taille (N,N) ::
+
+   T.reshape(N,N)
+
+.. only:: html
+
+Le code complet est disponible ci-dessous :
+    [:ref:`Python source code <example_edp6_2D_heat_solve.py>`]
