@@ -23,7 +23,7 @@ et ses modules scientifiques.
 
 En particulier, Anaconda fournit un environnement de travail adapté à
 l'enseignement et au calcul scientifique, `spyder
-<https://code.google.com/p/spyderlib>`_, que nous utiliseront pour la
+<https://code.google.com/p/spyderlib>`_, que nous utiliserons pour la
 formation.
 
 Installation de l'environnement Python scientifique
@@ -72,7 +72,8 @@ Pour le calcul scientifique il faut utiliser Python 2.
 
     `Tracé de courbes et affichage scientifique <http://matplotlib.org/>`_
 
-Tout est libre, développé par des individus sur leur temps libre.
+Tout est libre, développé en grande partie par des individus sur leur
+temps libre.
 
 Un environnement de travail: Spyder
 ....................................
@@ -165,8 +166,8 @@ Objets simples
    >>> a = 1
    >>> b = 'Bonjour'
 
-`a` et `b` sont des objets de différent type : `a` est un entier (`int`), et `b`
-est une chaîne de caractères (`string`).
+`a` et `b` sont des objets de différent types : `a` est un entier
+(`int`), et `b` est une chaîne de caractères (`string`).
 
 En Python, les types ne sont pas déclarés explicitement.
 
@@ -176,7 +177,7 @@ En Python, les types ne sont pas déclarés explicitement.
 **Chaînes de caractère**   **Chaînes** `'Bonjour'` — **Chaînes avec accents** `u'Gaël'`
 ========================== =================================================================================
 
-A différents types d'objets, correspond différentes opérations possibles:
+A différents types d'objets, correspondent différentes opérations possibles:
 
 ::
 
@@ -231,7 +232,7 @@ Collections d'objets
     >>> l
     [-1, 1, 2, 3, 4]
 
-  .. note:: Les listes sont des objets "mutables".
+  .. note:: Les listes sont donc des objets "mutables".
 
   .. note:: `l.append` est une "méthode" de `l`.
 
@@ -292,7 +293,8 @@ Logique du programme: opérations conditionnelles et boucles
   .. note:: ``==`` est différent de ``=``. Le premier est un "test" et le
      deuxième une "affectation de variable".
 
-  .. note:: L'indentation délimite les blocs logiques
+  .. note:: L'indentation délimite les blocs logiques, elle est
+     obligatoire.
      
     ::
 
@@ -305,12 +307,12 @@ Logique du programme: opérations conditionnelles et boucles
 
   Conditions multiples: ``a == 1 and b == 1``, ``a == 1 or b == 1``
 
-  Autres conditions: ``a != 1``, ``a < 1``, ``a > 1``
+  Autres conditions: ``a != 1`` (a différent de 1), ``a < 1``, ``a > 1``
 
 * **Boucles** ::
 
     >>> for i in range(3):
-    ...    print(i)
+    ...     print(i)
     0
     1
     2
@@ -319,7 +321,7 @@ Logique du programme: opérations conditionnelles et boucles
 
     >>> l = [0, 1, 2]
     >>> for i in l:
-    ...    print i
+    ...     print i
     0
     1
     2
@@ -412,4 +414,8 @@ ____
         l = [3, 4, 1, 2, 5, 6]
         print quicksort(l)
 
+
+.. only:: html
+
+    [:ref:`La solution <example_quicksort.py>`]
 
