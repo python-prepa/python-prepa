@@ -50,7 +50,7 @@ t = time(); T = spsolve(LAP2,f2); print 'temps sparse=',time()-t  # Solving the 
 #t=time(); T2=np.linalg.solve(LAP2full,f2); print 'temps full=',time()-t
 
 # Plotting
-plt.pcolor(xx,yy,T.reshape(N,N), shading='flat')
+plt.pcolormesh(xx,yy,T.reshape(N,N), shading='flat')
 plt.axis('image')
 plt.show()
 

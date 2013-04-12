@@ -40,7 +40,7 @@ for n in range(0,NT):
 #Plot every 100 time steps
    if (n%100 == 0):
       plotlabel = "t = %1.2f" %(n * dt)
-      plt.pcolor(xx,yy,T, shading='flat')
+      plt.pcolormesh(xx,yy,T, shading='flat')
       plt.title(plotlabel)
       plt.axis('image')
       plt.draw()
