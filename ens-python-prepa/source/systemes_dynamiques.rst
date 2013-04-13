@@ -11,15 +11,43 @@ Systèmes dynamiques : utilisation de SciPy
 
     * Ecrire la documentation d'une fonction
 
-On trouve dans le module **SciPy** les opérations de manipulation /
+Dans les modules scientifiques de Python, il existe une collection
+impressionnante de fonctions réalisant des opérations diverses sur les
+tableaux numériques de NumPy. Il faut surtout les utiliser, plutôt que de
+réinventer la roue en recodant (probablement moins bien) une
+fonctionnalité qui existe déjà par ailleurs !
+
+Dans **NumPy**, on a déjà vu qu'il existe beaucoup d'opérations
+permettant par exemple de 
+
+ * générer des tableaux particuliers : ``np.arange``, ``np.ones``,
+   ``np.linspace``, ...
+
+ * faire des opérations à partir des valeurs du tableau : ``np.sum``,
+   ``np.sin``, ``np.histogram``, etc.
+
+ * exprimer des conditions (booléennes) sur les éléments d'un tableau ou 
+   extraire des parties d'un tableau : 
+   ``np.logical_not``,  ``np.in1d``
+
+ * changer l'agencement des valeurs d'un tableau, sa forme, ou encore 
+   créer un nouveau tableau à partir de plusieurs autres :
+   ``np.reshape``, ``np.concatenate``.
+
+ * etc. ...
+
+Le module **SciPy** est la **boîte à outils** numérique pour les tableaux
+NumPy. On trouve dans **SciPy** les opérations de manipulation /
 traitement de données numériques classiques, mais spécifiques à un type
-d'application (algébre linéaire, statistiques, etc.). Il s'agit d'un
-module stable, bien testé et relativement bien documenté. 
+d'application (algébre linéaire, statistiques, etc.). Ce sont donc des
+fonctions plus "haut niveau" que celles de NumPy. 
+
+SciPy est un module stable, bien testé et relativement bien documenté. 
 
 http://docs.scipy.org/doc/
 http://docs.scipy.org/doc/scipy/reference/
 
- ::
+::
 
     >>> import scipy
 
