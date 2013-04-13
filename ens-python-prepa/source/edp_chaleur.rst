@@ -161,8 +161,8 @@ sur ces tableaux, etc. ::
         >>> x.shape, y.shape
         ((100000,), (100000,))
         >>> mask = x**2 + y**2 < 1 # quart de disque 
-        >>> 1. / mask.size * np.sum(mask) # fraction des points dans le disque
-        0.78656000000000004
+        >>> np.mean(mask) # fraction des points dans le disque
+        0.78474999999999995
         >>> np.pi / 4
         0.7853981633974483
         
@@ -493,7 +493,7 @@ Le code complet est disponible ci-dessous :
       (u_{i,j-1}^{n} - 2\, u_{i,j}^{n} + u_{i,j+1}^{n})/{\Delta y^2}
       \right] \, .
 
-   On pourra considérer une condition initiale de la forme (...)
+   On pourra considérer une condition initiale sous la forme d'une gaussienne stationnaire.
 
 
 Correction...
