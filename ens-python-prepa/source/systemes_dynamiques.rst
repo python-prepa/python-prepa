@@ -36,7 +36,7 @@ ces tableaux comme arguments pour les différentes fonctions ::
     0.0
 
 Pour montrer l'utilisation de SciPy, nous allons nous intéresser à
-l'intégration d'équations différentielles, en considérant de systèmes
+l'intégration d'équations différentielles, en considérant des systèmes
 dynamiques à base de pendules mécaniques. 
 
 Pendule simple
@@ -46,13 +46,15 @@ Pendule simple
       :scale: 50
       :align: center     
 
-L'équation du pendule simple est donnée par
+En écrivant la relation fondamentale de la dynamique (conservation de la
+quantité de mouvement), on obtient l'équation du pendule simple donnée par
 
 .. math::
 
     \ddot{\theta} + \omega^2 \sin\theta = 0
 
-(expliquer)
+où :math:`\theta` est l'angle du pendule par rapport à la verticale, et
+on note avec un point la dérivée temporelle. 
 
 Pour les petites oscillations on peut faire l'approximation
 :math:`\sin\theta\simeq\theta`. Quand l'approximation n'est pas valide il
@@ -62,7 +64,7 @@ cours du temps.
 
 Il nous faut donc disposer d'un intégrateur d'équations différentielles,
 que l'on peut s'attendre à trouver dans SciPy. Mais quelle est la
-fonction correspondante ? Tentont une recherche Google "scipy integrate
+fonction correspondante ? Tentons une recherche Google "scipy integrate
 differential equation", ou la consultation du sommaire de l'aide
 http://docs.scipy.org/doc/scipy/reference/index.html. Il existe un
 sous-module ``integrate``, qui contient lui-même une fonction
@@ -96,15 +98,34 @@ initiale ::
     >>> t = np.linspace(0, 5 * np.pi, 1000)
     >>> sol = odeint(simple_pendulum, (np.pi/3, 0), t)
 
+.. warning:: 
+
+    Comme la fonction ``odeint``, il existe un grand nombre de fonctions
+    permettant de réaliser des opérations haut niveau de calcul
+    scientifique. 
 
 Nous pouvons par exemple vérifier la conservation de l'énergie mécanique
-au cours du temps :
+au cours du temps ::
+
+    >>> theta, theta_dot = sol.T
+
+    >>> E_kin = 1./ 2 * theta_dot ** 2
+    >>> E_pot = 1 - np.cos(theta) # z
+    >>> E_mech = E_kin + E_pot
+
 
 .. figure:: auto_examples/images/plot_simple_pendulum_1.png
     :scale: 80
     :target: auto_examples/plot_simple_pendulum.html
 
-Pour générer la figure ci-dessous, on a utilisé un certain nombre de
+::
+
+    >>> plt.plot(t, E_kin, 'o-', lw=2, label=u'$E_\mathrm{kin}$')
+    >>> plt.plot(t, E_pot, 'o-', lw=2, label=u'$E_\mathrm{pot}$')
+    >>> plt.plot(t, E_mech, lw=2, label=u'$E_\mathrm{mech}$')
+    >>> plt.legend()
+
+Pour générer la figure ci-dessus, on a utilisé un certain nombre de
 commandes du module ``matplotlib``.
 
 .. only:: html
@@ -118,6 +139,26 @@ légende, etc.), il existe des fonctions dédiées de matplotlib qu'on peut
 http://matplotlib.org/. En particulier, la gallerie d'exemples
 http://matplotlib.org/gallery.html est très utile pour voir comment
 générer différents types de figures.
+
+.. topic:: Exercice
+
+    Ecrire un script python pour construire le diagramme des phases du 
+    pendule simple, représenté ci-dessous. Pour celà, il faut
+
+     * intégrer l'équation différentielle pour différentes conditions 
+       initiales entre 0 et :math:`\pi`.
+
+     * représenter :math:`\dot{\theta}` en fonction de :math:`\theta`
+       pour les différentes solutions.
+
+    .. figure:: auto_examples/images/plot_phase_diagram_1.png
+        :scale: 80
+        :target: auto_examples/plot_phase_diagram.html
+
+
+    .. only:: html
+
+        [:ref:`Solution de l'exercice <example_plot_phase_diagram.py>`]
 
 Pendule forcé
 -------------
@@ -157,33 +198,33 @@ intervalle de temps::
 
 On peut à présent intégrer une trajectoire::
 
-    >>> omega = 2./3
-    >>> dt = 2*np.pi / omega / 25
-    >>> tf = 1000
-    >>> t, theta_0, theta_dot_0 = forced_pendulum(tf, dt, np.pi/3, 0,
-    q=0.5, acc=1, omega=omega)
+    omega = 2./3
+    dt = 2*np.pi / omega / 25
+    tf = 1000
+    t, theta_0, theta_dot_0 = forced_pendulum(tf, dt, np.pi/3, 0,
+        q=0.5, acc=1, omega=omega)
 
 Pour cette trajectoire, l'évolution de :math:`\theta` reste périodique,
 avec la même période que la période de forçage ::
 
-    >>> import matplotlib.pyplot as plt
-    >>> plt.plot(t, theta_0) # courbe bleue
+    import matplotlib.pyplot as plt
+    plt.plot(t, theta_0) # courbe bleue
 
 Quand on augmente l'amplitude du forçage, le mouvement reste périodique
 après un régime transitoire assez long. On observe par contre un
 doublement de période, l'amplitude de l'oscillation varie entre deux
 périodes du forçage ::
 
-    >>> t, theta_1, theta_dot_1 = forced_pendulum(tf, dt, np.pi/3, 0,
-    q=0.5, acc=1.08, omega=omega)
-    >>> plt.plot(t, theta_1) # courbe verte
+    t, theta_1, theta_dot_1 = forced_pendulum(tf, dt, np.pi/3, 0,
+        q=0.5, acc=1.08, omega=omega)
+    plt.plot(t, theta_1) # courbe verte
 
 Enfin, quand on augmente encore l'amplitude du forçage, le mouvement
 n'est plus périodique et semble "chaotique"::
 
-    >>> t, theta_2, theta_dot_2 = forced_pendulum(tf, dt, np.pi/3, 0,
-    q=0.5, acc=1.17, omega=omega)
-    >>> plt.plot(t, theta_2) # courbe rouge
+    t, theta_2, theta_dot_2 = forced_pendulum(tf, dt, np.pi/3, 0,
+        q=0.5, acc=1.17, omega=omega)
+    plt.plot(t, theta_2) # courbe rouge
 
 .. figure:: auto_examples/images/plot_spectra_1.png
     :scale: 80
@@ -207,7 +248,7 @@ moyenne du signal ::
 
     >>> theta_0 -= theta_0.mean()
 
-Notons qu'on peut soustraire un scalaire à un tableau `ndarray` : la
+Notons qu'on peut soustraire un scalaire à un tableau ``ndarray`` : la
 soustraction est alors faite élément par élément.
 
 On calcule la transformée de Fourier discrète de :math:`\theta_0`::
@@ -236,10 +277,10 @@ fréquence de forçage :math:`f_D`. On observe aussi une harmonique triple
 
 Pour le forçage intermédiaire, on refait la même série d'opérations :: 
 
-    >>> theta_1 = theta_1[time_mask]
-    >>> theta_1 -= theta_1.mean()
-    >>> fft_theta_1 = fftpack.fft(theta_1)
-    >>> plt.plot(freq, np.abs(fft_theta_1), lw=2)
+    theta_1 = theta_1[time_mask]
+    theta_1 -= theta_1.mean()
+    fft_theta_1 = fftpack.fft(theta_1)
+    plt.plot(freq, np.abs(fft_theta_1), lw=2)
 
 On observe alors un nouveau pic à la fréquence moitiés :math:`f_D/2`,
 correspondant à un doublement de période.
@@ -278,30 +319,45 @@ chaotiques et d'autres périodiques.
     :scale: 80
     :target: auto_examples/plot_cascade.html
 
-Dans le régime chaotique, on peut vérifier que deux trajectoires
-initialement très proches s'éloignent très vite::
 
-    >>> omega = 2./3
-    >>> dt = 2*np.pi / omega / 25
-    >>> tf = 1000
-    >>> acc = 1.17
-    >>> eps = 1.e-8
-    >>> 
-    >>> t, theta_0, theta_dot_0 = forced_pendulum(tf, dt, np.pi/3, 0,
-    ...                         q=0.5, acc=acc, omega=omega)
-    >>> t, theta_1, theta_dot_1 = forced_pendulum(tf, dt, (1 + eps) *
-    np.pi/3, 0,
-    ...                         q=0.5, acc=acc, omega=omega) 
-    >>> # Compute the distance between the two trajectories
-    >>> dist = np.hypot(theta_1 - theta_0, theta_dot_1 - theta_dot_1)
+.. topic:: Exercice
 
-.. figure:: auto_examples/images/plot_chaos_1.png
-    :scale: 80
-    :target: auto_examples/plot_chaos.html
+    Une propriété des systèmes dynamiques chaotiques est leur grande
+    sensibilité aux conditions initiales : deux trajectoires initialement
+    très proches vont d'éloigner exponentiellement vite au cours du temps.
 
-En coordonnées logarithmiques, on voit que la distance entre les
-trajectoires croît de manière exponentielle au cours du temps. Il s'agit
-d'une propriété caractéristique du chaos.
+    Dans le régime chaotique, on va vérifier que deux trajectoires
+    initialement très proches s'éloignent très vite. Pour les paramètres ::
+
+        omega = 2./3
+        acc = 1.17
+        q = 0.5
+        eps = 1.e-8
+       
+
+    initialiser deux trajectoires séparées par une distance ``eps``
+    (conditions initiales :math:`(\theta, 0)` et 
+    :math:`(\theta + \epsilon, 0)`,  par exemple), et représenter leur 
+    distance dans l'espace des phases au cours du temps
+
+    .. math::
+
+        d_{12}(t) = \sqrt{(\theta_2(t) - \theta_1(t))^2 + 
+                            (\dot{\theta}_2(t) - \dot{\theta}_1(t))^2} 
+
+    Pour vérifier que la distance grandit de manière exponentielle au
+    cours du temps, faire une représentation graphique en coordonnées
+    semi-logarithmiques (``plt.semilogy``). 
+
+    .. figure:: auto_examples/images/plot_chaos_1.png
+        :scale: 80
+        :target: auto_examples/plot_chaos.html
+
+    .. only:: html
+
+        [:ref:`Solution de l'exercice <example_plot_chaos.py>`]
+
+
 
 .. topic:: Pour aller plus loin
    
