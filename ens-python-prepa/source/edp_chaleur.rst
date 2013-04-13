@@ -267,8 +267,8 @@ associée à notre schéma discret
 .. math::
    R(T)=
    \frac{\Delta t}{2}\left.\frac{\partial^2 T}{\partial t^2}\right|_j^n
-   - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta 
-   t^2)+\mathcal{O}(\Delta x^4) \, .
+   - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n 
+   + \mathcal{O}(\Delta t^2)+\mathcal{O}(\Delta x^4) \, .
 
 
 On peut essayer de vérifier numériquement que le schéma utilisé est bien
@@ -384,8 +384,15 @@ Python pour les indices, i.e. de 0 à N-1) :
     \end{array}
     \right)
     
-Pour résoudre ce problème en Python, on peut définir une matrice creuse (tridiagonale) ::
+Pour résoudre ce problème en Python, on peut définir une matrice creuse (tridiagonale).
 
+Pour cela on utilise le format de matrices creuses de SciPy ::
+     import scipy.sparse as sp
+
+Ainsi que le solveur associé::
+      from scipy.sparse.linalg.dsolve import spsolve
+
+On peut alors définir le problème aux différences finies::
      data = [np.ones(N), -2*np.ones(N), np.ones(N)]     # Diagonal terms
      offsets = np.array([-1, 0, 1])                     # Their positions
      LAP = sp.dia_matrix((data, offsets), shape=(N, N))
