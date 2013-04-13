@@ -29,7 +29,7 @@ Introduction rapide à NumPy
 
 Le module NumPy permet la manipulation simple et efficace des tableaux ::
 
-    >>> x=np.arange(0,2.0,0.1)   # De 0 (inclus) à 2 (exclus) par pas de 0.1
+    >>> x = np.arange(0,2.0,0.1)   # De 0 (inclus) à 2 (exclus) par pas de 0.1
     >>> x
     array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
             1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9])
@@ -50,13 +50,13 @@ Le module NumPy permet la manipulation simple et efficace des tableaux ::
     array([[1, 2, 3],
            [4, 5, 6],
            [7, 8, 9]])
-    >>> b = 2*a  # Multiplication de chaque terme
-    >>> c = a+b  # Sommation terme à terme
-    >>> np.dot(a,b) # Produit de matrices
+    >>> b = 2 * a  # Multiplication de chaque terme
+    >>> c = a + b  # Sommation terme à terme
+    >>> np.dot(a, b) # Produit de matrices
     array([[ 60,  72,  84],
            [132, 162, 192],
            [204, 252, 300]])
-    >>> a*b      # Produit terme à terme
+    >>> a * b      # Produit terme à terme
     array([[  2,   8,  18],
            [ 32,  50,  72],
            [ 98, 128, 162]])
@@ -66,7 +66,7 @@ On peut facilement effectuer des coupes dans un tableau numpy. Cette
 fonctionnalité est particulièrement importante en calcul scientifique 
 (comme nous allons le voir) pour éviter l'utilisation de boucles. ::
 
-    >>> t=np.array([1,2,3,4,5,6])
+    >>> t = np.array([1,2,3,4,5,6])
     >>> t[1:4]   # de l'indice 1 à l'indice 4 exclu !!!ATTENTION!!!
     array([2, 3, 4])
     >>> t[:4]    # du debut à l'indice 4 exclu
@@ -79,15 +79,31 @@ fonctionnalité est particulièrement importante en calcul scientifique
     array([2, 3, 4, 5])
 
 
+Pour extraire des sous-parties d'un tableau numpy, on a vu qu'on peut
+faire de l'indexation simple ``t[0]`` et des coupes ``t[1:3]``. Une autre
+possibilité très pratique est de sélectionner certaines valeurs d'un
+tableau grâce à un autre tableau de booléens (un "masque"), de taille
+compatible avec le tableau d'intérêt. Cette opération s'appelle de
+l'indexation par **masque** ::
+
+    >>> a = np.arange(6)**2
+    >>> a
+    array([ 0,  1,  4,  9, 16, 25])
+    >>> a > 10 # le masque, tableau de booleens
+    array([False, False, False, False,  True,  True], dtype=bool)
+    >>> a[a > 10] # une maniere compacte d'extraire les valeurs > 10
+    array([16, 25])
+
+
 **Attention** à la copie de tableau !
 
 Pour un scalaire on a le comportement "intuitif" : ::
 
-    >>> a=1.0
-    >>> b=a
+    >>> a = 1.0
+    >>> b = a
     >>> b
     1.0
-    >>> a=0.0
+    >>> a = 0.0
     >>> b
     1.0
 
@@ -96,12 +112,12 @@ Pour un tableau NumPy, par defaut on ne copie que l'adresse du
 tableau (pointeur) pas son contenu (les deux noms correspondent alors aux
 mêmes adresses en mémoire). ::
 
-    >>> a=zeros((2,2))
-    >>> b=a
+    >>> a = zeros((2, 2))
+    >>> b = a
     >>> b
     array([[ 0.,  0.],
            [ 0.,  0.]])
-    >>> a[1,1]=10
+    >>> a[1, 1] = 10
     >>> b
     array([[  0.,   0.],
            [  0.,  10.]])
@@ -109,11 +125,11 @@ mêmes adresses en mémoire). ::
 Pour effectuer une copie des valeurs, il faut
 utiliser **.copy()** ::
 
-    >>> c=b.copy()
+    >>> c = b.copy()
     >>> c
     array([[  0.,   0.],
            [  0.,  10.]])
-    >>> b[1,1]=0  
+    >>> b[1, 1] = 0  
     >>> b
     array([[ 0.,  0.],
            [ 0.,  0.]])
@@ -129,6 +145,30 @@ utiliser **.copy()** ::
     >>> b
     array([10,  1,  2,  3,  4])
 
+Le module NumPy comporte beaucoup de fonctions qui permettent de créer
+des tableaux spéciaux, manipuler des tableaux, de faire des opérations
+sur ces tableaux, etc. ::
+
+    >>> a = np.arange(10)
+    >>> np.sum(a)
+    45
+    >>> np.mean(a)
+    4.5
+
+.. topic:: Application : calcul de pi
+
+    Nous reprenons ici un exemple de la section précédente, en utilisant
+    uniquement des tableaux et des fonctions de NumPy ::
+
+        >>> x, y = np.random.random((2, 100000))
+        >>> x.shape, y.shape
+        ((100000,), (100000,))
+        >>> mask = x**2 + y**2 < 1 # quart de disque 
+        >>> np.mean(mask) # fraction des points dans le disque
+        0.78656000000000004
+        >>> np.pi / 4
+        0.7853981633974483
+        
 
 Équation de la chaleur 1D
 --------------
@@ -245,17 +285,17 @@ possibilités de calcul vectoriel offertes par NumPy.
 
 Pour cela il faut remplacer les lignes ::
 
-       for j in range (1, NX-1):
-          RHS[j]=dt*K*(T[j-1]-2*T[j]+T[j+1])/(dx**2)
+       for j in range(1, NX - 1):
+          RHS[j] = dt * K * (T[j - 1] - 2 * T[j] + T[j + 1]) / (dx**2)
  
-       for j in range (1, NX-1):
-          T[j]+=RHS[j]
+       for j in range (1, NX - 1):
+          T[j] += RHS[j]
 
 par des instructions vectorielles (les "boucles" sont alors gérées par du
 code compilé et non par du code interpreté) ::
 
-       RHS[1:-1]=dt*K*(T[:-2]-2*T[1:-1]+T[2:])/(dx**2)
-       T+=RHS
+       RHS[1:-1] = dt * K * (T[:-2] - 2 * T[1:-1] + T[2:]) / (dx**2)
+       T += RHS
 
 On constate que l'execution est alors quasi-instantanée.
 
@@ -331,14 +371,14 @@ Python pour les indices, i.e. de 0 à N-1) :
     
 Pour résoudre ce problème en Python, on peut définir une matrice creuse (tridiagonale) ::
 
-     data = [np.ones(N),-2*np.ones(N),np.ones(N)]     # Diagonal terms
-     offsets = np.array([-1,0,1])                     # Their positions
-     LAP = sp.dia_matrix( (data,offsets), shape=(N,N))
+     data = [np.ones(N), -2*np.ones(N), np.ones(N)]     # Diagonal terms
+     offsets = np.array([-1, 0, 1])                     # Their positions
+     LAP = sp.dia_matrix((data, offsets), shape=(N, N))
 
 et utiliser le
 solver inclus dans SciPy :  ::
-     f = -np.ones(N)*dx**2
-     T = spsolve(LAP,f)
+     f = -np.ones(N) * dx**2
+     T = spsolve(LAP, f)
 
 
 .. only:: html
@@ -374,10 +414,10 @@ de la même manière, avec un schéma explicite en temps
 
 Ce qui devient en Python::
 
-   for n in range(0,NT):
-      RHS[1:-1,1:-1] = dt*K*( (T[:-2,1:-1]-2*T[1:-1,1:-1]+T[2:,1:-1])/(dx**2)  \
-                            + (T[1:-1,:-2]-2*T[1:-1,1:-1]+T[1:-1,2:])/(dy**2) )
-      T[1:-1,1:-1] += (RHS[1:-1,1:-1]+dt*S)
+   for n in range(0, NT):
+      RHS[1:-1, 1:-1] = dt * K * ( (T[:-2, 1:-1]- 2 * T[1:-1, 1:-1] + T[2:, 1:-1]) / (dx**2)  \
+                            + (T[1:-1, :-2] - 2*T[1:-1, 1:-1] + T[1:-1,2:]) / (dy**2))
+      T[1:-1,1:-1] += (RHS[1:-1, 1:-1] + dt * S)
 
 
 
@@ -409,7 +449,7 @@ Pour formuler le problème sous la forme
 il faut numéroter les :math:`T_{i,j}` sous la forme d'une grand vecteur et
 utiliser le produit de Kronecker ::
 
-   LAP2 = sp.kron(LAP,I1D)+sp.kron(I1D,LAP)
+   LAP2 = sp.kron(LAP, I1D) + sp.kron(I1D,LAP)
 
 il ne reste alors qu'à résoudre le système linéaire ::
 
