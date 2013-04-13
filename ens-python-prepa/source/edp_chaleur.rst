@@ -430,8 +430,8 @@ de la même manière, avec un schéma explicite en temps
 Ce qui devient en Python::
 
    for n in range(0, NT):
-      RHS[1:-1, 1:-1] = dt * K * ( (T[:-2, 1:-1]- 2 * T[1:-1, 1:-1] + T[2:, 1:-1]) / (dx**2)  \
-                            + (T[1:-1, :-2] - 2*T[1:-1, 1:-1] + T[1:-1,2:]) / (dy**2))
+      RHS[1:-1, 1:-1] = dt * K * ( (T[:-2, 1:-1] - 2 * T[1:-1, 1:-1] + T[2:, 1:-1]) / (dx**2)  \
+                                 + (T[1:-1, :-2] - 2 * T[1:-1, 1:-1] + T[1:-1,2:])  / (dy**2))
       T[1:-1,1:-1] += (RHS[1:-1, 1:-1] + dt * S)
 
 
@@ -510,15 +510,16 @@ Le code complet est disponible ci-dessous :
    On pourra considérer une condition initiale sous la forme d'une gaussienne stationnaire.
 
 
-Correction...
-
 .. figure:: auto_examples/images/plot_edp7_waves_1.png 
    :align: center
    :scale: 80
    :target: auto_examples/edp7_waves.html
 
-.. only:: html
+.. topic:: Correction...
 
-   Le code complet est disponible ci-dessous :
-   [:ref:`La solution... <example_edp7_waves.py>`]
+    .. only:: html
+
+       Le code complet est disponible ci-dessous :
+       [:ref:`La solution... <example_edp7_waves.py>`]
+
 
