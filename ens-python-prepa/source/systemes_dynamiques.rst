@@ -372,6 +372,67 @@ chaotiques et d'autres périodiques.
 
         [:ref:`Python source code <example_plot_dyna.py>`]
 
+Input/output : comment sauver des tableaux, et charger des fichiers
+-------------------------------------------------------------------
+
+Pour le moment, nous n'avons pas encore sauvé aucun de nos résultats ! On
+peut facilement sauver un tableau NumPy sous deux formats :
+
+    * en texte ascii avec ``np.savetxt`` (si on a besoin de voir le
+      tableau dans un éditeur de texte) pour les tableaux de dimension 
+      <= 2.
+
+    * en format binaire de NumPy avec ``np.save`` (pour des fichiers
+      moins gros en mémoire)
+
+::
+
+    >>> a = np.arange(25).reshape((5, 5))
+    >>> a
+    array([[ 0,  1,  2,  3,  4],
+        [ 5,  6,  7,  8,  9],
+        [10, 11, 12, 13, 14],
+        [15, 16, 17, 18, 19],
+        [20, 21, 22, 23, 24]])
+    >>> np.savetxt('tableau.txt', a)
+    >>> np.save('tableau.npy', a)
+    >>> import os
+    >>> os.path.getsize('tableau.txt')
+    625
+    >>> os.path.getsize('tableau.npy')
+    280
+
+Pour des tableaux de dimension trois ou plus, il faut utiliser
+``np.save`` ::
+
+    >>> b = np.ones((2, 1, 3, 4))
+    >>> b.shape
+    (2, 1, 3, 4)
+    >>> np.savetxt('b.txt', b)
+    Traceback (most recent call last):
+    File "<ipython-input-13-1d7a297e3d85>", line 1, in <module>
+        np.savetxt('b.txt', b)
+    File "/usr/lib/python2.7/dist-packages/numpy/lib/npyio.py", line 979,
+    in savetxt
+        fh.write(asbytes(format % tuple(row) + newline))
+    TypeError: float argument required, not numpy.ndarray
+
+    >>> np.save('b.npy', b)
+
+De la même manière, il existe deux fonctions pour charger un tableau
+numpy à partir d'un fichier ::
+
+    >>> c = np.loadtxt('tableau.txt')
+    >>> d = np.load('tableau.npy')
+
+.. note:: 
+
+    La librairie standard de Python permet de `sauver n'importe quelle
+    string dans un fichier 
+    <http://scipy-lectures.github.io/intro/language/io.html>`_ .
+
+    Des modules spécialisés peuvent permettrent de sauver des tableaux 
+    dans d'autres format : csv, hdf5, etc.
 
 Ecriture de documentation
 -------------------------
