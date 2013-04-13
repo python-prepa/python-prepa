@@ -215,6 +215,8 @@ Cela s'implémente très simplement en Python, par exemple sous la forme ::
        for j in range(1, NX - 1):
           RHS[j] = dt * K * (T[j - 1] - 2 * T[j] + T[j + 1]) / (dx**2)
 
+       for j in range (1, NX - 1):
+          T[j] += RHS[j]
 
 .. figure:: auto_examples/images/plot_edp1_1D_heat_loops_1.png 
     :align: center
