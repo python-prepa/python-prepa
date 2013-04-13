@@ -10,6 +10,20 @@ Formation à Python scientifique - ENS Paris
 
 .. include:: tune_toc.rst    
 
+.. only:: html
+
+    .. sidebar:: Télécharger le cours 
+          
+       * `Fichiers html, exemples, exercices <https://github.com/python-prepa/python-prepa.github.com/zipball/master>`_, pour pouvoir lire le cours sans accès internet.
+     
+       * `Le code source (github) <https://github.com/scipy-lectures/scipy-lecture-notes>`_
+
+    .. topic:: Contenu 
+
+        Supports de cours de la formation à Python scientifique de l'ENS Paris
+        pour les professeurs de classes préparatoires scientifiques. 
+
+
 .. toctree::
    :numbered:
 
