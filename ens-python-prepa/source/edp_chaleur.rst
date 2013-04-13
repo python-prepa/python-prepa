@@ -164,7 +164,7 @@ sur ces tableaux, etc. ::
         >>> x.shape, y.shape
         ((100000,), (100000,))
         >>> mask = x**2 + y**2 < 1 # quart de disque 
-        >>> np.mean(mask) # fraction des points dans le disque
+        >>> 1. / mask.size * np.sum(mask) # fraction des points dans le disque
         0.78656000000000004
         >>> np.pi / 4
         0.7853981633974483
