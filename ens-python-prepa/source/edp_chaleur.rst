@@ -1,16 +1,11 @@
 Équations aux dérivées partielles : utilisation de NumPy
 ==========================================
 
-.. topic:: Contenu du chapitre
-
-    * Présentation du module NumPy
-
-    * Équation de la chaleur en 1D
 
 On trouve dans le module **NumPy** les outils de manipulation des tableaux
 pour le calcul numérique 
 
-   * Nombreuses fonctions de manipulation
+   * Nombreuses fonctions de manipulation de tableaux
 
    * Bibliothèque mathématique importante
 
@@ -20,9 +15,11 @@ module stable, bien testé et relativement bien documenté.
 http://docs.scipy.org/doc/
 http://docs.scipy.org/doc/numpy/reference/
 
+Pour l'importer, on recommande d'utiliser
 
     >>> import numpy as np
 
+Toutes les fonctions NumPy seront alors préfixées par *np.*
 
 Introduction rapide à NumPy
 --------------
@@ -130,8 +127,12 @@ utiliser **.copy()** ::
     array([10,  1,  2,  3,  4])
 
 
-Équation de la chaleur 1D
+Équation de la chaleur
 --------------
+
+Modèle à une dimension d'espace
+....................................................
+
 
 On va s'intéresser dans un premier temps à l'équation de la chaleur
 (diffusion thermique) en une dimension d'espace
@@ -354,10 +355,10 @@ d'évolution en temps en utilisant le schéma implicite
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
 
-Équation de la chaleur 2D
---------------
+Modèle à deux dimensions d'espace
+....................................................
 
-On peut traiter le problème à deux dimensions
+On peut traiter le problème équivalent en deux dimensions d'espace
 
 .. math::
 
@@ -425,30 +426,45 @@ matrice de taille (N,N) ::
 Le code complet est disponible ci-dessous :
     [:ref:`Python source code <example_edp6_2D_heat_solve.py>`]
 
-Notons pour finir que ce l'intégration explicite en temps peut s'adapter
-très simplement à d'autres équations, comme par exemple équation d'onde
+.. topic:: **Exercice**: Une équation d'onde en deux dimensions
+   :class: green
 
-.. math::
+   Modifiez l'exemple d'intégration en temps explicite de 
+   l'équation de la chaleur en deux dimensions (vu ci-dessus) 
 
-    \frac{\partial ^2 u}{\partial t ^2} = c^2 \, \Delta u \, ,
+   .. only:: html
 
-de la même manière, on peut écrire un schéma explicite en temps
+       [:ref:`Python source code <example_edp5_2D_heat_vect.py>`]
 
-.. math::
-   u_{i,j}^{n+1} = 2 \, u_{i,j}^{n} - u_{i,j}^{n-1} 
-   + {\Delta t ^2}\,  c^2 \, \left[
-   (u_{i-1,j}^{n} - 2\, u_{i,j}^{n} + u_{i+1,j}^{n})/{\Delta x^2}
-   +
-   (u_{i,j-1}^{n} - 2\, u_{i,j}^{n} + u_{i,j+1}^{n})/{\Delta y^2}
-   \right] \, .
+
+   pour traiter (toujours en deux dimensions) l'équation d'ondes suivante
+
+   .. math::
+
+       \frac{\partial ^2 u}{\partial t ^2} = c^2 \, \Delta u \, .
+
+   de la même manière, on peut écrire un schéma explicite en temps
+
+   .. math::
+      u_{i,j}^{n+1} = 2 \, u_{i,j}^{n} - u_{i,j}^{n-1} 
+      + {\Delta t ^2}\,  c^2 \, \left[
+      (u_{i-1,j}^{n} - 2\, u_{i,j}^{n} + u_{i+1,j}^{n})/{\Delta x^2}
+      +
+      (u_{i,j-1}^{n} - 2\, u_{i,j}^{n} + u_{i,j+1}^{n})/{\Delta y^2}
+      \right] \, .
+
+   On pourra considérer une condition initiale de la forme (...)
+
+
+Correction...
 
 .. figure:: auto_examples/images/plot_edp7_waves_1.png 
-    :align: center
-    :scale: 80
-    :target: auto_examples/edp7_edp7_waves.html
+   :align: center
+   :scale: 80
+   :target: auto_examples/edp7_waves.html
 
 .. only:: html
 
-Le code complet est disponible ci-dessous :
-    [:ref:`Python source code <example_edp7_waves.py>`]
+   Le code complet est disponible ci-dessous :
+   [:ref:`La solution... <example_edp7_waves.py>`]
 
