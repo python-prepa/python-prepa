@@ -210,6 +210,11 @@ que l'on peut re-écrire
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
+Cela s'implémente très simplement en Python, par exemple sous la forme ::
+
+       for j in range(1, NX - 1):
+          RHS[j] = dt * K * (T[j - 1] - 2 * T[j] + T[j + 1]) / (dx**2)
+
 
 .. figure:: auto_examples/images/plot_edp1_1D_heat_loops_1.png 
     :align: center
@@ -268,6 +273,15 @@ associée à notre schéma discret
 
 On peut essayer de vérifier numériquement que le schéma utilisé est bien
 d'ordre deux en espace
+
+Pour cela on va effectuer une boucle extérieure sur la résolution et mesurer 
+une norme de l'erreur entre la solution calculée et la solution analytique ::
+
+    scale = np.exp(-4*(np.pi**2)*K*Time)
+    TO = np.sin(2*np.pi*x)
+    DDX[k] = dx
+    ERR[k] = max(abs(T-TO*scale))
+
 
 .. figure:: auto_examples/images/plot_edp2_1D_heat_loops_conv_1.png 
     :align: center
