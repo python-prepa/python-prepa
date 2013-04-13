@@ -424,3 +424,31 @@ matrice de taille (N,N) ::
 
 Le code complet est disponible ci-dessous :
     [:ref:`Python source code <example_edp6_2D_heat_solve.py>`]
+
+Notons pour finir que ce l'intégration explicite en temps peut s'adapter
+très simplement à d'autres équations, comme par exemple équation d'onde
+
+.. math::
+
+    \frac{\partial ^2 u}{\partial t ^2} = c^2 \, \Delta u \, ,
+
+de la même manière, on peut écrire un schéma explicite en temps
+
+.. math::
+   u_{i,j}^{n+1} = 2 \, u_{i,j}^{n} - u_{i,j}^{n-1} 
+   + {\Delta t ^2}\,  c^2 \, \left[
+   (u_{i-1,j}^{n} - 2\, u_{i,j}^{n} + u_{i+1,j}^{n})/{\Delta x^2}
+   +
+   (u_{i,j-1}^{n} - 2\, u_{i,j}^{n} + u_{i,j+1}^{n})/{\Delta y^2}
+   \right] \, .
+
+.. figure:: auto_examples/images/plot_edp7_waves_1.png 
+    :align: center
+    :scale: 80
+    :target: auto_examples/edp7_edp7_waves.html
+
+.. only:: html
+
+Le code complet est disponible ci-dessous :
+    [:ref:`Python source code <example_edp7_waves.py>`]
+
