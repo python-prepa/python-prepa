@@ -16,7 +16,7 @@ Formation à Python scientifique - ENS Paris
           
        * `Fichiers html, exemples, exercices <https://github.com/python-prepa/python-prepa.github.com/zipball/master>`_, pour pouvoir lire le cours sans accès internet.
      
-       * `Le code source (github) <https://github.com/scipy-lectures/scipy-lecture-notes>`_
+       * `Le code source (github) <https://github.com/python-prepa/python-prepa>`_
 
     .. topic:: Contenu 
 
