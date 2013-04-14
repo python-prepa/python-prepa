@@ -138,7 +138,7 @@ div.sidebar .first {
 
 /* example gallery */
 .gallery {
-    height: 450px;
+    height: 25%;
 }
 
 .figure {
@@ -148,12 +148,12 @@ div.sidebar .first {
 
 .figure img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     max-width: 200px;
 }
 
 .figure .caption {
     text-align: center !important;
+    font-size: 80%
 }
 ~                        

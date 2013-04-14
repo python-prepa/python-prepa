@@ -6,11 +6,12 @@ Les auteurs
    :width: 200px
    :figwidth: 30%
 
-   **Emmanuel Dormy**
-
-   Directeur de Recherche au CNRS, il effectue sa recherche au Département
-   de Physique de l'ENS sur la mécanique des fluides, en particulier la            magnétohydrodynamique et l'effet dynamo. Il enseigne depuis plusieurs années    à l'ENS et à l'école Polytechnique. Il est en particulier depuis 5 ans 
-   Professeur du cours de Physique Numérique en M1 à l'ENS construit sur Python.
+   **Emmanuel Dormy** - Directeur de Recherche au CNRS, il effectue sa
+   recherche   au Département de Physique de l'ENS sur la mécanique des
+   fluides, en particulier la magnétohydrodynamique et l'effet
+   dynamo. Il enseigne depuis plusieurs années à l'ENS et à l'école
+   Polytechnique. Il est en particulier depuis 5 ans Professeur du cours de
+   Physique Numérique en M1 à l'ENS construit sur Python.
 
 .. figure:: emma.jpg
    :figclass: gallery
@@ -30,11 +31,14 @@ Les auteurs
    :width: 200px
    :figwidth: 30%
 
-   **Werner Krauth**
+   **Werner Krauth** - Directeur du Département de physique de l'ENS,
+   Directeur de recherche au CNRS en physique, spécialité
+   physique statistique et numérique. Enseignement avec Python
+   depuis 2008 (cours de M1/M2 à l'ENS, à l'international).
+   Utilisation massive de Python/NumPy/SciPy pour la recherche.    
 
-   Directeur du Département de physique de l'ENS, Directeur de recherche           au CNRS en physique, spécialité physique statistique et numérique.              Enseignement avec Python depuis 2008 (cours de M1/M2 à l'ENS, à                 l'international). Utilisation massive de Python/NumPy/SciPy pour la 
-   recherche.    
 
+***
 
 .. figure:: gael.jpg
    :figclass: gallery
@@ -62,5 +66,4 @@ Les auteurs
    recherche (centrées sur la cryptographie mathématique et la théorie 
    des nombres).
 
-_________________
 
