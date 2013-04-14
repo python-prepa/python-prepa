@@ -210,6 +210,13 @@ que l'on peut re-écrire
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
+Cela s'implémente très simplement en Python, par exemple sous la forme ::
+
+       for j in range(1, NX - 1):
+          RHS[j] = dt * K * (T[j - 1] - 2 * T[j] + T[j + 1]) / (dx**2)
+
+       for j in range (1, NX - 1):
+          T[j] += RHS[j]
 
 .. figure:: auto_examples/images/plot_edp1_1D_heat_loops_1.png 
     :align: center
@@ -262,12 +269,21 @@ associée à notre schéma discret
 .. math::
    R(T)=
    \frac{\Delta t}{2}\left.\frac{\partial^2 T}{\partial t^2}\right|_j^n
-   - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n + \mathcal{O}(\Delta 
-   t^2)+\mathcal{O}(\Delta x^4) \, .
+   - \kappa\frac{\Delta x^2}{12}\left.\frac{\partial^4 T}{\partial x^4}\right|_j^n 
+   + \mathcal{O}(\Delta t^2)+\mathcal{O}(\Delta x^4) \, .
 
 
 On peut essayer de vérifier numériquement que le schéma utilisé est bien
 d'ordre deux en espace
+
+Pour cela on va effectuer une boucle extérieure sur la résolution et mesurer 
+une norme de l'erreur entre la solution calculée et la solution analytique ::
+
+    scale = np.exp(-4*(np.pi**2)*K*Time)
+    TO = np.sin(2*np.pi*x)
+    DDX[k] = dx
+    ERR[k] = max(abs(T-TO*scale))
+
 
 .. figure:: auto_examples/images/plot_edp2_1D_heat_loops_conv_1.png 
     :align: center
@@ -370,8 +386,15 @@ Python pour les indices, i.e. de 0 à N-1) :
     \end{array}
     \right)
     
-Pour résoudre ce problème en Python, on peut définir une matrice creuse (tridiagonale) ::
+Pour résoudre ce problème en Python, on peut définir une matrice creuse (tridiagonale).
 
+Pour cela on utilise le format de matrices creuses de SciPy ::
+     import scipy.sparse as sp
+
+Ainsi que le solveur associé::
+      from scipy.sparse.linalg.dsolve import spsolve
+
+On peut alors définir le problème aux différences finies::
      data = [np.ones(N), -2*np.ones(N), np.ones(N)]     # Diagonal terms
      offsets = np.array([-1, 0, 1])                     # Their positions
      LAP = sp.dia_matrix((data, offsets), shape=(N, N))
@@ -416,8 +439,8 @@ de la même manière, avec un schéma explicite en temps
 Ce qui devient en Python::
 
    for n in range(0, NT):
-      RHS[1:-1, 1:-1] = dt * K * ( (T[:-2, 1:-1]- 2 * T[1:-1, 1:-1] + T[2:, 1:-1]) / (dx**2)  \
-                            + (T[1:-1, :-2] - 2*T[1:-1, 1:-1] + T[1:-1,2:]) / (dy**2))
+      RHS[1:-1, 1:-1] = dt * K * ( (T[:-2, 1:-1] - 2 * T[1:-1, 1:-1] + T[2:, 1:-1]) / (dx**2)  \
+                                 + (T[1:-1, :-2] - 2 * T[1:-1, 1:-1] + T[1:-1,2:])  / (dy**2))
       T[1:-1,1:-1] += (RHS[1:-1, 1:-1] + dt * S)
 
 
@@ -496,15 +519,16 @@ Le code complet est disponible ci-dessous :
    On pourra considérer une condition initiale sous la forme d'une gaussienne stationnaire.
 
 
-Correction...
-
 .. figure:: auto_examples/images/plot_edp7_waves_1.png 
    :align: center
    :scale: 80
    :target: auto_examples/edp7_waves.html
 
-.. only:: html
+.. topic:: Correction...
 
-   Le code complet est disponible ci-dessous :
-   [:ref:`La solution... <example_edp7_waves.py>`]
+    .. only:: html
+
+       Le code complet est disponible ci-dessous :
+       [:ref:`La solution... <example_edp7_waves.py>`]
+
 
