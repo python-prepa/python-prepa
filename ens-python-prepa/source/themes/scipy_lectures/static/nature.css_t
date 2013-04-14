@@ -136,3 +136,24 @@ div.sidebar .first {
 }
 
 
+/* example gallery */
+.gallery {
+    height: 450px;
+}
+
+.figure {
+    float: left;
+    margin: 1em;
+}
+
+.figure img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 200px;
+}
+
+.figure .caption {
+    text-align: center !important;
+}
+~                        

@@ -21,7 +21,13 @@ Formation à Python scientifique - ENS Paris
     .. topic:: Contenu 
 
         Supports de cours de la formation à Python scientifique de l'ENS Paris
-        pour les professeurs de classes préparatoires scientifiques. 
+        pour les professeurs de classes préparatoires scientifiques.
+
+        .. toctree::
+            :maxdepth: 1
+
+            AUTHORS.rst
+ 
 
 
 .. toctree::
