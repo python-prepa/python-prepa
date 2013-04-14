@@ -181,7 +181,14 @@ colonnes de gauche à droite. C'est la convention des tableaux numpy.
 Filtrage d'image
 ----------------
 
+Le filtrage consiste (au sens large) à transformer une image par une
+autre image, en remplaçant la valeur d'un pixel par une fonction de cette
+valeur mais aussi des valeurs des autres pixels de l'image. On dit que le
+filtre est local si ce sont les valeurs des pixels voisins qui sont
+utilisées, non-local sinon::
 
+    >>> from skimage import filter
+    
 
 Extraction d'objets d'intérêt
 -----------------------------
