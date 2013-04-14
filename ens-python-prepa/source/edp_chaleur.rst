@@ -167,10 +167,10 @@ sur ces tableaux, etc. ::
         0.7853981633974483
         
 
-Équation de la chaleur
+Équation de la chaleur 1D
 --------------
 
-Modèle à une dimension d'espace
+Discrétisation en différences finies
 ....................................................
 
 
@@ -227,6 +227,8 @@ Cela s'implémente très simplement en Python, par exemple sous la forme ::
 
     [:ref:`Python source code <example_edp1_1D_heat_loops.py>`]
 
+Convergence
+....................................................
 
 En introduisant un développement de Taylor, on peut estimer la qualité de
 l'approximation numérique (évolution de l'erreur en fonction de
@@ -319,6 +321,9 @@ On constate que l'execution est alors quasi-instantanée.
 .. only:: html
 
     [:ref:`Python source code <example_edp3_1D_heat_vect_conv.py>`]
+
+Formulation matricielle
+....................................................
 
 Que se passe t'il si on pousse l'analyse vers de plus petits pas d'espace ???
 
@@ -417,9 +422,8 @@ d'évolution en temps en utilisant le schéma implicite
    \qquad \text{avec}\quad 
    c\equiv \frac{{\Delta t}\,  \kappa}{\Delta x^2} \, .
 
-
-Modèle à deux dimensions d'espace
-....................................................
+Équation de la chaleur 2D
+--------------
 
 On peut traiter le problème équivalent en deux dimensions d'espace
 

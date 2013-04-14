@@ -255,8 +255,14 @@ Collections d'objets
 
   C'est donc un objet très polyvalent.
   Pour contenir un ensemble de nombres de même type, nous verrons plus
-  tard dans la formation un objet plus efficace (pour la rapidité
-  d'exécution) : les tableaux numériques du module NumPy.
+  tard un objet plus efficace (pour la rapidité d'exécution) : les 
+  tableaux numériques du module NumPy.
+
+  Finalement, pour créer une liste d'entiers continus::
+
+    >>> l = range(10)
+    >>> print l
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 * **Et plus encore**
 
@@ -334,6 +340,19 @@ Logique du programme: opérations conditionnelles et boucles
     0
     1
     2
+
+
+.. topic:: **Exercice**: Calculer Pi avec la formule de Wallis
+    :class: green
+
+    .. math::
+        \pi = 2 \prod_{i=1}^{\infty} \frac{4i^2}{4i^2 - 1}
+
+    .. only:: html
+
+        [:ref:`La solution <example_pi_wallis.py>`]
+
+
 
 Définir des fonctions
 ......................
@@ -424,7 +443,97 @@ ____
         print quicksort(l)
 
 
-.. only:: html
+    .. only:: html
 
-    [:ref:`La solution <example_quicksort.py>`]
+        [:ref:`La solution <example_quicksort.py>`]
+
+
+Travailler avec beaucoup de nombres
+....................................
+
+Lorsque l'on fait du calcul scientifique, on doit souvent travailler avec
+de gros ensemble de nombres. Par example, calculons ici les racines
+carrées des 10 millions premiers entiers::
+
+    >>> N = 1000000
+    >>> l = range(N)
+    >>> ll = []         # La liste vide, pour stoquer le résultat
+    >>> import math     # L'opération racine carré est définit dans le module math
+    >>> for i in l:
+    ...     ll.append(math.sqrt(i))
+
+Notez que vous devez attendre un peu que cette boucle s'exécute.
+
+En calcul scientifique, la manière efficace de travailler et d'utiliser
+les tableaux ::
+
+    >>> import numpy as np
+    >>> l = np.arange(N)    # l est alors un tableau (array) et non une liste
+    >>> ll = np.sqrt(l)     # En utilisant 'sqrt' du module numpy, l'opération est réalisée en block
+
+Le module numpy est central au calcul scientifique. Nous le verrons plus
+en détail plus tard.
+
+Comprendre les erreurs
+.......................
+
+Lorsque Python rencontre une situation dont il ne sait se sortir, il lève
+une erreur (exception en jargon)::
+
+    In [1]: 1 + 'a'
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call
+    last)
+    <ipython-input-1-bb4aa3e60e23> in <module>()
+    ----> 1 1 + 'a'
+
+    TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+Ici c'est une erreur de 'type': Python ne sait additionner des entiers et
+des chaînes de caractère.
+
+::
+
+    In [2]: l = [0, 1]
+
+    In [3]: l[2]
+    ---------------------------------------------------------------------------
+    IndexError                                Traceback (most recent call last)
+    <ipython-input-3-5b08617e4833> in <module>()
+    ----> 1 l[2]
+
+    IndexError: list index out of range
+
+Une erreur d'indexation : j'ai donné un indice trop grand pour la liste.
+
+Regardez bien le message d'erreur, il vous en dit beaucoup: de quelle
+erreur il s'agit, et où elle s'est produite ::
+
+    In [4]: def f(x):
+    ...:     y = 1. / (1 = x)
+    ...:     return y
+    ...: 
+    File "<ipython-input-4-782a072b3f3f>", line 2
+        y = 1. / (1 = x)
+                    ^
+    SyntaxError: invalid syntax
+
+    In [5]: def f(x):
+        y = 1. / (1 + x)
+        return y
+    ...: 
+
+
+    In [6]: f(-1)
+    ---------------------------------------------------------------------------
+    ZeroDivisionError                         Traceback (most recent call last)
+    <ipython-input-6-512b55eb878d> in <module>()
+    ----> 1 f(-1)
+
+    <ipython-input-5-9ac7ba330cae> in f(x)
+        1 def f(x):
+    ----> 2     y = 1. / (1 + x)
+        3     return y
+
+    ZeroDivisionError: float division by zero
 

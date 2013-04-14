@@ -1,5 +1,5 @@
-Utilisation avancée du langage Python : un exemple de la théorie de l'information
-========================================================
+Structures de données en Python. Un exemple de la théorie de l'information
+==========================================================================
 
 Modules et fichiers
 -------------------
@@ -346,7 +346,7 @@ Les fonctions suivantes sont notamment définies :
 
 
 
-Arbres de Huffman 
+Codage de Huffman 
 -----------------
 
 Principe

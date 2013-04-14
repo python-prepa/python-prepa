@@ -7,3 +7,4 @@ Traitement d'images pour l'analyse de données d'expériences (TIPE)
 
     image_outils.rst
     image_tuto.rst
+    image_granulaire.rst
