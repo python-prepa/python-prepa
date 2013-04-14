@@ -50,6 +50,9 @@ Pour disposer de toutes les fonctions d'un module ::
 
   from [module] import *
 
+
+.. note:: Cette option est cependant à éviter notament lorsqu'un module propose un nombre important de fonctions et parce que certains modules ont des fonctions qui ont le même nom (par exemple, ``math`` et ``numpy``)
+
 ::
 
   from math import * 
@@ -117,6 +120,8 @@ les fichiers :
   chdir("/home/exercices")
 
 
+.. note:: En mode interactif, iPython reconnaît les commandes consoles traditionnelles (ls, cd, pwd, ...)
+
 Pour utiliser un fichier identifié par le chemin <ch> dans un
 programme Python, il faut commencer par l'ouvrir par l'appel de
 fonction
@@ -150,6 +155,19 @@ méthodes. En voici quelques-unes :
 - ``seek(<n>)`` : choisit le caractère <n> comme position courante du
   fichier
 - ``tell()`` : retourne le caractère en position courante
+
+:: 
+
+    # Exemple de copie intégrale d'un fichier 
+    fs = open("source.txt", 'r')
+    fd = open("destination.txt", 'w')
+    while 1:
+        txt = fs.read(50) # copie de 50 caractères à la fois
+        if txt == "":
+            break
+        fd.write(txt)
+    fs.close()
+    fd.close()
 
 .. note:: Python fournit le module standard *pickle* qui peut prendre (presque) n'importe quel objet Python et le convertir en une représentation sous forme de chaîne de caractères (et le reconstruire). Il s'agit du moyen standard pour enregistrer des objets Python et les réutiliser dans d'autres programmes.
 
@@ -308,6 +326,23 @@ Les fonctions suivantes sont notamment définies :
  :``heapq.heapify(L)``:
 
     Transforme la liste L en un tas (en place et en temps linéaire)
+
+
+.. note:: En pratique, puisque un tas est un arbre binaire, l'implantation utilise des tableaux unidimensionel de sorte que ``tas[k] <= tas[2*k+1]`` et ``tas[k] <= tas[2*k]`` pour tout ``k``. En particulier le père d'un noeud en position ``k`` a pour position ``(k-1)/2`` et les fils d'un noeud en position ``k`` sont situés aux positions ``2*k`` et ``2*k+1``.
+
+::
+
+   In [1]: from heapq import *
+
+   In [2]: L = [7,4,8,1,9,3,2,6,5]
+
+   In [3]: heapify(L)
+
+   In [4]: L
+   Out[4]: [1, 4, 2, 5, 9, 3, 8, 6, 7]
+
+
+.. figure:: Heap.png
 
 
 

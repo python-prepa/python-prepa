@@ -249,6 +249,15 @@ Collections d'objets
         String Form:<built-in method append of list object at 0x34fa128>
         Docstring:  L.append(object) -- append object to end
 
+  Une liste peut contenir des objets de type différents::
+    
+    >>> l = [1, 2., 'hello', ['a', 'b']]
+
+  C'est donc un objet très polyvalent.
+  Pour contenir un ensemble de nombres de même type, nous verrons plus
+  tard dans la formation un objet plus efficace (pour la rapidité
+  d'exécution) : les tableaux numériques du module NumPy.
+
 * **Et plus encore**
 
   :dictionnaires:
