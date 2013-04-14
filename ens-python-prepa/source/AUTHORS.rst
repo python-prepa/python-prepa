@@ -38,7 +38,7 @@ Les auteurs
    Utilisation massive de Python/NumPy/SciPy pour la recherche.    
 
 
-***
+.. image:: line.jpg
 
 .. figure:: gael.jpg
    :figclass: gallery

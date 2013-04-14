@@ -154,6 +154,5 @@ div.sidebar .first {
 
 .figure .caption {
     text-align: center !important;
-    font-size: 80%
 }
 ~                        
