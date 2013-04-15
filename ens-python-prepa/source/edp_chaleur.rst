@@ -333,7 +333,7 @@ Pour une résolution spatiale fixée, celui-ci nous impose donc un nombre
 minimum d'iterations pour atteindre un temps donné.
 
 On peut cependant chercher à obtenir directement la solution du problème
-stationnaire
+stationnaire.
 
 Considérons le système modifié avec terme source (pour éviter une solution 
 stationnaire triviale)
@@ -397,15 +397,18 @@ Pour cela on utilise le format de matrices creuses de SciPy ::
      import scipy.sparse as sp
 
 Ainsi que le solveur associé::
+
       from scipy.sparse.linalg.dsolve import spsolve
 
 On peut alors définir le problème aux différences finies::
+
      data = [np.ones(N), -2*np.ones(N), np.ones(N)]     # Diagonal terms
      offsets = np.array([-1, 0, 1])                     # Their positions
      LAP = sp.dia_matrix((data, offsets), shape=(N, N))
 
 et utiliser le
 solver inclus dans SciPy :  ::
+
      f = -np.ones(N) * dx**2
      T = spsolve(LAP, f)
 
@@ -524,7 +527,9 @@ Le code complet est disponible ci-dessous :
       (u_{i,j-1}^{n} - 2\, u_{i,j}^{n} + u_{i,j+1}^{n})/{\Delta y^2}
       \right] \, .
 
-   On pourra considérer une condition initiale sous la forme d'une gaussienne stationnaire.
+   On pourra considérer une condition initiale 
+   :math:`u|_0` sous la forme d'une gaussienne 
+   et :math:`\partial_t u|_0 = 0`. 
 
 
 .. figure:: auto_examples/images/plot_edp7_waves_1.png 
