@@ -37,6 +37,7 @@ Formation à Python scientifique - ENS Paris
    information_theory.rst
    stochastique.rst
    edp_chaleur.rst
-   systemes_dynamiques.rst 
+   systemes_dynamiques.rst
+   aller_plus_loin.rst 
    ateliers/index.rst
 
