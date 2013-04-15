@@ -276,7 +276,7 @@ associée à notre schéma discret
 
 
 On peut essayer de vérifier numériquement que le schéma utilisé est bien
-d'ordre deux en espace
+d'ordre deux en espace.
 
 Pour cela on va effectuer une boucle extérieure sur la résolution et mesurer 
 une norme de l'erreur entre la solution calculée et la solution analytique ::
@@ -361,7 +361,7 @@ Python pour les indices, i.e. de 0 à N-1) :
 
 .. math::
 
-   \left(
+   \kappa \, \left(
    \begin{array}{ccccc}
    -2 &  1 & 0 & \cdots & 0 \\
     1 & -2 & 1 &        &\vdots\\
