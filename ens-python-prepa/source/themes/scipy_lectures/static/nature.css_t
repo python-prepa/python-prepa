@@ -137,22 +137,22 @@ div.sidebar .first {
 
 
 /* example gallery */
-.gallery {
+img.gallery {
     height: 25%;
 }
 
-.figure {
+div.gallery {
     float: left;
     margin: 1em;
 }
 
-.figure img {
+div.gallery img {
     display: block;
     margin: auto;
     max-width: 200px;
 }
 
-.figure .caption {
+div.gallery .caption {
     text-align: center !important;
 }
 ~                        
