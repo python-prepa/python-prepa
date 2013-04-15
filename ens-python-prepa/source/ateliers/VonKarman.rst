@@ -11,7 +11,7 @@ Advection
 On veut d'abord résoudre le problème d'advection scalaire
 par un schéma de transport semi-Lagrangien.
 
-Ecrire ce schéma dans un domaine p\'eriodique en completant le code
+Ecrire ce schéma dans un domaine périodique en completant le programme :
 
 .. only:: html
 
