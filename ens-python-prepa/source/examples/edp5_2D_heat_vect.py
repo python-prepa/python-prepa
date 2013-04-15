@@ -3,6 +3,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+if 'qt' in plt.get_backend().lower():
+    try:
+        from PyQt4 import QtGui
+    except ImportError:
+        from PySide import QtGui
+
+
 # PHYSICAL PARAMETERS
 K = 0.5    #Diffusion coefficient
 Lx = 1.0   #Domain size x
@@ -44,5 +51,7 @@ for n in range(0,NT):
       plt.title(plotlabel)
       plt.axis('image')
       plt.draw()
+      if 'qt' in plt.get_backend().lower():
+          QtGui.qApp.processEvents()
 
 plt.show()

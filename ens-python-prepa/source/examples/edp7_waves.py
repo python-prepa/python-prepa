@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 #from mpl_toolkits.mplot3d import Axes3D
 #from matplotlib import cm
 
+if 'qt' in plt.get_backend().lower():
+    try:
+        from PyQt4 import QtGui
+    except ImportError:
+        from PySide import QtGui
+
+
 
 # PARAMETRES PHYSIQUES
 C = 0.05  #VIT ONDE 
@@ -42,17 +49,19 @@ a=40.0
 ddU   = np.zeros((NX,NY))
 U_data = np.exp(-a*((xx-1.5)**2+(yy-1.5)**2))
 U_old= U_data.copy()
+U_new = np.zeros((NX,NY))
 
-# BOUCLE DIRECTE
+# Boucle en temps
 for n in np.arange(0,NT):
-   U_new = np.zeros((NX,NY))
    ddU[1:-1,1:-1] = (U_data[2:,1:-1]-2*U_data[1:-1,1:-1]+U_data[:-2,1:-1])/(dx**2) \
                   + (U_data[1:-1,2:]-2*U_data[1:-1,1:-1]+U_data[1:-1,:-2])/(dy**2)
 
    U_new[1:-1,1:-1]=2*U_data[1:-1,1:-1]-U_old[1:-1,1:-1] + alpha*ddU[1:-1,1:-1]
+
+   toto=U_old
    U_old=U_data
    U_data=U_new
-
+   U_new=toto
 
 # FIXED BC
 #   U_data[0,:]=0.0
@@ -82,6 +91,8 @@ for n in np.arange(0,NT):
 
      plt.title(plotlabel)
      plt.draw()
+     if 'qt' in plt.get_backend().lower():
+        QtGui.qApp.processEvents()
 
 plt.show()
 
