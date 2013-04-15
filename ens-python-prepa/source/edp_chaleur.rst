@@ -435,8 +435,10 @@ de la même manière, avec un schéma explicite en temps
 
 .. math::
    T_{i,j}^{n+1} = T_{i,j}^{n} + {\Delta t}\,  \kappa \, \left[
-   (T_{i-1,j}^{n} - 2\, T_{i,j}^{n} + T_{i+1,j}^{n})/{\Delta x^2}
-   +
+   (T_{i-1,j}^{n} - 2\, T_{i,j}^{n} + T_{i+1,j}^{n})/{\Delta x^2}\right.
+
+.. math::
+   \left. +
    (T_{i,j-1}^{n} - 2\, T_{i,j}^{n} + T_{i,j+1}^{n})/{\Delta y^2}
    \right] \, .
 
@@ -515,8 +517,10 @@ Le code complet est disponible ci-dessous :
    .. math::
       u_{i,j}^{n+1} = 2 \, u_{i,j}^{n} - u_{i,j}^{n-1} 
       + {\Delta t ^2}\,  c^2 \, \left[
-      (u_{i-1,j}^{n} - 2\, u_{i,j}^{n} + u_{i+1,j}^{n})/{\Delta x^2}
-      +
+      (u_{i-1,j}^{n} - 2\, u_{i,j}^{n} + u_{i+1,j}^{n})/{\Delta x^2}\right.
+
+   .. math::
+      +\left.
       (u_{i,j-1}^{n} - 2\, u_{i,j}^{n} + u_{i,j+1}^{n})/{\Delta y^2}
       \right] \, .
 
