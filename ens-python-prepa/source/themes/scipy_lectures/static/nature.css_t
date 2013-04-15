@@ -28,6 +28,11 @@ div.body h1, div.body h2, div.body h3, div.body h4, hr {
     clear: both;
 }
 
+div.body p {
+    margin-bottom : 0.7em;
+    margin-top : 0.7em;
+}
+
 /* alternating colors in table rows */
 table.docutils tr:nth-child(even) {
     background-color: #F3F3FF;
@@ -103,6 +108,10 @@ table.hlist td {
     vertical-align: top;
 }
 
+table.hlist ul {
+    margin-top: 0em;
+}
+
 /* Admonition */
 
 div.hint {
@@ -143,7 +152,8 @@ img.gallery {
 
 div.gallery {
     float: left;
-    margin: 1em;
+    margin: 0em;
+    padding: .5em;
 }
 
 div.gallery img {

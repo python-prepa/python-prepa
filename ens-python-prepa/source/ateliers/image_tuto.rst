@@ -47,6 +47,9 @@ couleur ont trois dimensions, les images en noir et blanc en ont deux ::
     >>> io.imshow(lena_image) # color image 
     >>> io.imshow(lena_image[..., 0]) # grayscale image
 
+L'affichage d'une image se fait grâce à la fonction
+``skimage.io.imshow``.
+
 On peut aussi ouvrir une image couleur comme une image en noir et blanc ::
 
     >>> lena_gray = io.imread('lena.png', as_grey=True)
@@ -55,7 +58,7 @@ On peut aussi ouvrir une image couleur comme une image en noir et blanc ::
     >>> os.chdir(current_dir)
 
 .. figure:: auto_examples/images/plot_color_grey_1.png
-    :scale: 90
+    :width: 65%
     :target: auto_examples/plot_color_grey.html
 
 .. topic:: Type des tableaux d'image 
@@ -113,7 +116,6 @@ fonction ``skimage.io.imsave`` ::
 Le type du fichier image est automatiquement déduit de l'extension de la
 chaîne de caractères ('.png', '.jpg').
 
-Somewhere we need a paragraph about the os module : here?
 
 Quelques opérations de base avec ``numpy``
 ------------------------------------------
@@ -142,7 +144,7 @@ pixels.
     >>> lena[mask] = 0
 
 .. figure:: auto_examples/images/plot_numpy_array_1.png
-    :scale: 60
+    :width: 33%
     :target: auto_examples/plot_numpy_array.html
 
 Attention : pour l'indexation, la 1e dimension (axe 0) correspond aux
@@ -187,10 +189,189 @@ valeur mais aussi des valeurs des autres pixels de l'image. On dit que le
 filtre est local si ce sont les valeurs des pixels voisins qui sont
 utilisées, non-local sinon::
 
+
     >>> from skimage import filter
+
+Il existe en particulier un certain nombre de fonctions qui vont moyenner
+ensemble des pixels proches. Cela peut être utile dans des applications
+de débruitage, où on veut réduire le bruit sur les pixels::
+
+    >>> coins_zoom = coins[10:80, 300:370]
+    >>> median_coins = filter.median_filter(coins_zoom)
+    >>> tv_coins = filter.tv_denoise(coins_zoom, weight=0.1)
+
+**Attention** : le filtre gaussien ne se trouve pas dans
+``scikit-image``, mais dans ``scipy.ndimage`` ::
+
+    >>> from scipy import ndimage
+    >>> gaussian_coins = ndimage.gaussian_filter(coins, sigma=2)
     
+.. figure:: auto_examples/images/plot_filter_coins_1.png
+    :width: 90%
+    :target: auto_examples/plot_filter_coins.html
+
+Un autre type de filtrage très pratique est la **morphologie
+mathématique** : ce sont des opérations logiques locales sur des
+ensembles de pixels. Ces opérations peuvent fonctionner sur des images
+d'entiers (0 à 255), mais par simplicité nous allons uniquement voir des
+opérations qui fonctionnent sur des images binaires de 0 et de 1 (False et True) : c'est la morphologie mathématique binaire.
+
+La plupart des opérations reposent sur un **élément
+structurant**, qui va servir à sonder l'image binaire. ::
+
+    >>> morphology.disk(1)
+    array([[0, 1, 0],
+        [1, 1, 1],
+        [0, 1, 0]], dtype=uint8)
+    >>> morphology.disk(3)
+    array([[0, 0, 0, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 1, 0, 0, 0]], dtype=uint8)
+
+L'opération d'érosion va venir éroder les objets (de valeur 1) de l'image :
+quand on centre l'élément structurant sur un pixel donné, on met ce pixel à 0
+si tous les pixels recouverts par l'élément structurant ne sont pas à 1. ::
+
+    >>> a = np.zeros((7, 7))
+    >>> a[1:-1, 1:-1] = 1
+    >>> a
+    array([[ 0.,  0.,  0.,  0.,  0.,  0.,  0.],
+        [ 0.,  1.,  1.,  1.,  1.,  1.,  0.],
+        [ 0.,  1.,  1.,  1.,  1.,  1.,  0.],
+        [ 0.,  1.,  1.,  1.,  1.,  1.,  0.],
+        [ 0.,  1.,  1.,  1.,  1.,  1.,  0.],
+        [ 0.,  1.,  1.,  1.,  1.,  1.,  0.],
+        [ 0.,  0.,  0.,  0.,  0.,  0.,  0.]])
+    >>> erosion_a = morphology.binary_erosion(a, morphology.disk(1))
+    >>> erosion_a
+    array([[False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False,  True,  True,  True, False, False],
+        [False, False,  True,  True,  True, False, False],
+        [False, False,  True,  True,  True, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False]], dtype=bool)
+    >>> morphology.binary_erosion(a, morphology.disk(3))
+    array([[False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False],
+        [False, False, False, False, False, False, False]], dtype=bool)
+
+L'opération contraire s'appelle la dilatation : la dilatation met à 1 tous les pixels pour lesquels l'éléments structurant centré au pixel recouvre au moins un pixel valant 1 ::
+
+    dilation_erosion_a = morphology.binary_dilation(erosion_a,
+                             morphology.disk(1))
+
+On voit que la composition d'une érosion puis d'une érosion redonne
+presque l'image d'origine, à l'exception des coins qui ont disparu. Cette
+opération s'appelle une ouverture. De même, une ouverture va faire
+disparaître les petits objets, qui disparaîtront à l'érosion et ne
+pourront donc pas être dilatés lors de l'étape de dilatation.
+
+.. figure:: auto_examples/images/plot_morpho_erosion_1.png
+    :width: 70%
+    :target: auto_examples/plot_morpho_erosion.html
+
+
+.. image:: morpho_mat.png
+    :align: center
+
+ 
 
 Extraction d'objets d'intérêt
 -----------------------------
 
+Une tâche classique consiste à séparer une image en un nombre fini de
+régions, en attribuant à chaque pixel une étiquette (un "label")
+correspondant au numéro de la région. 
 
+Par exemple, on peut vouloir binariser une image en régions claires et
+sombres. Il existe dans ``scikit-image`` une fonction calculant
+automatiquement le seuil le plus discriminant entre deux populations de
+pixels : la fonction ``skimage.filter.threshold_otsu`` qui implémente
+l'algorithme de seuillage d'Otsu ::
+
+    from skimage import data
+    from skimage import filter
+    camera = data.camera()
+    val = filter.threshold_otsu(camera)
+    mask = camera < val
+
+.. figure:: auto_examples/images/plot_threshold_1.png
+    :width: 70%
+    :target: auto_examples/plot_threshold.html
+
+Parfois, un simple seuillage sur toute l'image ne donne pas un résultat
+satisfaisant ; c'est notamment le cas lorsque l'éclairage de l'image
+n'était pas homogène. Il existe donc une fonction qui va calculer le
+seuil dans un voisinage local, et peut donc binariser une image de façon
+plus satisfaisante :: 
+
+    simple_threshold = coins > filter.threshold_otsu(coins)
+    adaptive_threshold = filter.threshold_adaptive(coins, 151)
+
+L'image ``adaptive_threshold`` a bien séparé les pièces du fond, pour
+supprimer les petites taches blanches et la bande en haut de l'image on
+peut utiliser deux fonctions du scikit-image dont le nom donne la
+fonction : ``remove_small_objects`` et ``clear_border``::
+
+    from skimage import segmentation
+    from skimage import morphology
+    filter_res = morphology.remove_small_objects(adaptive_threshold)
+    clear_image = segmentation.clear_border(filter_res)
+
+.. figure:: auto_examples/images/plot_segmentation_coins_1.png
+    :width: 60%
+    :target: auto_examples/plot_segmentation_coins.html
+
+Il existe dans ``scikit-image`` des algorithmes de segmentation beaucoup
+plus sophistiqués que les seuillages, par exemple des algorithmes de
+croissance de région à partir de pixels marqueurs, ou des décompositions
+automatiques de l'image en "super-pixels". La meilleure manière de se
+familiariser avec ces algorithmes consiste à consulter les exemples de la
+gallerie du scikit-image.
+
+Une fois qu'on a binarisé l'image, on peut donner un indice différent à
+chaque objet séparé (composante connexe) grâce à la fonction
+``morphology.label`` ::
+
+    labels = morphology.label(clear_image, background=0)
+
+.. figure:: auto_examples/images/plot_segmentation_coins_2.png
+    :width: 50%
+    :target: auto_examples/plot_segmentation_coins.html
+
+
+Mesure des propriétés des objets
+--------------------------------
+
+Une fois qu'on a séparé une image en régions avec différents indices, on
+peut aller calculer différentes propriétés de ces régions grâce à la
+fonction ``skimage.measure.regionprops`` ::
+
+    from skimage import measure
+    props = measure.regionprops(labels, ['Area']) 
+
+::
+
+    >>> props[0]
+    {'Area': 1652.0, 'Label': 1}
+    >>> (labels == 1).sum()
+    1652
+   
+Et autres
+----------
+
+On n'a fait ici qu'effleurer certains aspects du traitement d'images, il
+existe dans scikit-image bien d'autres possibilités pour aller
+reconnaître des formes dans une image, appliquer des déformations à des
+images, extraire des descripteurs d'images pour les classifier
+automatiquement, etc. On peut déjà en apprendre pas mal en allant lire
+(et faire !) les exemples du scikit-image. 
