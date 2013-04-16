@@ -160,6 +160,9 @@ cela nous utilisons la commande :func:`matplotlib.pyplot.scatter`):
 Prédiction au plus proche voisin
 ---------------------------------
 
+L'object ``classifier``
+........................
+
 .. image:: auto_examples/images/plot_knn_1.png
    :align: right
    :target: auto_examples/plot_knn.html
@@ -169,4 +172,49 @@ Lorsqu'arrive une observation inconnue, nous allons chercher dans
 la base de donnée *d'entrainement* les 'plus proches voisins' qui lui
 ressemblent plus, et nous faisons un vote entre eux pour décider de la
 classe de l'observation inconnue.
+
+Comme nous avons un problème de *classification*, il nous faut un
+"classifier"::
+
+    >>> from sklearn import neighbors
+    >>> clf = neighbors.KNeighborsClassifier()
+
+``clf`` sait apprendre à faire des décisions à partir de données::
+
+    >>> clf.fit(data, target)
+
+et prédire sur des données::
+
+    >>> clf.predict(data[::10])
+    array([0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2])
+    >>> target[::10]
+    array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2])
+
+.. note::
+
+   Comment faire que un prédire aux plus proches voisins n'ait aucune
+   erreur sur les données d'entraînement?
+
+   Pourquoi est-ce illusoir?
+
+Données de `test`
+..................
+
+Pour tester la prédiction sur des données non vues, il nous faut en
+mettre de coté::
+
+    >>> data_train = data[::2]
+    >>> data_test = data[1::2]
+    >>> target_train = target[::2]
+    >>> target_test = target[1::2]
+    >>> clf.fit(data_train, target_train)
+
+Maintenant, testons la prédiction sur les données de "test"::
+
+    >>> np.sum(clf.predict(data_test) - target_test)
+    1
+
+Une seule erreur!
+
+
 
