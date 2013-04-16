@@ -12,11 +12,32 @@ import sys
 import shutil
 import traceback
 import glob
+from time import time
+from StringIO import StringIO
 
 import matplotlib
 matplotlib.use('Agg')
 
 import token, tokenize
+
+###############################################################################
+# A tee object to redict streams to multiple outputs
+
+class Tee(object):
+
+    def __init__(self, file1, file2):
+        self.file1 = file1
+        self.file2 = file2
+
+    def write(self, data):
+        self.file1.write(data)
+        self.file2.write(data)
+
+    def flush(self):
+        self.file1.flush()
+        self.file2.flush()
+
+
 
 rst_template = """
 
@@ -36,12 +57,16 @@ plot_rst_template = """
 
 %(docstring)s
 
-%(image_list)s
-
 **Python source code:** :download:`%(fname)s <%(fname)s>`
 
 .. literalinclude:: %(fname)s
     :lines: %(end_row)s-
+
+%(image_list)s
+
+%(stdout)s
+
+**Total running time of the example:** %(time_elapsed) .2f seconds
     """
 
 # The following strings are used when we have several pictures: we use
@@ -211,30 +236,47 @@ def generate_file_rst(fname, target_dir, src_dir, plot_gallery):
     if not os.path.exists(thumb_dir):
         os.makedirs(thumb_dir)
     image_path = os.path.join(image_dir, image_fname)
+    stdout_path = os.path.join(image_dir,
+                               'stdout_%s.txt' % base_image_name)
+    time_path = os.path.join(image_dir,
+                               'time_%s.txt' % base_image_name)
     thumb_file = os.path.join(thumb_dir, fname[:-3] + '.png')
+    time_elapsed = 0
     if plot_gallery and fname.startswith('plot'):
         # generate the plot as png image if file name
         # starts with plot and if it is more recent than an
         # existing image.
         first_image_file = image_path % 1
+        if os.path.exists(stdout_path):
+            stdout = open(stdout_path).read()
+        else:
+            stdout = ''
+        if os.path.exists(time_path):
+            time_elapsed = float(open(time_path).read())
 
         if (not os.path.exists(first_image_file) or
                 os.stat(first_image_file).st_mtime <=
                                     os.stat(src_file).st_mtime):
             # We need to execute the code
             print 'plotting %s' % fname
+            t0 = time()
             import matplotlib.pyplot as plt
             plt.close('all')
             cwd = os.getcwd()
             try:
-                # First CD in the original example dir, so that any file created
-                # by the example get created in this directory
-                src_file_dir = os.path.dirname(src_file)
-                os.chdir(src_file_dir)
-                # Add source directory to sys.path for local import
-                sys.path.append(src_file_dir)
-                execfile(os.path.basename(src_file), {'pl' : plt})
-                sys.path.pop()
+                # First CD in the original example dir, so that any file
+                # created by the example get created in this directory
+                orig_stdout = sys.stdout
+                os.chdir(os.path.dirname(src_file))
+                my_buffer = StringIO()
+                my_stdout = Tee(sys.stdout, my_buffer)
+                sys.stdout = my_stdout
+                my_globals = {'pl': plt}
+                execfile(os.path.basename(src_file), my_globals)
+                time_elapsed = time() - t0
+                sys.stdout = orig_stdout
+                my_stdout = my_buffer.getvalue()
+
                 os.chdir(cwd)
 
                 # In order to save every figure we have two solutions :
@@ -248,8 +290,20 @@ def generate_file_rst(fname, target_dir, src_dir, plot_gallery):
                     # Set the fig_num figure as the current figure as we can't
                     # save a figure that's not the current figure.
                     plt.figure(fig_num)
-                    plt.savefig(image_path % fig_num)
-                    figure_list.append(image_fname % fig_num)
+                my_stdout = my_stdout.strip()
+                if my_stdout:
+                    stdout = '**Script output**::\n\n  %s\n\n' % (
+                        '\n  '.join(my_stdout.split('\n')))
+                open(stdout_path, 'w').write(stdout)
+                open(time_path, 'w').write('%f' % time_elapsed)
+                my_stdout = my_stdout.strip()
+                if my_stdout:
+                    stdout = '**Script output**::\n\n  %s\n\n' % (
+                        '\n  '.join(my_stdout.split('\n')))
+                open(stdout_path, 'w').write(stdout)
+                open(time_path, 'w').write('%f' % time_elapsed)
+                plt.savefig(image_path % fig_num)
+                figure_list.append(image_fname % fig_num)
             except:
                 print 80*'_'
                 print '%s is not compiling:' % fname

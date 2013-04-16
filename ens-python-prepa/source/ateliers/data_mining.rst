@@ -217,4 +217,14 @@ Maintenant, testons la prédiction sur les données de "test"::
 Une seule erreur!
 
 
+Classification de documents textes
+===================================
 
+.. toctree::
+
+   auto_examples/plot_document_classification.rst
+
+.. seealso::
+
+   Pour aller plus loin, la documentation officielle contient beaucoup
+   d'exemples et d'explications : http://scikit-learn.org
