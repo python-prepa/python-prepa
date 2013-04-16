@@ -63,3 +63,47 @@ Cryptographie
  
    où :math:`\mathcal{O}` est un point sur la droite à l'infini (dans le plan projectif correspondant). 
    Ce point représente l'élément neutre pour la loi d'addition de la courbe.
+
+   L'usage des courbes elliptiques en cryptographie a été proposé en 1986, indépendamment par Neal Koblitz et Victor Miller, pour l'instanciation des opérations cryptographiques asymétriques, comme l'échange de clé entre deux personnes sur un canal non-sécurisé. Par rapport aux systèmes fondés sur RSA, les systèmes de chiffrement sur les courbes elliptiques utilisent des clés plus courtes, pour un niveau de sécurité équivalent.
+
+   Par la suite, on considéra une courbe elliptique définie sur un un corps fini :math:`\mathbb{F}_p` avec :math:`p` 
+   un nombre premier :math:`p > 3`. Pour définir l'addition de deux points distincts :math:`P=(x_P,y_P)` et 
+   :math:`P=(x_Q,y_Q)` sur la courbe elliptique :math:`E`, on remarque d'abord que par ces deux points passe 
+   une droite bien définie. Par le théorème de Bézout, cette droite recoupe la courbe :math:`E` en un troisième point. 
+   La somme des points :math:`P` et :math:`Q` est alors donnée par le symétrique de ce point par rapport à l'axe 
+   des abscisses. On donne maintenant des équations explicites pour calculer les coordonnées affines du point somme. 
+
+   - Si :math:`x_P=x_Q` et :math:`y_P=-y_Q`, alors :math:`P+Q=\mathcal{O}`. 
+     Autrement dit, l'inverse d'un point pour la loi du groupe est son symétrique 
+     par rapport à l'axe des abscisses. 
+   - Sinon, on définit les quantités suivantes: 
+
+   .. math::
+
+      \lambda=\left \{\begin{array}{ll} \frac{y_Q-y_P}{x_Q-x_P} & \mbox{si}\,\, P\neq Q,\\
+      \frac{3x_P^2+a}{2y_P} &\mbox{si}\,\, P=Q~\mbox{et}~y_P\neq 0. \end{array}
+      \right.
+
+    et 
+
+   .. math::
+
+
+      \mu=\left \{\begin{array}{ll}
+      \frac{x_Qy_P-y_Qx_P}{x_Q-x_P} & \mbox{si}\,\, P\neq Q,\\
+      \frac{-x_P^3+ax_P+2b}{2y_P} &\mbox{si}\,\, P=Q~\mbox{et}~y_P\neq 0.
+      \end{array}
+      \right.
+   
+   Alors la droite :math:`y=\lambda x+\mu` passe par :math:`P` et :math:`Q` et les 
+   coordonnées de :math:`P+Q` sont :
+
+   .. math:: 
+      
+      x_{P+Q}=\lambda^2-x_P-x_Q,
+
+   et
+
+   .. math:: 
+
+      y_{P+Q}=-\lambda x_{P+Q}-\mu.
