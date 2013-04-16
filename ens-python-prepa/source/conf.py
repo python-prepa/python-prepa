@@ -108,6 +108,19 @@ pygments_style = 'sphinx'
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
+# Monkey-patch sphinx to set the lineseparator option of pygment, to
+# have indented line wrapping
+from pygments import formatters
+
+class MyHtmlFormatter(formatters.HtmlFormatter):
+    def __init__(self, **options):
+        options['lineseparator'] = '\n<div class="newline"></div>'
+        formatters.HtmlFormatter.__init__(self, **options)
+
+from sphinx import highlighting
+highlighting.PygmentsBridge.html_formatter = MyHtmlFormatter
+
+
 # Our substitutions
 rst_epilog = """
 
@@ -266,6 +279,7 @@ intersphinx_mapping = {
     _python_doc_base: None,
     'http://docs.scipy.org/doc/numpy': None,
     'http://docs.scipy.org/doc/scipy/reference': None,
+    'http://matplotlib.org/': None,
     'http://scikit-learn.org/stable': None
 }
 
