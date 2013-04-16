@@ -47,3 +47,19 @@ Cryptographie
 
 .. topic:: **Exercice 3**: Cryptographie à clé publique basée sur les courbes elliptiques
 
+
+   En mathématiques, une courbe elliptique est une courbe algébrique définie sur un corps :math:`\mathbb{K}`, 
+   unie entre autres propriétés, d'une loi de groupe définie sur l'ensemble de ses points.
+
+   Si la caractéristique du corps est différente de 2 et 3, une courbe elliptique est donnée par
+   l'équation de Weierstrass :math:`y^2=x^3+ax+b`, où :math:`a` et :math:`b` sont des éléments 
+   du corps :math:`\mathbb{K}` vérifiant :math:`4a^3+27b^2 \neq 0`.
+
+   Nous considérons l'ensemble des points de la courbe 
+
+   .. math::
+    
+       \{(x,y) \in \mathbb{K}^2 \vert y^2=x^3+ax+b \} \cup \{ \mathcal{O} \} 
+ 
+   où :math:`\mathcal{O}` est un point sur la droite à l'infini (dans le plan projectif correspondant). 
+   Ce point représente l'élément neutre pour la loi d'addition de la courbe.
