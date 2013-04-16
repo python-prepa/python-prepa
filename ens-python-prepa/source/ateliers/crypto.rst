@@ -119,7 +119,12 @@ Cryptographie
            :math:`a^{m+1} \bmod q`.
        
         2. Écrire une fonction qui calcule la somme des deux points de la courbe. On testera cette fonction 
-           à l'aide des exemples dans ce `fichier <http://www.di.ens.fr/~vergnaud/point.txt>`_.
+           à l'aide des exemples suivants (avec P=[6587596005,10930896470], Q=[2846256190,0], 
+           R=[1099048983,3110000776])
+
+              - P+Q=[10674847433,12569638509], P+R=[6587596005,6321400637]
+              - P+P=[1099048983,14142296331], Q+Q=O
+              - 3P=[8376961733,938225291], 5P=[1708109053,5741342158]        
        
         3. Écrire une fonction qui étant donné un point :math:`P` de la courbe, et un entier :math:`k`, 
            calcule efficacement le point :math:`kP`. Pour cela, on utilisera l'algorithme de 
