@@ -18,7 +18,7 @@ Cryptographie
      fini de lire celle-ci) suivant la règle naturelle A=1,B=2,...,Z=26.
 
   4. Modifier le script précédent pour qu'il chiffre/déchiffre un fichier dont le chemin est
-     entré par l'utilisateur. On pourra utiliser cette `nouvelle <http://di.ens.fr/~vergnaud/Poe.txt>`_ 
+     entré par l'utilisateur. On pourra utiliser cette `nouvelle <http://www.di.ens.fr/~vergnaud/Poe.txt>`_ 
      de Edgar Poe pour tester le script.
 
 
@@ -107,3 +107,43 @@ Cryptographie
    .. math:: 
 
       y_{P+Q}=-\lambda x_{P+Q}-\mu.
+
+
+   - **Loi d'addition sur la courbe elliptique.** Soit :math:`E` la courbe elliptique donnée par l'équation 
+     :math:`y^2=x^3+5`, définie sur le corps fini :math:`\mathbb{F}_q`, avec :math:`q=17252297107`. 
+     Le nombre de points sur cette courbe est :math:`N=4r`, avec :math:`r=4313008603`.
+
+       1. Écrire une fonction qui calcule un point au hasard de la courbe. Indication: pour cela, 
+          on écrit d'abord une fonction calculant des racines carrées :math:`\bmod q`. On se rappelle que 
+          lorsque :math:`q=4m+3`, la racine carrée de :math:`a \bmod q` (quand elle existe) est 
+          :math:`a^{m+1} \bmod q`.
+       
+       2. Écrire une fonction qui calcule la somme des deux points de la courbe. On testera cette fonction 
+          à l'aide des exemples dans ce `fichier <http://www.di.ens.fr/~vergnaud/point.txt>`_.
+       
+       3. Écrire une fonction qui étant donné un point :math:`P` de la courbe, et un entier :math:`k`, 
+          calcule efficacement le point :math:`kP`. Pour cela, on utilisera l'algorithme de 
+          multiplication rapide (*double and add* ou *square and multiply*). On testera cette fonction sur 
+          un point au hasard :math:`P` d'ordre :math:`r` de la courbe (i.e. :math:`rP=O`).
+
+    - **Échange de clé Diffie-Hellman.** Deux personnes, Alice et Bob, veulent échanger un message chiffré 
+      nécessitant une clé :math:`K`, qui est un nombre entier. Ils doivent échanger la clé :math:`K` d'abord, 
+      mais ils ne disposent pas de canal sécurisé pour cela. En 1976, Diffie et Hellman ont proposé une 
+      méthode qui répond à ce problème. Le protocole de Diffie Hellman utilise un groupe cyclique :math:`\mathbb{G}`
+      (noté additivement) d'ordre :math:`r` et repose sur l'idée suivante:
+
+        - Étant donné un nombre entier :math:`k` et un élément :math:`P` dans le groupe :math:`\mathbb{G}`, 
+          il est facile de calculer :math:`kP`.
+         
+        - Étant donné :math:`Q=kP`, :math:`P`, il est calculatoirement difficile de retrouver :math:`k`
+
+      Le fonctionnement du protocole est le suivant. Alice choisit un nombre au hasard :math:`a`, 
+      calcule :math:`aP` et l'envoie à Bob. Bob choisit à son tour un nombre :math:`b` et envoie 
+      à Alice :math:`bP`. Alice peut alors calculer :math:`K=a(bP)`. Bob calcule :math:`b(aP)` et 
+      obtient la même clé :math:`K` qu'Alice.
+
+         4. (Travail en binôme) En utilisant le groupe d'ordre :math:`r` des points de la courbe :math:`E`, 
+            échangez avec un collègue une clé secrete .
+
+
+
