@@ -19,7 +19,7 @@ Cette discipline s'appelle le *data mining* ou *machine learning*. Elle
 est en très forte expansion, menée par des compagnies comme Google.
 
 Un peu de botanique: nommer des iris
--------------------------------------
+=====================================
 
 .. |setosa| image:: Setosa_Iris.jpg
    :width: 100%
@@ -57,7 +57,7 @@ Pouvons-nous reconnaître les 3 espèces d'Iris, Setosa, Versicolor et
 Virginia,  à partir de ces attributs?
 
 Explorer les données
-.....................
+---------------------
 
 .. sidebar:: sklearn = *scikit-learn*
 
@@ -69,7 +69,7 @@ Les données "iris" viennent avec scikit-learn::
     >>> iris = datasets.load_iris()
 
 Les observations des iris
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..........................
 
 Les données décrivant les iris sont accessibles dans le champ "data"::
 
@@ -93,7 +93,7 @@ Donc ``data`` est un tableau 2 entrées, associant chaque iris à ses
 attibuts listés si dessus.
 
 Les "classes" d'iris
-~~~~~~~~~~~~~~~~~~~~~
+..........................
 
 Le nom de l'espèce d'iris correspondant à l'observation est dans le champ
 "target", car c'est la `cible` de notre problème de prédiction::
@@ -118,7 +118,8 @@ En général, on parle de "classes" d'objects dans un tel problème de
 reconnaissance d'objects.
 
 Un peu de visualisation
-~~~~~~~~~~~~~~~~~~~~~~~~
+..........................
+
 
 .. image:: auto_examples/images/plot_iris_simple_1.png
    :align: right
@@ -151,3 +152,21 @@ cela nous utilisons la commande :func:`matplotlib.pyplot.scatter`):
 
    Il va nous falloir apprendre une **frontière de séparation** dans cet
    espace.
+
+   Les variables à prédire sont *catégorielles*, c'est un problème dit de
+   de **classification**. Pour une variable à prédire continue (comme
+   l'age du capitaine), on parle de problème de **regression**.
+
+Prédiction au plus proche voisin
+---------------------------------
+
+.. image:: auto_examples/images/plot_knn_1.png
+   :align: right
+   :target: auto_examples/plot_knn.html
+   :scale: 60
+
+Lorsqu'arrive une observation inconnue, nous allons chercher dans 
+la base de donnée *d'entrainement* les 'plus proches voisins' qui lui
+ressemblent plus, et nous faisons un vote entre eux pour décider de la
+classe de l'observation inconnue.
+
