@@ -113,37 +113,60 @@ Cryptographie
      :math:`y^2=x^3+5`, définie sur le corps fini :math:`\mathbb{F}_q`, avec :math:`q=17252297107`. 
      Le nombre de points sur cette courbe est :math:`N=4r`, avec :math:`r=4313008603`.
 
-       1. Écrire une fonction qui calcule un point au hasard de la courbe. Indication: pour cela, 
-          on écrit d'abord une fonction calculant des racines carrées :math:`\bmod q`. On se rappelle que 
-          lorsque :math:`q=4m+3`, la racine carrée de :math:`a \bmod q` (quand elle existe) est 
-          :math:`a^{m+1} \bmod q`.
+        1. Écrire une fonction qui calcule un point au hasard de la courbe. Indication: pour cela, 
+           on écrit d'abord une fonction calculant des racines carrées :math:`\bmod q`. On se rappelle que 
+           lorsque :math:`q=4m+3`, la racine carrée de :math:`a \bmod q` (quand elle existe) est 
+           :math:`a^{m+1} \bmod q`.
        
-       2. Écrire une fonction qui calcule la somme des deux points de la courbe. On testera cette fonction 
-          à l'aide des exemples dans ce `fichier <http://www.di.ens.fr/~vergnaud/point.txt>`_.
+        2. Écrire une fonction qui calcule la somme des deux points de la courbe. On testera cette fonction 
+           à l'aide des exemples dans ce `fichier <http://www.di.ens.fr/~vergnaud/point.txt>`_.
        
-       3. Écrire une fonction qui étant donné un point :math:`P` de la courbe, et un entier :math:`k`, 
-          calcule efficacement le point :math:`kP`. Pour cela, on utilisera l'algorithme de 
-          multiplication rapide (*double and add* ou *square and multiply*). On testera cette fonction sur 
-          un point au hasard :math:`P` d'ordre :math:`r` de la courbe (i.e. :math:`rP=O`).
+        3. Écrire une fonction qui étant donné un point :math:`P` de la courbe, et un entier :math:`k`, 
+           calcule efficacement le point :math:`kP`. Pour cela, on utilisera l'algorithme de 
+           multiplication rapide (*double and add* ou *square and multiply*). On testera cette fonction sur 
+           un point au hasard :math:`P` d'ordre :math:`r` de la courbe (i.e. :math:`rP=O`).
 
-    - **Échange de clé Diffie-Hellman.** Deux personnes, Alice et Bob, veulent échanger un message chiffré 
-      nécessitant une clé :math:`K`, qui est un nombre entier. Ils doivent échanger la clé :math:`K` d'abord, 
-      mais ils ne disposent pas de canal sécurisé pour cela. En 1976, Diffie et Hellman ont proposé une 
-      méthode qui répond à ce problème. Le protocole de Diffie Hellman utilise un groupe cyclique :math:`\mathbb{G}`
-      (noté additivement) d'ordre :math:`r` et repose sur l'idée suivante:
+   - **Échange de clé Diffie-Hellman.** Deux personnes, Alice et Bob, veulent échanger un message chiffré 
+     nécessitant une clé :math:`K`, qui est un nombre entier. Ils doivent échanger la clé :math:`K` d'abord, 
+     mais ils ne disposent pas de canal sécurisé pour cela. En 1976, Diffie et Hellman ont proposé une 
+     méthode qui répond à ce problème. Le protocole de Diffie Hellman utilise un groupe cyclique :math:`\mathbb{G}`
+     (noté additivement) d'ordre :math:`r` et repose sur l'idée suivante:
 
         - Étant donné un nombre entier :math:`k` et un élément :math:`P` dans le groupe :math:`\mathbb{G}`, 
           il est facile de calculer :math:`kP`.
          
         - Étant donné :math:`Q=kP`, :math:`P`, il est calculatoirement difficile de retrouver :math:`k`
 
-      Le fonctionnement du protocole est le suivant. Alice choisit un nombre au hasard :math:`a`, 
-      calcule :math:`aP` et l'envoie à Bob. Bob choisit à son tour un nombre :math:`b` et envoie 
-      à Alice :math:`bP`. Alice peut alors calculer :math:`K=a(bP)`. Bob calcule :math:`b(aP)` et 
-      obtient la même clé :math:`K` qu'Alice.
+     Le fonctionnement du protocole est le suivant. Alice choisit un nombre au hasard :math:`a`, 
+     calcule :math:`aP` et l'envoie à Bob. Bob choisit à son tour un nombre :math:`b` et envoie 
+     à Alice :math:`bP`. Alice peut alors calculer :math:`K=a(bP)`. Bob calcule :math:`b(aP)` et 
+     obtient la même clé :math:`K` qu'Alice.
 
          4. (Travail en binôme) En utilisant le groupe d'ordre :math:`r` des points de la courbe :math:`E`, 
             échangez avec un collègue une clé secrete .
+
+
+
+   - **L'attaque pas de bébé, pas de géant sur le logarithme discret.** La méthode de Shanks pour résoudre le 
+     problème du logarithme discret est basée sur l'observation suivante :
+
+       En notant :math:`m = \ceil \sqrt{r} \rceil` la partie entière supérieure de la racine carrée de :math:`r`, 
+       on peut écrire tout élément :math:`x` inférieur à :math:`r` comme :math:`x=x_1+x_2 m`, avec 
+       :math:`x_1,x_2 \leq m`. Par conséquent, l'égalité :math:`Q=xP` peut s'écrire :math:`Q-x_2(mP)=x_1P`.
+
+     Dans un premier temps (le pas de bébé), l'algorithme construit l'ensemble :math:`L = \{O,P,2P,...,(m-1)P\}`. 
+     Dans un deuxième temps (le pas de géant), il calcule S=(-m)P puis recherche la valeur du membre de 
+     droite de l'équation précédente dans la liste L ::
+
+        construire l'ensemble L = {O,P,2P,...,(m-1)P}
+        pour i de 1 à m-1 faire
+        si Q+iS est dans L alors
+           retourner (j-im mod r) tel que jP=Q+iS.
+
+     Pour chercher de manière efficace dans l'ensemble L on pourra utiliser une structure de dictionnaire.
+
+        5. Implanter l'attaque de Shanks, afin de retrouver, à partir du point de la courbe qui vous 
+           a été envoyé, le secret de votre collègue. 
 
 
 
