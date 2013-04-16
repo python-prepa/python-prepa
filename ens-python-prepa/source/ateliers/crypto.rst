@@ -84,7 +84,7 @@ Cryptographie
       \frac{3x_P^2+a}{2y_P} &\mbox{si}\,\, P=Q~\mbox{et}~y_P\neq 0. \end{array}
       \right.
 
-    et 
+   et 
 
    .. math::
 
