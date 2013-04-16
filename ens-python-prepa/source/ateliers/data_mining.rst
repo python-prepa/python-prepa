@@ -120,5 +120,34 @@ reconnaissance d'objects.
 Un peu de visualisation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. image:: auto_examples/images/plot_iris_simple_1.png
+   :align: right
+   :target: auto_examples/plot_iris_simple.html
+   :scale: 55
+
 Affichons les types d'iris en fonction des dimensions du sepale (pour
-cela nous utilisons la commande :func:`matplotlib.pyplot.scatter`:
+cela nous utilisons la commande :func:`matplotlib.pyplot.scatter`):
+
+.. literalinclude:: examples/plot_iris_simple.py
+   :start-after: # Une nouvelle figure
+   :end-before: # Mise en page de la figure
+
+.. image:: auto_examples/images/plot_iris_2.png
+   :width: 30%
+   :align: left
+
+.. image:: auto_examples/images/plot_iris_3.png
+   :width: 30%
+   :align: right
+
+.. image:: auto_examples/images/plot_iris_4.png
+   :width: 30%
+   :align: center
+
+.. note::
+
+   Les données sont 150 points dans un espace de **dimension 4** (150
+   observations avec 4 attributs).
+
+   Il va nous falloir apprendre une **frontière de séparation** dans cet
+   espace.
