@@ -144,6 +144,32 @@ div.sidebar .first {
     margin-bottom: 5px;
 }
 
+/* pre */
+div.body pre {
+    font-weight: 500;
+    font-family: "Droid Sans Mono", "Liberation Mono", Courier, monospace;
+    color: black;
+    margin-top: 3px;
+    /* The following lines ensure that no horizontal scrolling is
+     * necessary to see code lines */
+    overflow: visible;
+    text-overflow: ellipsis;
+}
+
+div.highlight pre {
+    /* Hack to have indented line wraps */
+    white-space: pre-wrap;
+    padding-left: 3.6em;
+    text-indent: -3.5em;
+}
+/* Hack to have indented line wraps */
+div.highlight pre div.newline {
+    margin-right: -4.5em;
+    padding-left: 1em;
+    display: inline-block;
+    visibility: hidden;
+}
+
 
 /* example gallery */
 img.gallery {
