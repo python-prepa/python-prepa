@@ -7,3 +7,4 @@ Ateliers pratiques
     image_processing.rst
     data_mining.rst
     VonKarman.rst
+    crypto.rst

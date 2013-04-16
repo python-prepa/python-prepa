@@ -155,7 +155,7 @@ Cryptographie
    - **L'attaque pas de bébé, pas de géant sur le logarithme discret.** La méthode de Shanks pour résoudre le 
      problème du logarithme discret est basée sur l'observation suivante :
 
-       En notant :math:`m = \ceil \sqrt{r} \rceil` la partie entière supérieure de la racine carrée de :math:`r`, 
+       En notant :math:`m = \lceil \sqrt{r} \rceil` la partie entière supérieure de la racine carrée de :math:`r`, 
        on peut écrire tout élément :math:`x` inférieur à :math:`r` comme :math:`x=x_1+x_2 m`, avec 
        :math:`x_1,x_2 \leq m`. Par conséquent, l'égalité :math:`Q=xP` peut s'écrire :math:`Q-x_2(mP)=x_1P`.
 
