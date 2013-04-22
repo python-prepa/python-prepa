@@ -41,3 +41,8 @@ Formation à Python scientifique - ENS Paris
    aller_plus_loin.rst 
    ateliers/index.rst
 
+
+.. raw:: html
+
+    <script language="JavaScript"
+    src="http://freehostedscripts.net/ocount.php?site=ID1953993&name=visiteurs depuis le 22/04/2013"></script>
